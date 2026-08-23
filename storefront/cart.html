@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart — FreakFits</title>
+  <meta name="description" content="Review your cart, apply coupons, customize your kit, and checkout securely.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Razorpay Payment Gateway -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    .checkout-addr-card.is-selected {
+      border-color: var(--green) !important;
+      background: rgba(140, 255, 59, 0.04) !important;
+      box-shadow: 0 0 10px rgba(140, 255, 59, 0.15);
+    }
+    .checkout-addr-card.is-selected .selected-check {
+      border-color: var(--green) !important;
+      background: var(--green) !important;
+      color: #0A0C08 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ ANNOUNCEMENT BAR ============ -->
+  <div class="announce">
+    <div class="announce__track">
+      <span>FREE SHIPPING OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>HIGH QUALITY MATERIAL</span>
+      <span class="dot">●</span>
+      <span>NEW DROPS EVERY FRIDAY</span>
+      <span class="dot">●</span>
+      <span>FREE SHIPPING OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>HIGH QUALITY MATERIAL</span>
+      <span class="dot">●</span>
+      <span>NEW DROPS EVERY FRIDAY</span>
+      <span class="dot">●</span>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="category.html?cat=sale" class="nav-sale">Clearance</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill (when logged in) -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ CART PAGE ============ -->
+  <main class="cart-page">
+    <div class="cart-page__inner">
+
+      <!-- Page Header -->
+      <div class="cart-page__header">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb__sep">›</span>
+          <span>Your Cart</span>
+        </nav>
+        <h1 class="cart-page__title">Your Cart</h1>
+        <p class="cart-page__sub" style="color:var(--text-dim); font-size:14px; margin-top:6px; font-weight:500;">
+          🚚 Shipping charge ₹99 on orders below ₹500 • <strong>Free Delivery</strong> on orders of ₹500+
+        </p>
+      </div>
+
+      <div class="cart-page__layout" id="cartLayout">
+        <!-- Items Column -->
+        <div class="cart-page__items" id="cartItems">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="cart-page__sidebar">
+
+          <!-- Customize Section -->
+          <div class="cart-sidebar__section" id="customizeSection">
+            <h3 class="cart-sidebar__heading">
+              <svg viewBox="0 0 24 24" fill="none"
+                style="width:20px;height:20px;vertical-align:middle;margin-right:6px">
+                <path d="M12 20h9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Customize Your Kit
+            </h3>
+            <p class="cart-sidebar__sub">Add your name & number to all items</p>
+            <div class="cart-sidebar__field">
+              <label for="customName">Name on Back</label>
+              <input type="text" id="customName" maxlength="12" placeholder="YOUR NAME" autocomplete="off">
+            </div>
+            <div class="cart-sidebar__field">
+              <label for="customNumber">Number</label>
+              <input type="text" id="customNumber" maxlength="2" placeholder="07" inputmode="numeric"
+                autocomplete="off">
+            </div>
+            <button class="btn btn--ghost cart-sidebar__apply-custom" id="applyCustomBtn">Apply Customization</button>
+          </div>
+
+          <!-- Coupon Section -->
+          <div class="cart-sidebar__section">
+            <h3 class="cart-sidebar__heading">
+              <svg viewBox="0 0 24 24" fill="none"
+                style="width:20px;height:20px;vertical-align:middle;margin-right:6px">
+                <path
+                  d="M20 12v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2m16 0v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2m16 0a2 2 0 00-2-2 2 2 0 00-2 2 2 2 0 002 2 2 2 0 002-2zM8 12a2 2 0 10-4 0 2 2 0 004 0z"
+                  stroke="currentColor" stroke-width="2" />
+              </svg>
+              Have a Coupon?
+            </h3>
+            <div class="cart-sidebar__coupon-row">
+              <input type="text" id="couponInput" placeholder="Enter code" autocomplete="off">
+              <button class="btn btn--solid cart-sidebar__coupon-btn" id="applyCouponBtn">Apply</button>
+            </div>
+            <p class="cart-sidebar__coupon-msg" id="couponMsg"></p>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="cart-sidebar__section cart-sidebar__summary">
+            <h3 class="cart-sidebar__heading">Order Summary</h3>
+            <div class="cart-summary__row">
+              <span>Subtotal</span>
+              <span id="summarySubtotal">₹0</span>
+            </div>
+            <div class="cart-summary__row cart-summary__discount" id="discountRow" style="display:none;">
+              <span id="discountLabel">Coupon Discount</span>
+              <span class="cart-summary__discount-val" id="discountVal">−₹0</span>
+            </div>
+            <div class="cart-summary__row">
+              <span>Shipping</span>
+              <span class="cart-summary__free" id="shippingVal">FREE</span>
+            </div>
+            <div class="cart-summary__divider"></div>
+            <div class="cart-summary__row cart-summary__total">
+              <span>Total</span>
+              <span id="summaryTotal">₹0</span>
+            </div>
+            <button class="btn btn--solid btn--wide cart-sidebar__checkout" id="proceedPayBtn">Proceed for
+              Payment</button>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ============ PAYMENT SECTION ============ -->
+      <section class="payment-section" id="paymentSection" style="display:none;">
+        
+        <!-- Select Shipping Address Sub-Section -->
+        <div id="checkoutAddressSection" style="margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 30px;">
+          <h2 class="payment-section__title" style="margin-bottom: 20px;">
+            <span style="font-size:24px; vertical-align:middle; margin-right:8px;">📍</span>
+            Select Delivery Address
+          </h2>
+          
+          <div id="checkoutAddressesList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+            <!-- JS populated addresses to select from -->
+          </div>
+          
+          <button class="btn btn--outline" id="btnCheckoutAddNewAddress" style="margin-top: 16px; padding: 10px 18px; border-color: var(--border); background: transparent;">+ Add New Address</button>
+          
+          <!-- Checkout Add Address Inline Form -->
+          <div id="checkoutAddressFormWrapper" style="display: none; border: 1px dashed var(--border); border-radius: var(--radius-md); padding: 20px; margin-top: 20px; background: rgba(255,255,255,0.01);">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 12px; color: var(--green);">Add Address for Delivery</h3>
+            <form id="checkoutAddressForm" style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="cart-sidebar__field">
+                  <label for="cAddrFullName" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Full Name</label>
+                  <input type="text" id="cAddrFullName" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                </div>
+                <div class="cart-sidebar__field">
+                  <label for="cAddrPhone" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Phone Number</label>
+                  <input type="text" id="cAddrPhone" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                </div>
+              </div>
+              <div class="cart-sidebar__field">
+                <label for="cAddrStreet" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Street Address</label>
+                <textarea id="cAddrStreet" required rows="2" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit; resize: none;"></textarea>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="cart-sidebar__field">
+                  <label for="cAddrCity" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">City</label>
+                  <input type="text" id="cAddrCity" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                </div>
+                <div class="cart-sidebar__field">
+                  <label for="cAddrState" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">State</label>
+                  <input type="text" id="cAddrState" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="cart-sidebar__field">
+                  <label for="cAddrZip" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Postal Code / ZIP</label>
+                  <input type="text" id="cAddrZip" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                </div>
+                <div class="cart-sidebar__field">
+                  <label for="cAddrType" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Address Type</label>
+                  <select id="cAddrType" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit; width: 100%;">
+                    <option value="Home">Home 🏠</option>
+                    <option value="Office">Office 🏢</option>
+                    <option value="Other">Other 📍</option>
+                  </select>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 10px;">
+                <button type="submit" class="btn btn--solid" style="padding: 10px 20px;">Save & Use Address</button>
+                <button type="button" class="btn btn--outline" id="btnCancelCheckoutAddress" style="padding: 10px 20px; border-color: var(--border); background: transparent;">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <h2 class="payment-section__title">
+          <svg viewBox="0 0 24 24" fill="none" style="width:28px;height:28px;vertical-align:middle;margin-right:8px">
+            <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" />
+            <path d="M2 10h20" stroke="currentColor" stroke-width="2" />
+          </svg>
+          Choose Payment Method
+        </h2>
+
+        <!-- Payment Options -->
+
+        <!-- Razorpay Online Payment Form -->
+        <div class="pay-form" id="pay-razorpay">
+          <div
+            style="background:rgba(140,255,59,0.05); border:1px solid rgba(140,255,59,0.2); border-radius:var(--radius-md); padding:20px; margin-bottom:20px;">
+            <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+              <span style="font-size:32px;">🔐</span>
+              <div>
+                <strong
+                  style="font-size:15px; color:var(--green); text-transform:uppercase; letter-spacing:0.05em;">Secure
+                  Payment via Razorpay</strong>
+                <p style="font-size:13px; color:var(--text-dim); margin-top:3px;">Bank-grade 256-bit SSL encryption.
+                  Your card details are never stored on our servers.</p>
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <span
+                style="background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:6px; padding:5px 12px; font-size:12px; color:var(--text-dim);">💳
+                Credit Card</span>
+              <span
+                style="background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:6px; padding:5px 12px; font-size:12px; color:var(--text-dim);">🏦
+                Debit Card</span>
+              <span
+                style="background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:6px; padding:5px 12px; font-size:12px; color:var(--text-dim);">📱
+                UPI / QR</span>
+              <span
+                style="background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:6px; padding:5px 12px; font-size:12px; color:var(--text-dim);">🏛
+                Net Banking</span>
+              <span
+                style="background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:6px; padding:5px 12px; font-size:12px; color:var(--text-dim);">💰
+                Wallets</span>
+            </div>
+          </div>
+          <button type="button" class="btn btn--solid btn--wide" id="btnRazorpay"
+            style="font-size:16px; padding:18px; letter-spacing:0.05em;">
+            🔐 Pay Securely — <span id="payTotalRzp">₹0</span>
+          </button>
+          <p style="text-align:center; font-size:12px; color:var(--text-faint); margin-top:10px;">
+            Powered by <strong style="color:var(--text-dim);">Razorpay</strong> · PCI-DSS Compliant · RBI Authorised
+          </p>
+        </div>
+
+
+      </section>
+
+      <!-- ============ ORDER SUCCESS ============ -->
+      <section class="order-success" id="orderSuccess" style="display:none;">
+        <div class="order-success__inner">
+          <div class="order-success__icon">
+            <svg viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="30" stroke="var(--green)" stroke-width="3" />
+              <path d="M20 32l8 8 16-16" stroke="var(--green)" stroke-width="3" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h2>Order Placed Successfully!</h2>
+          <p>Thank you for shopping with FreakFits. Your match kit is being prepared for dispatch!</p>
+          <p class="order-success__id">Order ID: <strong id="orderId"></strong></p>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
+            <a id="btnTrackSuccess" href="orders.html" class="btn btn--solid">View Order &amp; Live Tracking
+              →</a>
+            <a href="index.html" class="btn btn--dark"
+              style="background:#1B2016; color:var(--text); border:1px solid var(--border);">Continue Shopping</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p>Kits for the fans who show up loud. Built for the terraces, not the shelf.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="category.html?cat=home">Home Kits</a>
+        <a href="category.html?cat=away">Away Kits</a>
+        <a href="index.html#new">Retro Vault</a>
+        <a href="cart.html">Cart</a>
+        <a href="category.html?cat=sale">Clearance</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="orders.html">My Orders &amp; Tracking</a>
+        <a href="sizeguide.html">Size Guide</a>
+        <a href="returns.html">Returns & Exchange</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="footer__col">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="products.js"></script>
+  <script src="cart-store.js"></script>
+  <script src="api-client.js"></script>
+  <script src="auth-store.js"></script>
+  <script>
+    // ========== Cart Page Logic ==========
+
+    function renderCart() {
+      const cart = CartStore.getCart();
+      const itemsEl = document.getElementById("cartItems");
+
+      if (cart.length === 0) {
+        itemsEl.innerHTML = `
+          <div class="cart-empty">
+            <svg viewBox="0 0 80 80" fill="none" class="cart-empty__icon">
+              <circle cx="40" cy="40" r="36" stroke="var(--line)" stroke-width="2" stroke-dasharray="6 4"/>
+              <path d="M24 30h4l2 22h20l3-18H28" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="34" cy="56" r="2" fill="var(--text-faint)"/>
+              <circle cx="46" cy="56" r="2" fill="var(--text-faint)"/>
+            </svg>
+            <h2>Your cart is empty</h2>
+            <p>Looks like you haven't added any kits yet.</p>
+            <a href="index.html" class="btn btn--solid">Shop the Drop</a>
+          </div>
+        `;
+        document.getElementById("customizeSection").style.display = "none";
+        updateSummary();
+        return;
+      }
+
+      document.getElementById("customizeSection").style.display = "block";
+
+      itemsEl.innerHTML = cart.map(item => {
+        const prod = getProductById(item.id);
+        const imgSrc = item.image || (prod ? prod.images[0] : "");
+        return `
+        <div class="cart-item" data-id="${item.id}" data-size="${item.size}">
+          <a href="product.html?id=${item.id}" class="cart-item__img-link">
+            <img src="${imgSrc}" alt="${item.name}" class="cart-item__img">
+          </a>
+          <div class="cart-item__info">
+            <a href="product.html?id=${item.id}" class="cart-item__name">${item.name}</a>
+            <span class="cart-item__club">${item.club}</span>
+            <span class="cart-item__meta">Size: ${item.size}${item.customName ? ` · Name: ${item.customName}` : ""}${item.customNumber ? ` · #${item.customNumber}` : ""}</span>
+            <div class="cart-item__price-row">
+              <span class="cart-item__price">₹${item.price.toLocaleString("en-IN")}</span>
+              ${item.was ? `<span class="cart-item__was">₹${item.was.toLocaleString("en-IN")}</span>` : ""}
+            </div>
+          </div>
+          <div class="cart-item__actions">
+            <div class="cart-item__qty">
+              <button class="cart-item__qty-btn" data-action="minus" data-id="${item.id}" data-size="${item.size}">−</button>
+              <span class="cart-item__qty-val">${item.qty}</span>
+              <button class="cart-item__qty-btn" data-action="plus" data-id="${item.id}" data-size="${item.size}">+</button>
+            </div>
+            <span class="cart-item__line-total">₹${(item.price * item.qty).toLocaleString("en-IN")}</span>
+            <button class="cart-item__remove" data-id="${item.id}" data-size="${item.size}" aria-label="Remove item">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+      `}).join("");
+
+      // Attach qty and remove handlers
+      itemsEl.querySelectorAll(".cart-item__qty-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = parseInt(btn.dataset.id);
+          const size = btn.dataset.size;
+          const item = CartStore.getCart().find(i => i.id === id && i.size === size);
+          if (!item) return;
+          const newQty = btn.dataset.action === "plus" ? item.qty + 1 : item.qty - 1;
+          if (newQty < 1) {
+            CartStore.removeItem(id, size);
+          } else {
+            CartStore.updateQty(id, size, Math.min(10, newQty));
+          }
+          renderCart();
+        });
+      });
+
+      itemsEl.querySelectorAll(".cart-item__remove").forEach(btn => {
+        btn.addEventListener("click", () => {
+          CartStore.removeItem(parseInt(btn.dataset.id), btn.dataset.size);
+          showToast("Item removed from cart");
+          renderCart();
+        });
+      });
+
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const totals = CartStore.getTotal();
+
+      document.getElementById("summarySubtotal").textContent = `₹${totals.subtotal.toLocaleString("en-IN")}`;
+
+      const discountRow = document.getElementById("discountRow");
+      if (totals.coupon) {
+        discountRow.style.display = "flex";
+        document.getElementById("discountLabel").textContent = totals.coupon.label;
+        document.getElementById("discountVal").textContent = `−₹${Math.round(totals.discountAmount).toLocaleString("en-IN")}`;
+      } else {
+        discountRow.style.display = "none";
+      }
+
+      if (totals.subtotal === 0) {
+        document.getElementById("shippingVal").textContent = "₹0";
+      } else {
+        document.getElementById("shippingVal").textContent = totals.shipping === 0 ? "FREE" : `₹${totals.shipping}`;
+      }
+
+      const finalTotal = totals.total;
+
+      document.getElementById("summaryTotal").textContent = `₹${Math.round(finalTotal).toLocaleString("en-IN")}`;
+
+      // Update payment totals
+      ["payTotalRzp", "payTotalCod"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = `₹${Math.round(finalTotal).toLocaleString("en-IN")}`;
+      });
+
+      // Update coupon display
+      const coupon = CartStore.getAppliedCoupon();
+      if (coupon) {
+        const msg = document.getElementById("couponMsg");
+        msg.textContent = `✓ ${coupon.label} applied`;
+        msg.className = "cart-sidebar__coupon-msg cart-sidebar__coupon-msg--ok";
+        document.getElementById("couponInput").value = coupon.code;
+      }
+    }
+
+    // ========== Coupon ==========
+    document.getElementById("applyCouponBtn").addEventListener("click", async () => {
+      const code = document.getElementById("couponInput").value.trim();
+      const msg = document.getElementById("couponMsg");
+      if (!code) {
+        msg.textContent = "✗ Please enter a coupon code.";
+        msg.className = "cart-sidebar__coupon-msg cart-sidebar__coupon-msg--err";
+        return;
+      }
+      try {
+        const result = await FreakFitsAPI.validateCoupon(code);
+        if (result.valid) {
+          CartStore.applyCoupon(result);
+          msg.textContent = `✓ ${result.label} applied!`;
+          msg.className = "cart-sidebar__coupon-msg cart-sidebar__coupon-msg--ok";
+          showToast(`Coupon applied — ${result.label}!`);
+        } else {
+          CartStore.removeCoupon();
+          msg.textContent = `✗ ${result.message || "Invalid coupon code."}`;
+          msg.className = "cart-sidebar__coupon-msg cart-sidebar__coupon-msg--err";
+        }
+      } catch (err) {
+        CartStore.removeCoupon();
+        msg.textContent = "✗ Error validating coupon code.";
+        msg.className = "cart-sidebar__coupon-msg cart-sidebar__coupon-msg--err";
+      }
+      updateSummary();
+    });
+
+    // ========== Customization ==========
+    document.getElementById("customNumber").addEventListener("input", function () {
+      this.value = this.value.replace(/[^0-9]/g, "").slice(0, 2);
+    });
+
+    document.getElementById("applyCustomBtn").addEventListener("click", () => {
+      const name = document.getElementById("customName").value.trim().toUpperCase();
+      const number = document.getElementById("customNumber").value.trim();
+      if (!name && !number) {
+        showToast("Enter a name or number to customize");
+        return;
+      }
+      const cart = CartStore.getCart();
+      cart.forEach(item => {
+        CartStore.updateCustomization(item.id, item.size, name, number);
+      });
+      showToast(`Customization applied: ${name || "—"} #${number || "—"}`);
+      renderCart();
+    });
+
+    // ========== Payment ==========
+    document.getElementById("proceedPayBtn").addEventListener("click", () => {
+      if (CartStore.getCart().length === 0) {
+        showToast("Your cart is empty");
+        return;
+      }
+      const currentUser = typeof AuthStore !== "undefined" ? AuthStore.getCurrentUser() : null;
+      if (!currentUser) {
+        showToast("⚠️ Account required: Redirecting to Sign Up...");
+        setTimeout(() => { window.location.href = "auth.html?mode=signup&redirect=cart.html"; }, 700);
+        return;
+      }
+      document.getElementById("paymentSection").style.display = "block";
+      document.getElementById("paymentSection").scrollIntoView({ behavior: "smooth", block: "start" });
+      loadCheckoutAddresses();
+    });
+
+    // If redirected back after signing up, auto-reveal payment section and load addresses
+    if (typeof AuthStore !== "undefined" && AuthStore.getCurrentUser() && CartStore.getCart().length > 0) {
+      if (new URLSearchParams(window.location.search).get("checkout") === "1") {
+        document.getElementById("paymentSection").style.display = "block";
+        loadCheckoutAddresses();
+      }
+    }
+
+
+
+    // ========== Shared: show order success screen ==========
+    function showOrderSuccess(orderCode) {
+      document.getElementById("orderId").textContent = orderCode;
+      const trackBtn = document.getElementById("btnTrackSuccess");
+      const user = (typeof AuthStore !== "undefined" && AuthStore.getCurrentUser()) || null;
+      const phone = user ? (user.phone || "") : "";
+      if (trackBtn) {
+        trackBtn.href = `track.html?order=${orderCode}&phone=${encodeURIComponent(phone)}`;
+      }
+
+      const cartLayout = document.getElementById("cartLayout");
+      const paymentSec = document.getElementById("paymentSection");
+      const cartHeader = document.querySelector(".cart-page__header");
+
+      if (cartLayout) cartLayout.style.display = "none";
+      if (paymentSec) paymentSec.style.display = "none";
+      if (cartHeader) cartHeader.style.display = "none";
+
+      const successEl = document.getElementById("orderSuccess");
+      if (successEl) {
+        successEl.style.display = "block";
+        successEl.scrollIntoView({ behavior: "smooth" });
+      }
+      CartStore.clearCart();
+      showToast("🎉 Order placed successfully!");
+    }
+
+    // ========== Razorpay Online Payment ==========
+    // ========== Address Selection Logic for Checkout ==========
+    let selectedAddressId = null;
+    let checkoutAddresses = [];
+
+    async function loadCheckoutAddresses() {
+      const listEl = document.getElementById("checkoutAddressesList");
+      if (!listEl) return;
+      listEl.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--text-dim);">Loading saved addresses...</p>`;
+      
+      try {
+        checkoutAddresses = await FreakFitsAPI.getAddresses();
+        if (checkoutAddresses.length === 0) {
+          listEl.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--pink); font-size:14px; margin: 10px 0;">No saved addresses found. Please add an address below to proceed.</p>`;
+          selectedAddressId = null;
+          return;
+        }
+        
+        listEl.innerHTML = checkoutAddresses.map(addr => `
+          <div class="checkout-addr-card" data-id="${addr.id}" style="border: 2px solid var(--border); border-radius: var(--radius-md); padding: 16px; background: rgba(255,255,255,0.01); cursor: pointer; text-align: left; position: relative; transition: all 0.2s;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <strong style="color: var(--text);">${escapeHtml(addr.full_name)}</strong>
+              <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(140,255,59,0.1); color: var(--green); border: 1px solid rgba(140,255,59,0.2);">
+                ${addr.address_type}
+              </span>
+            </div>
+            <p style="font-size: 13px; color: var(--text-dim); margin: 2px 0; line-height: 1.4;">${escapeHtml(addr.street_address)}</p>
+            <p style="font-size: 13px; color: var(--text-dim); margin: 2px 0; line-height: 1.4;">${escapeHtml(addr.city)}, ${escapeHtml(addr.state)} - ${escapeHtml(addr.postal_code)}</p>
+            <p style="font-size: 12px; color: var(--text-faint); margin-top: 4px;">📞 ${escapeHtml(addr.phone)}</p>
+            
+            <div class="selected-check" style="position: absolute; top: 12px; right: 12px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; font-weight: 900;">✓</div>
+          </div>
+        `).join("");
+        
+        // Setup click selection
+        const cards = listEl.querySelectorAll(".checkout-addr-card");
+        cards.forEach(card => {
+          card.addEventListener("click", () => {
+            cards.forEach(c => c.classList.remove("is-selected"));
+            card.classList.add("is-selected");
+            selectedAddressId = parseInt(card.dataset.id);
+          });
+        });
+        
+        // Select first address by default
+        if (checkoutAddresses.length > 0) {
+          let targetCard = cards[0];
+          if (selectedAddressId) {
+            const matched = listEl.querySelector(`.checkout-addr-card[data-id="${selectedAddressId}"]`);
+            if (matched) targetCard = matched;
+          }
+          targetCard.classList.add("is-selected");
+          selectedAddressId = parseInt(targetCard.dataset.id);
+        }
+        
+      } catch (err) {
+        listEl.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--pink);">Error loading addresses.</p>`;
+      }
+    }
+
+    function getSelectedAddressString() {
+      if (!selectedAddressId) return null;
+      const addr = checkoutAddresses.find(a => a.id === selectedAddressId);
+      if (!addr) return null;
+      return `${addr.full_name} (${addr.address_type})\nPhone: ${addr.phone}\n${addr.street_address}\n${addr.city}, ${addr.state} - ${addr.postal_code}\n${addr.country}`;
+    }
+
+    // Toggle checkout address form
+    document.getElementById("btnCheckoutAddNewAddress").addEventListener("click", () => {
+      document.getElementById("checkoutAddressForm").reset();
+      document.getElementById("checkoutAddressFormWrapper").style.display = "block";
+      document.getElementById("checkoutAddressFormWrapper").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("btnCancelCheckoutAddress").addEventListener("click", () => {
+      document.getElementById("checkoutAddressFormWrapper").style.display = "none";
+    });
+
+    document.getElementById("checkoutAddressForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const payload = {
+        full_name: document.getElementById("cAddrFullName").value.trim(),
+        phone: document.getElementById("cAddrPhone").value.trim(),
+        street_address: document.getElementById("cAddrStreet").value.trim(),
+        city: document.getElementById("cAddrCity").value.trim(),
+        state: document.getElementById("cAddrState").value.trim(),
+        postal_code: document.getElementById("cAddrZip").value.trim(),
+        address_type: document.getElementById("cAddrType").value,
+        country: "India"
+      };
+
+      try {
+        const newAddr = await FreakFitsAPI.createAddress(payload);
+        showToast("Address added successfully!");
+        document.getElementById("checkoutAddressFormWrapper").style.display = "none";
+        selectedAddressId = newAddr.id;
+        await loadCheckoutAddresses();
+      } catch (err) {
+        showToast("Failed to save address: " + err.message);
+      }
+    });
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    // ========== Razorpay Online Payment ==========
+    async function processRazorpayCheckout() {
+      const cart = CartStore.getCart();
+      const user = (typeof AuthStore !== "undefined" && AuthStore.getCurrentUser()) || null;
+
+      if (cart.length === 0) { showToast("Your cart is empty"); return; }
+      if (!user) {
+        showToast("⚠️ Account required to checkout");
+        setTimeout(() => { window.location.href = "auth.html?mode=signup&redirect=cart.html"; }, 700);
+        return;
+      }
+
+      const shippingAddress = getSelectedAddressString();
+      if (!shippingAddress) {
+        showToast("⚠️ Please select or add a delivery address first.");
+        document.getElementById("checkoutAddressSection").scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+
+      const btn = document.getElementById("btnRazorpay");
+      btn.disabled = true;
+      btn.innerHTML = "⏳ Initiating payment…";
+
+      const coupon = CartStore.getAppliedCoupon();
+      const orderItemsPayload = cart.map(item => ({
+        product_id: item.id,
+        product_name: item.name,
+        club: item.club,
+        size: item.size,
+        custom_name: item.customName || null,
+        custom_number: item.customNumber || null,
+        quantity: item.qty,
+        unit_price: item.price,
+      }));
+
+      let paymentData;
+      try {
+        paymentData = await FreakFitsAPI.createPayment({
+          customer_name: user.name || "FreakFan",
+          customer_email: user.email,
+          customer_phone: user.phone || null,
+          coupon_code: coupon ? coupon.code : null,
+          shipping_address: shippingAddress,
+          items: orderItemsPayload,
+        });
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = `🔐 Pay Securely — <span id="payTotalRzp">₹${CartStore.getGrandTotal().toLocaleString("en-IN")}</span>`;
+        showToast(`❌ Could not initiate payment: ${err.message}`);
+        return;
+      }
+
+      // Open Razorpay checkout popup
+      const rzpOptions = {
+        key: paymentData.key_id,
+        amount: paymentData.amount,
+        currency: paymentData.currency,
+        name: "FreakFits",
+        description: "Football Jerseys & Kits",
+        order_id: paymentData.razorpay_order_id,
+        image: "https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png",
+        prefill: {
+          name: user.name || "",
+          email: user.email || "",
+          contact: user.phone || "",
+        },
+        notes: { freakfits_order_code: paymentData.freakfits_order_code },
+        theme: { color: "#8CFF3B" },
+
+        handler: async function (response) {
+          // Verify payment on backend
+          try {
+            await FreakFitsAPI.verifyPayment({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              freakfits_order_code: paymentData.freakfits_order_code,
+              order_token: paymentData.order_token,
+            });
+          } catch (err) {
+            console.warn("[Razorpay] Verification error:", err.message);
+          }
+
+          // Save to localStorage for My Account view
+          try {
+            const localOrders = JSON.parse(localStorage.getItem("freakfits_recent_orders")) || [];
+            localOrders.unshift({
+              order_code: paymentData.freakfits_order_code,
+              customer_name: user.name,
+              customer_email: (user.email || "").toLowerCase().trim(),
+              created_at: new Date().toISOString(),
+              order_status: "Confirmed",
+              payment_method: "razorpay",
+              payment_status: "PAID",
+              total: paymentData.amount / 100,
+              shipping_address: shippingAddress,
+              items: orderItemsPayload,
+            });
+            localStorage.setItem("freakfits_recent_orders", JSON.stringify(localOrders.slice(0, 30)));
+            localStorage.setItem("freakfits_last_order_code", paymentData.freakfits_order_code);
+          } catch (_) { }
+
+          showOrderSuccess(paymentData.freakfits_order_code);
+        },
+
+        modal: {
+          ondismiss: function () {
+            btn.disabled = false;
+            btn.innerHTML = `🔐 Pay Securely — <span id="payTotalRzp">₹${(paymentData.amount / 100).toLocaleString("en-IN")}</span>`;
+            showToast("Payment cancelled. You can try again.");
+          }
+        }
+      };
+
+      const rzp = new Razorpay(rzpOptions);
+      rzp.open();
+    }
+
+    document.getElementById("btnRazorpay").addEventListener("click", processRazorpayCheckout);
+
+
+
+    // ========== Utils ==========
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2200);
+    }
+
+    // Mobile nav
+    const burgerBtn = document.getElementById("burgerBtn");
+    const mainNav = document.getElementById("mainNav");
+    if (burgerBtn && mainNav) {
+      burgerBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("is-open");
+        burgerBtn.classList.toggle("is-active");
+      });
+      mainNav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          mainNav.classList.remove("is-open");
+          burgerBtn.classList.remove("is-active");
+        });
+      });
+    }
+
+    // Newsletter
+    document.getElementById("newsletterForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      document.getElementById("newsletterNote").textContent = "You're on the list — watch your inbox.";
+      e.target.reset();
+    });
+
+    // Init
+    renderCart();
+  </script>
+</body>
+
+</html>
+
+</html>

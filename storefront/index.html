@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreakFits — Wear Your Colors Loud</title>
+  <meta name="description"
+    content="Match-grade football jerseys for every club, country, and legend. Customize your kit, pick your number, wear it like you mean it.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ============ ANNOUNCEMENT BAR ============ -->
+  <div class="announce">
+    <div class="announce__track">
+      <span>FREE SHIPPING OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>HIGH QUALITY MATERIAL</span>
+      <span class="dot">●</span>
+      <span>NEW DROPS EVERY FRIDAY</span>
+      <span class="dot">●</span>
+      <span>FREE SHIPPING OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>HIGH QUALITY MATERIAL</span>
+      <span class="dot">●</span>
+      <span>NEW DROPS EVERY FRIDAY</span>
+      <span class="dot">●</span>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="#new" class="active">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="category.html?cat=sale" class="nav-sale">Clearance</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill (when logged in) -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__stripes" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <span class="eyebrow">SEASON 25/26 KITS ARE IN</span>
+        <h1 class="hero__title">SUIT UP.<br>STAND OUT.<br><span class="stroke-text">SHOW OUT.</span></h1>
+        <p class="hero__sub">Match-grade jerseys for every club, country and legend. Print your name, pick your number,
+          wear it like you mean it.</p>
+        <div class="hero__cta">
+          <a href="#shop" class="btn btn--solid">Shop the Drop</a>
+          <a href="cart.html" class="btn btn--ghost">Customize at Checkout</a>
+        </div>
+        <div class="hero__trust">
+          <div><strong>40k+</strong><span>kits shipped</span></div>
+          <div><strong>4.8★</strong><span>fan rating</span></div>
+          <div><strong>72</strong><span>clubs stocked</span></div>
+        </div>
+      </div>
+      <div class="hero__art">
+        <div class="jersey-stage" id="jerseyCarousel">
+
+          <!-- Jersey 1: Argentina Home -->
+          <img
+            src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300482/freakfits/Argentina_Home-removebg-preview.png"
+            alt="Argentina Home 3-Star Kit" class="hero-jersey hero-jersey--active" data-jersey="0">
+
+          <!-- Jersey 2: Barcelona Home -->
+          <img
+            src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300486/freakfits/Barcelona_Home-removebg-preview.png"
+            alt="Barcelona Home Blaugrana Edition" class="hero-jersey" data-jersey="1">
+
+          <!-- Jersey 3: Real Madrid Home -->
+          <img
+            src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300499/freakfits/Real_Madrid_Home-removebg-preview.png"
+            alt="Real Madrid Home Pure White" class="hero-jersey" data-jersey="2">
+
+          <!-- Jersey 4: Manchester United Home -->
+          <img
+            src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300495/freakfits/Manchester_United_Home-removebg-preview.png"
+            alt="Manchester United Home Red Devils" class="hero-jersey" data-jersey="3">
+
+          <!-- Jersey 5: Germany Home -->
+          <img
+            src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300489/freakfits/Germany_Home-removebg-preview.png"
+            alt="Germany Home DFB Classic" class="hero-jersey" data-jersey="4">
+
+          <!-- Carousel dots -->
+          <div class="jersey-dots" id="jerseyDots">
+            <button class="jersey-dot is-active" data-dot="0" aria-label="Jersey 1"></button>
+            <button class="jersey-dot" data-dot="1" aria-label="Jersey 2"></button>
+            <button class="jersey-dot" data-dot="2" aria-label="Jersey 3"></button>
+            <button class="jersey-dot" data-dot="3" aria-label="Jersey 4"></button>
+            <button class="jersey-dot" data-dot="4" aria-label="Jersey 5"></button>
+          </div>
+
+          <div class="jersey-stage__ring"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORY STRIP ============ -->
+  <section class="cats" id="shop">
+    <div class="section-head">
+      <h2>Shop by Kit</h2>
+      <p>Every category, one clean rack.</p>
+    </div>
+    <div class="cats__row">
+      <a class="cat-card" href="category.html?cat=home">
+        <div class="cat-card__icon" style="--c:#8CFF3B">
+          <svg viewBox="0 0 48 48">
+            <path d="M14 6 L8 14 L14 20 L18 17 L18 42 Q24 45 30 42 L30 17 L34 20 L40 14 L34 6 Q28 10 24 10 Q20 10 14 6Z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <span>Home Version</span><small>140+ styles</small>
+      </a>
+      <a class="cat-card" href="category.html?cat=away">
+        <div class="cat-card__icon" style="--c:#29C5F6">
+          <svg viewBox="0 0 48 48">
+            <path d="M14 6 L8 14 L14 20 L18 17 L18 42 Q24 45 30 42 L30 17 L34 20 L40 14 L34 6 Q28 10 24 10 Q20 10 14 6Z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <span>Away Version</span><small>110+ styles</small>
+      </a>
+      <a class="cat-card" href="category.html?cat=kit">
+        <div class="cat-card__icon" style="--c:#FF3E7A">
+          <svg viewBox="0 0 48 48">
+            <path d="M24 4l5 10 11 1.6-8 7.8 1.9 11L24 29l-9.9 5.4 1.9-11-8-7.8L19 14z" fill="currentColor" />
+          </svg>
+        </div>
+        <span>Complete Kit</span><small>75+ sets</small>
+      </a>
+      <a class="cat-card" href="#">
+        <div class="cat-card__icon" style="--c:#D4A054">
+          <svg viewBox="0 0 48 48">
+            <circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="4" />
+            <path d="M24 6v36M6 24h36" stroke="currentColor" stroke-width="3" />
+          </svg>
+        </div>
+        <span>Training Wear</span><small>90+ pieces</small>
+      </a>
+      <a class="cat-card" href="category.html?cat=fan">
+        <div class="cat-card__icon" style="--c:#8CFF3B">
+          <svg viewBox="0 0 48 48">
+            <path d="M14 6 L8 14 L14 20 L18 17 L18 42 Q24 45 30 42 L30 17 L34 20 L40 14 L34 6 Q28 10 24 10 Q20 10 14 6Z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <span>Fan Version</span><small>60+ styles</small>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ PROMO BANNERS ============ -->
+  <section class="promos">
+    <a class="promo promo--a" href="cart.html" id="new">
+      <span class="promo__tag">KIT RESTOCK</span>
+      <h3>Player Customizations Are Back</h3>
+      <p>Customized jerseys with name and number</p>
+      <span class="btn btn--dark">Customized Kits</span>
+    </a>
+    <a class="promo promo--b" href="category.html?cat=sale">
+      <span class="promo__tag">END OF SEASON</span>
+      <h3>Up to 45% Off</h3>
+      <p>Last season's heat, new price</p>
+      <span class="btn btn--dark">Shop Clearance</span>
+    </a>
+  </section>
+
+  <!-- ============ TRENDING PRODUCTS ============ -->
+  <section class="trending">
+    <div class="section-head">
+      <h2>Flying Off the Rack</h2>
+      <a href="category.html?cat=home" class="view-all">View All Kits →</a>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <!-- ============ FEATURES STRIP ============ -->
+  <section class="features">
+    <div class="feature">
+      <svg viewBox="0 0 32 32">
+        <path d="M3 8h18v14H3z" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M21 13h5l3 4v5h-8" fill="none" stroke="currentColor" stroke-width="2" />
+        <circle cx="9" cy="25" r="2.4" fill="currentColor" />
+        <circle cx="23" cy="25" r="2.4" fill="currentColor" />
+      </svg>
+      <div><strong>Free Shipping</strong><span>On every order over ₹500</span></div>
+    </div>
+    <div class="feature">
+      <svg viewBox="0 0 32 32">
+        <path d="M16 3l11 4v8c0 8-5 12-11 14C10 27 5 23 5 15V7z" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M11 16l3.5 3.5L21 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+      <div><strong>Match-Grade Authentic</strong><span>Licensed, stitched, verified</span></div>
+    </div>
+    <div class="feature">
+      <svg viewBox="0 0 32 32">
+        <rect x="4" y="9" width="24" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M4 14h24" stroke="currentColor" stroke-width="2" />
+      </svg>
+      <div><strong>Secure Checkout</strong><span>256-bit encrypted payment</span></div>
+    </div>
+    <div class="feature">
+      <svg viewBox="0 0 32 32">
+        <path d="M8 16a8 8 0 1116 0 8 8 0 01-16 0z" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M16 11v5l4 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <div><strong>30-Day Returns</strong><span>Wrong fit? Send it back</span></div>
+    </div>
+  </section>
+
+  <!-- ============ CLUB TRUST STRIP ============ -->
+  <section class="trust">
+    <p class="trust__label">STOCKED FOR FANS OF</p>
+    <div class="trust__row">
+      <span>ARGENTINA</span>
+      <span>MANCHESTER UNITED</span>
+      <span>GERMANY</span>
+      <span>SPAIN</span>
+      <span>BARCELONA</span>
+      <span>ARSENAL</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p>Kits for the fans who show up loud. Built for the terraces, not the shelf.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="category.html?cat=home">Home Kits</a>
+        <a href="category.html?cat=away">Away Kits</a>
+        <a href="#new">Retro Vault</a>
+        <a href="cart.html">Cart</a>
+        <a href="category.html?cat=sale">Clearance</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="orders.html">My Orders &amp; Tracking</a>
+        <a href="sizeguide.html">Size Guide</a>
+        <a href="returns.html">Returns & Exchange</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="footer__col">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved. Developed By Arnab Bindu Chakraborty</span>
+      <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="products.js"></script>
+  <script src="cart-store.js"></script>
+  <script src="api-client.js"></script>
+  <script src="auth-store.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

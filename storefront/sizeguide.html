@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Official Sports Jersey Size Guide — FreakFits</title>
+  <meta name="description"
+    content="Official Indian standard size guide for football and sports jerseys. Chest, length, and shoulder measurements with interactive size recommendation calculator.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .guide-page {
+      padding: 40px 0 80px;
+    }
+
+    .guide-hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .guide-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 56px);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .guide-hero__sub {
+      color: var(--text-dim);
+      font-size: 16px;
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .guide-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+    }
+
+    .guide-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .guide-card__title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .unit-switch {
+      display: flex;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 3px;
+      gap: 4px;
+    }
+
+    .unit-switch button {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .unit-switch button.active {
+      background: var(--green);
+      color: #0A0C08;
+    }
+
+    /* Size Table */
+    .table-container {
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+
+    .size-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .size-table th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--green);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 14px 16px;
+      border-bottom: 2px solid var(--line);
+    }
+
+    .size-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .size-table tr:hover td {
+      background: rgba(140, 255, 59, 0.04);
+    }
+
+    .size-table .size-badge {
+      display: inline-block;
+      background: var(--surface-light);
+      border: 1px solid var(--line);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .size-table .price-badge {
+      color: var(--green);
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    /* Calculator */
+    .calc-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 16px;
+      align-items: flex-end;
+      margin-top: 10px;
+    }
+
+    .calc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .calc-field label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .calc-field input,
+    .calc-field select {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 12px 14px;
+    }
+
+    .calc-result {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(140, 255, 59, 0.08);
+      border: 1px solid rgba(140, 255, 59, 0.3);
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .calc-result.is-active {
+      display: flex;
+    }
+
+    .calc-result strong {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--green);
+      letter-spacing: 0.04em;
+    }
+
+    /* Measuring Tips */
+    .measuring-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .measuring-step {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .measuring-step__num {
+      width: 28px;
+      height: 28px;
+      background: var(--green);
+      color: #0A0C08;
+      border-radius: 50%;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .measuring-step h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .measuring-step p {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .calc-box {
+        grid-template-columns: 1fr;
+      }
+      .guide-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png" alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html#new">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="sizeguide.html" class="active">Size Guide</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill (when logged in) -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ SIZE GUIDE CONTENT ============ -->
+  <main class="guide-page">
+    <div class="container">
+      
+      <!-- Hero -->
+      <div class="guide-hero">
+        <span class="eyebrow" style="color:var(--green); font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;">All-India Standard Sports Fit</span>
+        <h1 class="guide-hero__title">Official Jersey Size Guide</h1>
+        <p class="guide-hero__sub">Find your exact matchday fit. Our football and athletic jerseys follow standard Indian sports tailoring. Toggle between inches and centimeters below.</p>
+      </div>
+
+      <div class="guide-grid">
+
+        <!-- Standard Size Chart Table -->
+        <div class="guide-card">
+          <div class="guide-card__header">
+            <h2 class="guide-card__title">
+              <span>📏 Indian Standard Size Chart</span>
+            </h2>
+            <div class="unit-switch" id="unitSwitch">
+              <button class="active" data-unit="in">Inches (in)</button>
+              <button data-unit="cm">Centimeters (cm)</button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="size-table" id="sizeTable">
+              <thead>
+                <tr>
+                  <th>Size</th>
+                  <th>Indian Size</th>
+                  <th>Chest</th>
+                  <th>Length</th>
+                  <th>Shoulder</th>
+                  <th>Fit Height</th>
+                  <th>Fit Weight</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody id="sizeTableBody">
+                <!-- Populated by JS for inch/cm switching -->
+              </tbody>
+            </table>
+          </div>
+          <p style="color:var(--text-faint); font-size:12px; margin-top:8px;">* Measurements represent actual garment dimensions. Fits true to Indian athletic sizing standards.</p>
+        </div>
+
+        <!-- Interactive Size Calculator -->
+        <div class="guide-card">
+          <div class="guide-card__header">
+            <h2 class="guide-card__title">
+              <span>🎯 Quick Size Finder</span>
+            </h2>
+            <span style="font-size:12px; color:var(--text-dim); font-family:var(--font-mono);">Instant Fit Recommendation</span>
+          </div>
+          <p style="color:var(--text-dim); font-size:14px; margin-bottom:18px;">Enter your body height and weight to get our tailored Indian size recommendation.</p>
+
+          <div class="calc-box">
+            <div class="calc-field">
+              <label for="userHeight">Height (cm)</label>
+              <input type="number" id="userHeight" placeholder="e.g. 175" min="140" max="210">
+            </div>
+            <div class="calc-field">
+              <label for="userWeight">Weight (kg)</label>
+              <input type="number" id="userWeight" placeholder="e.g. 70" min="40" max="130">
+            </div>
+            <div class="calc-field">
+              <label for="userFit">Preferred Fit</label>
+              <select id="userFit">
+                <option value="regular">Regular Athletic Fit</option>
+                <option value="slim">Slim Matchday Fit</option>
+                <option value="relaxed">Relaxed Streetwear / Loose</option>
+              </select>
+            </div>
+            <button class="btn btn--solid" id="calcBtn" style="height:46px;">Calculate Fit</button>
+          </div>
+
+          <div class="calc-result" id="calcResult">
+            <div>
+              <div style="font-size:13px; color:var(--text-dim); text-transform:uppercase; font-family:var(--font-mono);">Recommended Size</div>
+              <strong id="resultSize">Size M (40)</strong>
+              <div style="font-size:13px; color:var(--text-dim); margin-top:4px;" id="resultNote">Ideal for 170–178 cm height and 65–75 kg weight.</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:12px; color:var(--text-dim);">Tier Price</div>
+              <div style="font-family:var(--font-mono); font-weight:700; color:var(--green); font-size:20px;" id="resultPrice">₹899</div>
+              <a href="index.html#shop" class="btn btn--ghost" style="padding:6px 14px; font-size:12px; margin-top:6px;">Browse Kits</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- How To Measure Guide -->
+        <div class="guide-card">
+          <div class="guide-card__header">
+            <h2 class="guide-card__title">
+              <span>📐 How to Measure Your Body</span>
+            </h2>
+          </div>
+          <div class="measuring-grid">
+            <div class="measuring-step">
+              <div class="measuring-step__num">1</div>
+              <h4>Chest / Bust</h4>
+              <p>Place a flexible tape measure around the fullest part of your chest, directly under your armpits. Keep the tape straight and snug without pulling too tight.</p>
+            </div>
+            <div class="measuring-step">
+              <div class="measuring-step__num">2</div>
+              <h4>Jersey Length</h4>
+              <p>Measure from the highest point of your shoulder seam straight down to where you want the bottom hem to rest (usually midway down your zipper/hips).</p>
+            </div>
+            <div class="measuring-step">
+              <div class="measuring-step__num">3</div>
+              <h4>Shoulder Width</h4>
+              <p>Measure across the upper back from the tip of the left shoulder bone horizontally across to the tip of the right shoulder bone.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fit Comparison -->
+        <div class="guide-card">
+          <div class="guide-card__header">
+            <h2 class="guide-card__title">
+              <span>⚡ Pro Match Fit vs Fan Cut</span>
+            </h2>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+            <div style="background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:20px;">
+              <h4 style="color:var(--green); margin-bottom:8px; font-family:var(--font-mono);">STADIUM / FAN FIT (Standard)</h4>
+              <p style="color:var(--text-dim); font-size:13px; line-height:1.6;">Designed for everyday comfort, terrace support, and gym training. Standard relaxed athletic cut that fits true to regular t-shirt sizing in India.</p>
+            </div>
+            <div style="background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:20px;">
+              <h4 style="color:var(--blue); margin-bottom:8px; font-family:var(--font-mono);">PRO MATCHDAY CUT (Slim)</h4>
+              <p style="color:var(--text-dim); font-size:13px; line-height:1.6;">Streamlined, aerodynamic cut designed for intense match play. Fits tighter around chest and shoulders. <em>If between sizes or prefer looser room, choose 1 size up.</em></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png" alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p class="footer__tagline">Next-gen football apparel engineered for the fearless. Designed & printed in India.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="category.html?cat=home">Home Kits</a>
+        <a href="category.html?cat=away">Away Kits</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="cart.html">Cart</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="sizeguide.html" style="color:var(--green); font-weight:700;">Size Guide</a>
+        <a href="orders.html">My Orders &amp; Tracking</a>
+        <a href="returns.html">Returns &amp; Exchange</a>
+        <a href="orders.html">My Account</a>
+      </div>
+      <div class="footer__col">
+        <h4>Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" onsubmit="event.preventDefault(); showToast('Subscribed to drop alerts!');">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>All India standard sports jersey sizing.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="cart-store.js"></script>
+  <script src="api-client.js"></script>
+  <script src="auth-store.js"></script>
+  <script>
+    // Size Data in Inches & CM
+    const SIZE_DATA = [
+      {
+        size: "S",
+        ind: "38",
+        chestIn: "36–38",
+        chestCm: "91–96",
+        lenIn: "27",
+        lenCm: "68.5",
+        shIn: "17",
+        shCm: "43",
+        heightIn: "5'4\"–5'7\"",
+        heightCm: "162–170 cm",
+        weight: "55–65 kg",
+        price: "₹699"
+      },
+      {
+        size: "M",
+        ind: "40",
+        chestIn: "38–40",
+        chestCm: "96–101",
+        lenIn: "28",
+        lenCm: "71",
+        shIn: "18",
+        shCm: "45.5",
+        heightIn: "5'7\"–5'10\"",
+        heightCm: "170–178 cm",
+        weight: "65–75 kg",
+        price: "₹899"
+      },
+      {
+        size: "L",
+        ind: "42",
+        chestIn: "40–42",
+        chestCm: "101–106",
+        lenIn: "29",
+        lenCm: "73.5",
+        shIn: "19",
+        shCm: "48",
+        heightIn: "5'9\"–6'0\"",
+        heightCm: "175–183 cm",
+        weight: "75–85 kg",
+        price: "₹999"
+      },
+      {
+        size: "XL",
+        ind: "44",
+        chestIn: "42–44",
+        chestCm: "106–112",
+        lenIn: "30",
+        lenCm: "76",
+        shIn: "20",
+        shCm: "51",
+        heightIn: "5'11\"–6'2\"",
+        heightCm: "180–188 cm",
+        weight: "85–95 kg",
+        price: "₹1,299"
+      },
+      {
+        size: "XXL",
+        ind: "46",
+        chestIn: "44–46",
+        chestCm: "112–117",
+        lenIn: "31",
+        lenCm: "78.5",
+        shIn: "21",
+        shCm: "53.5",
+        heightIn: "6'0\"–6'4\"",
+        heightCm: "183–193 cm",
+        weight: "95–105 kg",
+        price: "₹1,499"
+      }
+    ];
+
+    let currentUnit = "in";
+
+    function renderTable() {
+      const tbody = document.getElementById("sizeTableBody");
+      tbody.innerHTML = SIZE_DATA.map(d => `
+        <tr>
+          <td><span class="size-badge">${d.size}</span></td>
+          <td><strong>${d.ind}</strong></td>
+          <td>${currentUnit === "in" ? d.chestIn + ' in' : d.chestCm + ' cm'}</td>
+          <td>${currentUnit === "in" ? d.lenIn + ' in' : d.lenCm + ' cm'}</td>
+          <td>${currentUnit === "in" ? d.shIn + ' in' : d.shCm + ' cm'}</td>
+          <td>${currentUnit === "in" ? d.heightIn : d.heightCm}</td>
+          <td>${d.weight}</td>
+          <td><span class="price-badge">${d.price}</span></td>
+        </tr>
+      `).join("");
+    }
+
+    renderTable();
+
+    // Unit toggle
+    document.querySelectorAll("#unitSwitch button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#unitSwitch button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentUnit = btn.dataset.unit;
+        renderTable();
+      });
+    });
+
+    // Calculator logic
+    document.getElementById("calcBtn").addEventListener("click", () => {
+      const h = parseFloat(document.getElementById("userHeight").value);
+      const w = parseFloat(document.getElementById("userWeight").value);
+      const fit = document.getElementById("userFit").value;
+
+      if (!h || !w) {
+        showToast("Please enter both height and weight");
+        return;
+      }
+
+      let recSize = "M";
+      let recPrice = "₹899";
+      let recNote = "";
+
+      // Standard Indian BMI & Body Proportions
+      if (w < 60 || h < 165) {
+        recSize = "S";
+        recPrice = "₹699";
+        recNote = "Best match for lean or athletic builds under 65 kg.";
+      } else if (w <= 73 || h <= 175) {
+        recSize = "M";
+        recPrice = "₹899";
+        recNote = "Most popular Indian standard fit for 65–75 kg.";
+      } else if (w <= 84 || h <= 182) {
+        recSize = "L";
+        recPrice = "₹999";
+        recNote = "Standard chest room for 75–85 kg.";
+      } else if (w <= 95 || h <= 188) {
+        recSize = "XL";
+        recPrice = "₹1,299";
+        recNote = "Comfortable fit for taller and broader physiques (85–95 kg).";
+      } else {
+        recSize = "XXL";
+        recPrice = "₹1,499";
+        recNote = "Maximum chest and length coverage for 95+ kg.";
+      }
+
+      if (fit === "relaxed" && recSize !== "XXL") {
+        const sizes = ["S", "M", "L", "XL", "XXL"];
+        const prices = ["₹699", "₹899", "₹999", "₹1,299", "₹1,499"];
+        const nextIdx = Math.min(sizes.length - 1, sizes.indexOf(recSize) + 1);
+        recSize = sizes[nextIdx];
+        recPrice = prices[nextIdx];
+        recNote += " (Adjusted 1 size up for your requested relaxed streetwear fit).";
+      }
+
+      document.getElementById("resultSize").textContent = `Size ${recSize} (${recSize === "S" ? "38" : recSize === "M" ? "40" : recSize === "L" ? "42" : recSize === "XL" ? "44" : "46"})`;
+      document.getElementById("resultPrice").textContent = recPrice;
+      document.getElementById("resultNote").textContent = recNote;
+      document.getElementById("calcResult").classList.add("is-active");
+    });
+
+    // Toast
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2200);
+    }
+
+    // Burger menu
+    const burgerBtn = document.getElementById("burgerBtn");
+    const mainNav = document.getElementById("mainNav");
+    if (burgerBtn && mainNav) {
+      burgerBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("is-open");
+        burgerBtn.classList.toggle("is-active");
+      });
+    }
+
+    // User greeting
+    const user = AuthStore.getCurrentUser();
+    if (user) {
+      document.getElementById("userGreeting").style.display = "flex";
+      document.getElementById("userNameDisplay").textContent = user.fullName ? user.fullName.split(" ")[0] : "Fan";
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        AuthStore.clearSession();
+        window.location.reload();
+      });
+    }
+  </script>
+</body>
+
+</html>

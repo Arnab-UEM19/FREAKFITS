@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — FreakFits</title>
+  <meta name="description" content="View and manage your FreakFits customer profile, order history, and account settings.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .profile-section {
+      max-width: 700px;
+      margin: 60px auto 100px;
+      padding: 0 20px;
+    }
+
+    .profile-title {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      font-size: 2.5rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .profile-title span {
+      color: var(--green);
+    }
+
+    .profile-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      text-align: center;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      transition: border-color 0.2s ease;
+    }
+
+    .profile-card:hover {
+      border-color: rgba(140, 255, 59, 0.2);
+    }
+
+    .profile-avatar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+
+    .profile-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green) 0%, #15803d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0A0C08;
+      font-family: 'Anton', sans-serif;
+      font-size: 2.2rem;
+      box-shadow: 0 0 20px rgba(140, 255, 59, 0.3);
+    }
+
+    .profile-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(140, 255, 59, 0.1);
+      color: var(--green);
+      border: 1px solid rgba(140, 255, 59, 0.2);
+      padding: 4px 12px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .profile-details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .profile-detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .profile-detail-item label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+    }
+
+    .profile-detail-item span {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .profile-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 580px) {
+      .profile-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="sizeguide.html">Size Guide</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill (when logged in) -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="profile-section">
+    <h1 class="profile-title">Fan <span>Profile</span></h1>
+    <p class="profile-subtitle">View your profile details, tracked shipments, and recent match-day orders.</p>
+
+    <div class="profile-card">
+      
+      <!-- Avatar Section -->
+      <div class="profile-avatar-wrap">
+        <div class="profile-avatar" id="profileAvatar">F</div>
+        <span class="profile-badge">
+          <svg viewBox="0 0 24 24" fill="none" width="12" height="12" stroke="currentColor" stroke-width="3">
+            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Verified buyer
+        </span>
+      </div>
+
+      <!-- Details List -->
+      <div class="profile-details" id="profileDetailsView">
+        <div class="profile-detail-item">
+          <label>Full Name</label>
+          <span id="profileName">Loading...</span>
+        </div>
+        <div class="profile-detail-item">
+          <label>Email Address</label>
+          <span id="profileEmail">Loading...</span>
+        </div>
+        <div class="profile-detail-item">
+          <label>Mobile Number</label>
+          <span id="profilePhone">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Edit Profile Form (Hidden by default) -->
+      <form id="editProfileForm" style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+        <div class="profile-detail-item">
+          <label for="editFullName">Full Name</label>
+          <input type="text" id="editFullName" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+        </div>
+        <div class="profile-detail-item">
+          <label for="editPhone">Mobile Number</label>
+          <input type="text" id="editPhone" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 10px;">
+          <button type="submit" class="btn btn--solid" style="padding: 12px 24px;">Save Changes</button>
+          <button type="button" class="btn btn--outline" id="btnCancelEdit" style="padding: 12px 24px; border-color: var(--border);">Cancel</button>
+        </div>
+      </form>
+
+      <!-- Change Password Form (Hidden by default) -->
+      <form id="changePasswordForm" style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
+        <h3 style="font-size: 1.1rem; color: var(--text);">Change Password</h3>
+        <div class="profile-detail-item">
+          <label for="currentPassword">Current Password</label>
+          <input type="password" id="currentPassword" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+        </div>
+        <div class="profile-detail-item">
+          <label for="newPassword">New Password</label>
+          <input type="password" id="newPassword" required minlength="6" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 10px;">
+          <button type="submit" class="btn btn--solid" style="padding: 12px 24px;">Update Password</button>
+          <button type="button" class="btn btn--outline" id="btnCancelPassword" style="padding: 12px 24px; border-color: var(--border);">Cancel</button>
+        </div>
+      </form>
+
+      <!-- Navigation Actions -->
+      <div class="profile-actions" id="profileActionsGroup" style="margin-bottom: 20px; flex-wrap: wrap;">
+        <button onclick="window.location.href='orders.html';" class="btn btn--solid" style="padding:16px;">
+          📦 My Orders
+        </button>
+        <button id="btnEditProfile" class="btn btn--outline" style="padding:16px; border-color:var(--border);">
+          ✏️ Edit Profile
+        </button>
+        <button id="btnChangePassword" class="btn btn--outline" style="padding:16px; border-color:var(--border);">
+          🔐 Change Password
+        </button>
+        <button id="profileLogoutBtn" class="btn btn--outline" style="padding:16px; border-color:var(--border);">
+          ⚠️ Log Out
+        </button>
+      </div>
+
+    </div>
+
+
+    <!-- Saved Addresses Section -->
+    <div class="profile-card" id="addressesCard" style="margin-top: 30px;">
+      <h2 style="font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 1.8rem; letter-spacing: 0.05em; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 20px;">
+        📍 Saved <span>Addresses</span>
+      </h2>
+      <div id="addressesList" style="display: flex; flex-direction: column; gap: 16px;">
+        <!-- JS rendered list of addresses -->
+      </div>
+      
+      <button class="btn btn--outline" id="btnShowAddAddress" style="margin-top: 20px; padding: 12px; border-color: var(--border);">+ Add New Address</button>
+      
+      <!-- Add/Edit Address Form Wrapper -->
+      <div id="addressFormWrapper" style="display: none; border-top: 1px solid var(--border); margin-top: 20px; padding-top: 20px;">
+        <h3 id="addressFormTitle" style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--green);">Add New Address</h3>
+        <form id="addressForm" style="display: flex; flex-direction: column; gap: 12px;">
+          <input type="hidden" id="addressId">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="profile-detail-item">
+              <label for="addrFullName">Full Name</label>
+              <input type="text" id="addrFullName" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+            </div>
+            <div class="profile-detail-item">
+              <label for="addrPhone">Phone Number</label>
+              <input type="text" id="addrPhone" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+            </div>
+          </div>
+          <div class="profile-detail-item">
+            <label for="addrStreet">Street Address</label>
+            <textarea id="addrStreet" required rows="2" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit; resize: none;"></textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="profile-detail-item">
+              <label for="addrCity">City</label>
+              <input type="text" id="addrCity" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+            </div>
+            <div class="profile-detail-item">
+              <label for="addrState">State</label>
+              <input type="text" id="addrState" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="profile-detail-item">
+              <label for="addrZip">Postal Code / ZIP</label>
+              <input type="text" id="addrZip" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+            </div>
+            <div class="profile-detail-item">
+              <label for="addrType">Address Type (e.g. Home, Office)</label>
+              <select id="addrType" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit;">
+                <option value="Home">Home 🏠</option>
+                <option value="Office">Office 🏢</option>
+                <option value="Other">Other 📍</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <button type="submit" class="btn btn--solid" style="padding: 12px 24px;" id="btnSubmitAddress">Save Address</button>
+            <button type="button" class="btn btn--outline" id="btnCancelAddress" style="padding: 12px 24px; border-color: var(--border); background: transparent;">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p class="footer__tagline">Premium football apparel engineered for the next generation. Designed & printed in India.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Shop</h4>
+          <a href="category.html?cat=home">Home Version</a>
+          <a href="category.html?cat=away">Away Version</a>
+          <a href="category.html?cat=kit">Complete Kit</a>
+        </div>
+        <div class="footer__col">
+          <h4>Support</h4>
+          <a href="sizeguide.html">Size Guide</a>
+          <a href="returns.html">Returns & Claim Desk</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer__newsletter">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>Not affiliated with any club — fan merchandise demo.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared JS Utilities -->
+  <script src="cart-store.js"></script>
+  <script src="auth-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = AuthStore.getCurrentUser();
+      if (!user) {
+        showToast("⚠️ Please sign in to view your profile");
+        setTimeout(() => {
+          window.location.href = "auth.html?redirect=profile.html";
+        }, 1200);
+        return;
+      }
+
+      // Populate user info card
+      document.getElementById("profileName").textContent = user.name || "FreakFits Fan";
+      document.getElementById("profileEmail").textContent = user.email || "—";
+      document.getElementById("profilePhone").textContent = user.phone || "—";
+
+      // Set avatar initials
+      const initials = (user.name || "F").split(" ").map(n => n[0]).join("").toUpperCase().substring(0, 2);
+      document.getElementById("profileAvatar").textContent = initials;
+
+      // Log out
+      document.getElementById("profileLogoutBtn").addEventListener("click", () => {
+        AuthStore.logout();
+        showToast("Logged out successfully");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1000);
+      });
+
+      const btnEditProfile = document.getElementById("btnEditProfile");
+      const btnChangePassword = document.getElementById("btnChangePassword");
+      const editProfileForm = document.getElementById("editProfileForm");
+      const changePasswordForm = document.getElementById("changePasswordForm");
+      const profileDetailsView = document.getElementById("profileDetailsView");
+      const profileActionsGroup = document.getElementById("profileActionsGroup");
+
+      // Set initials
+      function setInitials(name) {
+        document.getElementById("profileAvatar").textContent = name ? name.charAt(0).toUpperCase() : "U";
+      }
+
+      // Initial Data Load
+      FreakFitsAPI.getMe()
+        .then((user) => {
+          document.getElementById("profileName").textContent = user.full_name;
+          document.getElementById("profileEmail").textContent = user.email;
+          document.getElementById("profilePhone").textContent = user.mobile_number || "Not provided";
+          setInitials(user.full_name);
+          
+          document.getElementById("editFullName").value = user.full_name;
+          document.getElementById("editPhone").value = user.mobile_number || "";
+        })
+        .catch((err) => {
+          console.error("Profile fetch error:", err);
+          showToast("Failed to load profile. Please log in again.");
+          AuthStore.logout();
+          window.location.href = "login.html";
+        });
+
+      // Toggle Edit Profile
+      btnEditProfile.addEventListener("click", () => {
+        profileDetailsView.style.display = "none";
+        profileActionsGroup.style.display = "none";
+        editProfileForm.style.display = "flex";
+      });
+
+      document.getElementById("btnCancelEdit").addEventListener("click", () => {
+        editProfileForm.style.display = "none";
+        profileDetailsView.style.display = "flex";
+        profileActionsGroup.style.display = "flex";
+      });
+
+      editProfileForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = editProfileForm.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = "Saving...";
+
+        try {
+          const res = await FreakFitsAPI.updateProfile({
+            full_name: document.getElementById("editFullName").value,
+            mobile_number: document.getElementById("editPhone").value || null
+          });
+          document.getElementById("profileName").textContent = res.full_name;
+          document.getElementById("profilePhone").textContent = res.mobile_number || "Not provided";
+          setInitials(res.full_name);
+          showToast("Profile updated successfully");
+          document.getElementById("btnCancelEdit").click();
+        } catch (err) {
+          showToast("Error updating profile: " + err.message);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Save Changes";
+        }
+      });
+
+      // Toggle Change Password
+      btnChangePassword.addEventListener("click", () => {
+        profileActionsGroup.style.display = "none";
+        changePasswordForm.style.display = "flex";
+      });
+
+      document.getElementById("btnCancelPassword").addEventListener("click", () => {
+        changePasswordForm.style.display = "none";
+        changePasswordForm.reset();
+        profileActionsGroup.style.display = "flex";
+      });
+
+      changePasswordForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = changePasswordForm.querySelector('button[type="submit"]');
+        const currPass = document.getElementById("currentPassword").value;
+        const newPass = document.getElementById("newPassword").value;
+        
+        btn.disabled = true;
+        btn.textContent = "Updating...";
+
+        try {
+          await FreakFitsAPI.changePassword(currPass, newPass);
+          showToast("Password updated successfully");
+          document.getElementById("btnCancelPassword").click();
+        } catch (err) {
+          showToast(err.message || "Error updating password");
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Update Password";
+        }
+      });
+
+      // Address Management Logic
+      const addressesList = document.getElementById("addressesList");
+      const addressFormWrapper = document.getElementById("addressFormWrapper");
+      const addressForm = document.getElementById("addressForm");
+      const btnShowAddAddress = document.getElementById("btnShowAddAddress");
+      const btnCancelAddress = document.getElementById("btnCancelAddress");
+      const addressFormTitle = document.getElementById("addressFormTitle");
+      const addressIdInput = document.getElementById("addressId");
+
+      async function loadAddresses() {
+        try {
+          const list = await FreakFitsAPI.getAddresses();
+          if (list.length === 0) {
+            addressesList.innerHTML = `<p style="color: var(--text-dim); text-align: center; font-size: 0.95rem; margin: 10px 0;">No saved addresses found. Add one below!</p>`;
+            return;
+          }
+          addressesList.innerHTML = list.map(addr => `
+            <div style="border: 1px solid var(--border); border-radius: 8px; padding: 16px; background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; text-align: left;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                  <span style="font-weight: 700; color: var(--text);">${escapeHtml(addr.full_name)}</span>
+                  <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; background: rgba(140, 255, 59, 0.1); color: var(--green); border: 1px solid rgba(140, 255, 59, 0.2); padding: 2px 8px; border-radius: 8px;">
+                    ${addr.address_type === "Home" ? "🏠 Home" : addr.address_type === "Office" ? "🏢 Office" : "📍 " + escapeHtml(addr.address_type)}
+                  </span>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-dim); line-height: 1.4; margin: 2px 0;">${escapeHtml(addr.street_address)}</p>
+                <p style="font-size: 0.9rem; color: var(--text-dim); line-height: 1.4; margin: 2px 0;">${escapeHtml(addr.city)}, ${escapeHtml(addr.state)} - ${escapeHtml(addr.postal_code)}</p>
+                <p style="font-size: 0.9rem; color: var(--text-faint); line-height: 1.4; margin: 4px 0 0 0; font-family: 'JetBrains Mono', monospace;">📞 ${escapeHtml(addr.phone)}</p>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn--ghost edit-addr-btn" data-id="${addr.id}" style="padding: 6px 12px; font-size: 0.8rem; border-color: var(--border); background: transparent;">Edit</button>
+                <button class="btn btn--ghost delete-addr-btn" data-id="${addr.id}" style="padding: 6px 12px; font-size: 0.8rem; border-color: rgba(255,62,122,0.3); color: var(--pink); background: transparent;">Delete</button>
+              </div>
+            </div>
+          `).join("");
+
+          // Attach edit handlers
+          addressesList.querySelectorAll(".edit-addr-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+              const id = parseInt(btn.dataset.id);
+              const addr = list.find(a => a.id === id);
+              if (addr) {
+                addressIdInput.value = addr.id;
+                document.getElementById("addrFullName").value = addr.full_name;
+                document.getElementById("addrPhone").value = addr.phone;
+                document.getElementById("addrStreet").value = addr.street_address;
+                document.getElementById("addrCity").value = addr.city;
+                document.getElementById("addrState").value = addr.state;
+                document.getElementById("addrZip").value = addr.postal_code;
+                document.getElementById("addrType").value = addr.address_type;
+                
+                addressFormTitle.textContent = "Edit Address";
+                addressFormWrapper.style.display = "block";
+                addressFormWrapper.scrollIntoView({ behavior: "smooth" });
+              }
+            });
+          });
+
+          // Attach delete handlers
+          addressesList.querySelectorAll(".delete-addr-btn").forEach(btn => {
+            btn.addEventListener("click", async () => {
+              const id = parseInt(btn.dataset.id);
+              if (confirm("Are you sure you want to delete this address?")) {
+                try {
+                  await FreakFitsAPI.deleteAddress(id);
+                  showToast("Address deleted successfully");
+                  loadAddresses();
+                } catch (err) {
+                  showToast("Error deleting address: " + err.message);
+                }
+              }
+            });
+          });
+
+        } catch (err) {
+          addressesList.innerHTML = `<p style="color: var(--pink); text-align: center;">Failed to load saved addresses.</p>`;
+        }
+      }
+
+      btnShowAddAddress.addEventListener("click", () => {
+        addressForm.reset();
+        addressIdInput.value = "";
+        addressFormTitle.textContent = "Add New Address";
+        addressFormWrapper.style.display = "block";
+        addressFormWrapper.scrollIntoView({ behavior: "smooth" });
+      });
+
+      btnCancelAddress.addEventListener("click", () => {
+        addressFormWrapper.style.display = "none";
+      });
+
+      addressForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const payload = {
+          full_name: document.getElementById("addrFullName").value.trim(),
+          phone: document.getElementById("addrPhone").value.trim(),
+          street_address: document.getElementById("addrStreet").value.trim(),
+          city: document.getElementById("addrCity").value.trim(),
+          state: document.getElementById("addrState").value.trim(),
+          postal_code: document.getElementById("addrZip").value.trim(),
+          address_type: document.getElementById("addrType").value,
+          country: "India"
+        };
+
+        const id = addressIdInput.value;
+        try {
+          if (id) {
+            await FreakFitsAPI.updateAddress(id, payload);
+            showToast("Address updated successfully!");
+          } else {
+            await FreakFitsAPI.createAddress(payload);
+            showToast("Address added successfully!");
+          }
+          addressFormWrapper.style.display = "none";
+          loadAddresses();
+        } catch (err) {
+          showToast("Failed to save address: " + err.message);
+        }
+      });
+
+      function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>'"]/g, 
+          tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+        );
+      }
+
+      loadAddresses();
+    });
+
+
+    // ============ Address Management ============
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2200);
+    }
+  </script>
+</body>
+
+</html>

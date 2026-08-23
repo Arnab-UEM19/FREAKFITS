@@ -1,0 +1,30 @@
+# ============ Python ============
+backend/.env
+backend/venv/
+backend/__pycache__/
+backend/freakfits.db
+backend/static/uploads/
+.venv/
+*.pyc
+__pycache__/
+*.pyo
+
+# ============ IDE / OS ============
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# ============ Node (if added later) ============
+node_modules/
+npm-debug.log*
+
+# ============ Secrets ============
+.env
+.env.local
+.env.production
+*.key
+*.pem

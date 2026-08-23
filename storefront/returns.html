@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Returns & Exchange Policy — FreakFits</title>
+  <meta name="description"
+    content="Official FreakFits Return & Exchange Policy. 48-hour return window, mandatory unboxing video requirement, and size exchange guidelines.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .returns-page {
+      padding: 40px 0 90px;
+    }
+
+    .returns-hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .returns-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 56px);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .returns-hero__sub {
+      color: var(--text-dim);
+      font-size: 16px;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Policy Highlight Grid */
+    .policy-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 1040px;
+      margin: 0 auto 48px;
+    }
+
+    .policy-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px 20px;
+      position: relative;
+    }
+
+    .policy-card--alert {
+      border-color: rgba(255, 62, 122, 0.4);
+      background: rgba(255, 62, 122, 0.04);
+    }
+
+    .policy-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(140, 255, 59, 0.1);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .policy-card--alert .policy-card__icon {
+      background: rgba(255, 62, 122, 0.15);
+      color: var(--pink);
+    }
+
+    .policy-card h3 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .policy-card p {
+      color: var(--text-dim);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Return Form Layout */
+    .returns-form-wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 36px 32px;
+    }
+
+    .returns-form-header {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 20px;
+      margin-bottom: 28px;
+    }
+
+    .returns-form-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .returns-form-sub {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 13px 16px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(140, 255, 59, 0.15);
+    }
+
+    /* Video Upload Box */
+    .video-upload-box {
+      background: var(--bg);
+      border: 2px dashed var(--line);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      transition: border-color 0.2s ease;
+    }
+
+    .video-upload-box:hover {
+      border-color: var(--green);
+    }
+
+    .video-upload-box input[type="file"] {
+      display: none;
+    }
+
+    .video-upload-btn {
+      display: inline-block;
+      background: var(--surface-light);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .video-upload-btn:hover {
+      background: var(--green);
+      color: #0A0C08;
+      border-color: var(--green);
+    }
+
+    /* Terms Box */
+    .terms-box {
+      background: rgba(140, 255, 59, 0.04);
+      border: 1px solid rgba(140, 255, 59, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0 20px;
+    }
+
+    .terms-checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .terms-checkbox-label input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--green);
+      cursor: pointer;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .terms-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .terms-text strong {
+      color: var(--green);
+    }
+
+    /* Success State */
+    .returns-success {
+      display: none;
+      text-align: center;
+      padding: 32px 16px;
+    }
+
+    .returns-success.is-active {
+      display: block;
+    }
+
+    .returns-success__icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(140, 255, 59, 0.15);
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--green);
+    }
+
+    @media (max-width: 768px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .returns-form-wrapper {
+        padding: 24px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png" alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html#new">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="sizeguide.html">Size Guide</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill (when logged in) -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="returns-page">
+    <div class="container">
+
+      <!-- Hero -->
+      <div class="returns-hero">
+        <span class="eyebrow" style="color:var(--green); font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;">Customer Care & Quality Guarantee</span>
+        <h1 class="returns-hero__title">Return & Exchange Policy</h1>
+        <p class="returns-hero__sub">We want you to wear your colours with complete confidence. Please review our official return guidelines and initiate your claim below.</p>
+      </div>
+
+      <!-- Policy Key Pillars -->
+      <div class="policy-cards">
+        
+        <!-- Pillar 1: Mandatory Unboxing Video -->
+        <div class="policy-card policy-card--alert">
+          <div class="policy-card__icon">📹</div>
+          <h3>Mandatory Unboxing Video</h3>
+          <p>An uncut, continuous video of opening the sealed package upon delivery is <strong>strictly mandatory</strong>. Without an unboxing video, no return or refund claim will be entertained.</p>
+        </div>
+
+        <!-- Pillar 2: 48-Hour Claim Window -->
+        <div class="policy-card">
+          <div class="policy-card__icon">⏱️</div>
+          <h3>48-Hour Return Window</h3>
+          <p>Return and exchange requests must be initiated within <strong>48 hours of parcel delivery</strong>. Requests made after 48 hours cannot be accepted by our logistics network.</p>
+        </div>
+
+        <!-- Pillar 3: Company Damage Only -->
+        <div class="policy-card">
+          <div class="policy-card__icon">🛡️</div>
+          <h3>Factory Defects Covered</h3>
+          <p>Only products with verified <strong>manufacturing or company-side defects</strong> (e.g. stitching tears, crest misprints) are eligible for return. Damage caused on the client's side will not be entertained.</p>
+        </div>
+
+        <!-- Pillar 4: Size Discrepancy & 48-Hour Refund -->
+        <div class="policy-card">
+          <div class="policy-card__icon">🔄</div>
+          <h3>Size Discrepancy & Refund</h3>
+          <p>Need a different size? Pay the price of the new replacement size jersey. Once your returned kit is dispatched, the previous size amount will be <strong>refunded within 48 hours</strong>.</p>
+        </div>
+
+      </div>
+
+      <!-- Return Initiation Form -->
+      <div class="returns-form-wrapper">
+        <form id="returnForm">
+          <div class="returns-form-header">
+            <h2 class="returns-form-title">Initiate a Return or Exchange</h2>
+            <p class="returns-form-sub">Please fill in your order details and provide your unboxing video proof.</p>
+          </div>
+
+          <div class="form-grid-2">
+            <!-- Order ID -->
+            <div class="form-group">
+              <label for="orderCode">Order ID / Order Code <span style="color:var(--pink);">*</span></label>
+              <input type="text" id="orderCode" placeholder="e.g. FF-6647650C" required>
+            </div>
+
+            <!-- Customer Email -->
+            <div class="form-group">
+              <label for="retEmail">Customer Email <span style="color:var(--pink);">*</span></label>
+              <input type="email" id="retEmail" placeholder="you@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <!-- Customer Name -->
+            <div class="form-group">
+              <label for="retName">Customer Name <span style="color:var(--pink);">*</span></label>
+              <input type="text" id="retName" placeholder="Your Full Name" required>
+            </div>
+
+            <!-- Return Type -->
+            <div class="form-group">
+              <label for="returnType">Reason for Return / Exchange <span style="color:var(--pink);">*</span></label>
+              <select id="returnType" required>
+                <option value="" disabled selected>-- Select Reason --</option>
+                <option value="damaged_company">🚨 Manufacturing Defect / Company-Side Damage</option>
+                <option value="size_exchange">📏 Size Discrepancy (Exchange for new size)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Size Discrepancy Subfields (Dynamic) -->
+          <div id="sizeExchangeFields" style="display:none; background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:20px;">
+            <div class="form-grid-2">
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="currentSize">Current Received Size</label>
+                <select id="currentSize">
+                  <option value="S">Size S (38) — ₹699</option>
+                  <option value="M">Size M (40) — ₹899</option>
+                  <option value="L">Size L (42) — ₹999</option>
+                  <option value="XL">Size XL (44) — ₹1,299</option>
+                  <option value="XXL">Size XXL (46) — ₹1,499</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label for="requestedSize">Requested Replacement Size</label>
+                <select id="requestedSize">
+                  <option value="M" selected>Size M (40) — ₹899</option>
+                  <option value="S">Size S (38) — ₹699</option>
+                  <option value="L">Size L (42) — ₹999</option>
+                  <option value="XL">Size XL (44) — ₹1,299</option>
+                  <option value="XXL">Size XXL (46) — ₹1,499</option>
+                </select>
+              </div>
+            </div>
+            <p style="font-size:12px; color:var(--text-dim); margin-top:12px;">
+              💡 <em>Note: You will pay for the new replacement size now. The amount paid for your current size will be credited back to your original payment method within 48 hours of reverse dispatch.</em>
+            </p>
+          </div>
+
+          <!-- Mandatory Video Proof Upload -->
+          <div class="form-group">
+            <label>Upload Unboxing Video Proof <span style="color:var(--pink);">* (Mandatory)</span></label>
+            <div class="video-upload-box">
+              <label for="videoFile" class="video-upload-btn">📁 Choose Unboxing Video File</label>
+              <input type="file" id="videoFile" accept="video/*">
+              <div id="videoFileName" style="font-size:13px; color:var(--green); font-family:var(--font-mono); margin-top:6px;">No video file selected</div>
+              <p style="font-size:12px; color:var(--text-faint); margin-top:6px;">Or provide a secure video link (Google Drive / iCloud / YouTube Unlisted):</p>
+              <input type="url" id="videoUrl" placeholder="https://drive.google.com/file/d/..." style="margin-top:8px; width:100%;">
+            </div>
+          </div>
+
+          <!-- Additional Issue Details -->
+          <div class="form-group">
+            <label for="reasonDetails">Specific Defect / Reason Details</label>
+            <textarea id="reasonDetails" placeholder="Describe the stitching flaw, misprint, or size issue in detail..." rows="3"></textarea>
+          </div>
+
+          <!-- Mandatory Terms & Conditions Checkbox -->
+          <div class="terms-box">
+            <label class="terms-checkbox-label">
+              <input type="checkbox" id="termsCheck" required>
+              <span class="terms-text">
+                I have read and agree to the <strong>FreakFits Return & Exchange Terms</strong>: I confirm that I am initiating this within <strong>48 hours of delivery</strong>, have attached an uncut <strong>unboxing video</strong> of the sealed package, and understand that <strong>client-side damage is strictly not eligible</strong> for return. For size exchanges, I agree to pay for the new size while the previous size will be refunded within <strong>48 hours</strong> upon return.
+              </span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn--solid btn--wide" id="submitReturnBtn" style="padding:16px; font-size:16px; font-weight:700;">
+            Submit Return / Exchange Request
+          </button>
+        </form>
+
+        <!-- Success Confirmation Card -->
+        <div class="returns-success" id="returnSuccess">
+          <div class="returns-success__icon">
+            <svg viewBox="0 0 24 24" fill="none" width="36" height="36"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 style="font-family:var(--font-display); font-size:26px; margin-bottom:8px;">Return Request Initiated!</h3>
+          <div style="font-family:var(--font-mono); font-size:16px; color:var(--green); margin-bottom:16px;">Claim Code: <strong id="successRetCode">RET-XXXXXX</strong></div>
+          <p style="color:var(--text-dim); font-size:14px; line-height:1.6; max-width:540px; margin:0 auto 24px;">
+            Thank you. Our Quality Assurance team is reviewing your unboxing video for order <strong id="successOrderCode" style="color:var(--text);">FF-XXXX</strong>. For size exchanges, your previous item refund will be dispatched to your account within <strong>48 hours</strong> of verification.
+          </p>
+          <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+            <a href="index.html" class="btn btn--solid">Return to Shop</a>
+            <a href="contact.html" class="btn btn--ghost">Contact Support</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png" alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p class="footer__tagline">Next-gen football apparel engineered for the fearless. Designed & printed in India.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="category.html?cat=home">Home Kits</a>
+        <a href="category.html?cat=away">Away Kits</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="cart.html">Cart</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="sizeguide.html">Size Guide</a>
+        <a href="returns.html" style="color:var(--green); font-weight:700;">Returns Policy</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="orders.html">My Orders &amp; Tracking</a>
+      </div>
+      <div class="footer__col">
+        <h4>Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" onsubmit="event.preventDefault(); showToast('Subscribed to drop alerts!');">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>48-Hour Return Window • Mandatory Unboxing Video Policy</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="cart-store.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script>
+    // Autofill logged-in customer info and query parameters
+    const currentUser = AuthStore.getCurrentUser();
+    if (currentUser) {
+      if (currentUser.fullName) document.getElementById("retName").value = currentUser.fullName;
+      if (currentUser.email) document.getElementById("retEmail").value = currentUser.email;
+
+      // Greeting in header
+      document.getElementById("userGreeting").style.display = "flex";
+      document.getElementById("userNameDisplay").textContent = currentUser.fullName ? currentUser.fullName.split(" ")[0] : "Fan";
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        AuthStore.clearSession();
+        window.location.reload();
+      });
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const prefillOrder = urlParams.get("order");
+    if (prefillOrder) {
+      document.getElementById("orderCode").value = prefillOrder.trim().toUpperCase();
+    }
+
+    // Toggle size exchange fields
+    const returnTypeSelect = document.getElementById("returnType");
+    const sizeExchangeFields = document.getElementById("sizeExchangeFields");
+    returnTypeSelect.addEventListener("change", (e) => {
+      if (e.target.value === "size_exchange") {
+        sizeExchangeFields.style.display = "block";
+      } else {
+        sizeExchangeFields.style.display = "none";
+      }
+    });
+
+    // Video file upload indicator
+    const videoFileInput = document.getElementById("videoFile");
+    const videoFileName = document.getElementById("videoFileName");
+    videoFileInput.addEventListener("change", (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        videoFileName.textContent = `✓ Selected: ${e.target.files[0].name} (${(e.target.files[0].size / (1024 * 1024)).toFixed(1)} MB)`;
+        videoFileName.style.color = "var(--green)";
+      }
+    });
+
+    // Form Submission Logic
+    const returnForm = document.getElementById("returnForm");
+    const returnSuccess = document.getElementById("returnSuccess");
+    const submitReturnBtn = document.getElementById("submitReturnBtn");
+
+    returnForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const orderCode = document.getElementById("orderCode").value.trim();
+      const customerEmail = document.getElementById("retEmail").value.trim();
+      const customerName = document.getElementById("retName").value.trim();
+      const returnType = document.getElementById("returnType").value;
+      const termsAccepted = document.getElementById("termsCheck").checked;
+      const reasonDetails = document.getElementById("reasonDetails").value.trim();
+
+      const currentSize = returnType === "size_exchange" ? document.getElementById("currentSize").value : null;
+      const requestedSize = returnType === "size_exchange" ? document.getElementById("requestedSize").value : null;
+
+      if (!termsAccepted) {
+        showToast("Please accept the Return & Exchange Terms to proceed.");
+        return;
+      }
+
+      // Check if file is provided and check size limit (10MB)
+      const hasFile = videoFileInput.files && videoFileInput.files.length > 0;
+      const videoUrlVal = document.getElementById("videoUrl").value.trim();
+
+      if (!hasFile && !videoUrlVal) {
+        showToast("⚠️ Unboxing video proof is mandatory for return requests.");
+        return;
+      }
+
+      if (hasFile) {
+        const file = videoFileInput.files[0];
+        const maxBytes = 10 * 1024 * 1024; // 10MB
+        if (file.size > maxBytes) {
+          showToast(`⚠️ Video file is too large (${(file.size / (1024 * 1024)).toFixed(1)}MB). Please choose a file within 10MB.`);
+          return;
+        }
+      }
+
+      submitReturnBtn.disabled = true;
+      submitReturnBtn.textContent = "Validating Claim...";
+
+      try {
+        if (typeof FreakFitsAPI === "undefined" || typeof FreakFitsAPI.submitReturnRequest !== "function") {
+          throw new Error("API Client not loaded correctly. Please refresh and try again.");
+        }
+
+        const formData = new FormData();
+        formData.append("order_code", orderCode);
+        formData.append("customer_name", customerName);
+        formData.append("customer_email", customerEmail);
+        formData.append("return_type", returnType);
+        if (currentSize) formData.append("current_size", currentSize);
+        if (requestedSize) formData.append("requested_size", requestedSize);
+        if (reasonDetails) formData.append("reason_details", reasonDetails);
+        formData.append("terms_accepted", termsAccepted);
+
+        if (hasFile) {
+          formData.append("video", videoFileInput.files[0]);
+        } else if (videoUrlVal) {
+          formData.append("video_url", videoUrlVal);
+        }
+
+        const resp = await FreakFitsAPI.submitReturnRequest(formData);
+        let returnCode = resp.return_code || `RET-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+
+        document.getElementById("successRetCode").textContent = returnCode;
+        document.getElementById("successOrderCode").textContent = orderCode;
+
+        returnForm.style.display = "none";
+        returnSuccess.classList.add("is-active");
+        showToast("✓ Return request submitted successfully!");
+      } catch (err) {
+        showToast(err.message || "Failed to submit return request. Please verify details.");
+        submitReturnBtn.disabled = false;
+        submitReturnBtn.textContent = "Submit Return / Exchange Request";
+      }
+    });
+
+    // Toast helper
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2500);
+    }
+
+    // Burger Menu
+    const burgerBtn = document.getElementById("burgerBtn");
+    const mainNav = document.getElementById("mainNav");
+    if (burgerBtn && mainNav) {
+      burgerBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("is-open");
+        burgerBtn.classList.toggle("is-active");
+      });
+    }
+  </script>
+</body>
+
+</html>

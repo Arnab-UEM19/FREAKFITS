@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — FreakFits</title>
+  <meta name="description" content="View details, select your size, and add to cart. Match-grade jerseys by FreakFits.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Customer Reaction reviews layout */
+    .pdp-reviews-section {
+      max-width: 1200px;
+      margin: 60px auto 40px;
+      padding: 0 20px;
+    }
+
+    .pdp-reviews-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 30px;
+      color: var(--text);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .pdp-reviews-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .reviews-loading, .reviews-empty, .reviews-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      color: var(--text-dim);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+    }
+
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+
+    .review-card:hover {
+      border-color: rgba(140, 255, 59, 0.2);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .review-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .review-card__author {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .review-card__date {
+      color: var(--text-dim);
+    }
+
+    .review-card__stars {
+      color: var(--green);
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+    }
+
+    .review-card__comment {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .review-card__photo-wrap {
+      margin-top: 10px;
+    }
+
+    /* Stock badges */
+    .pdp__size-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      border-color: var(--line);
+      background: var(--surface);
+      color: var(--text-faint);
+    }
+    
+    .size-low-stock {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: var(--pink);
+      color: white;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      white-space: nowrap;
+      z-index: 10;
+      box-shadow: 0 2px 4px rgba(255, 62, 122, 0.3);
+      pointer-events: none;
+    }
+    
+    .size-btn-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .review-card__photo-wrap {
+      margin-top: 10px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      width: 100%;
+      height: 180px;
+    }
+
+    .review-card__photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .review-card__photo:hover {
+      transform: scale(1.05);
+    }
+
+    /* Zoom Overlay */
+    .zoom-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 12, 8, 0.98);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    .zoom-overlay__close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 3rem;
+      font-weight: 300;
+      cursor: pointer;
+    }
+
+    .zoom-overlay__img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+      animation: modalFadeIn 0.25s ease-out;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ ANNOUNCEMENT BAR ============ -->
+  <div class="announce">
+    <div class="announce__track">
+      <span>FREE SHIPPING OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>HIGH QUALITY MATERIAL</span>
+      <span class="dot">●</span>
+      <span>NEW DROPS EVERY FRIDAY</span>
+      <span class="dot">●</span>
+      <span>FREE SHIPPING OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>HIGH QUALITY MATERIAL</span>
+      <span class="dot">●</span>
+      <span>NEW DROPS EVERY FRIDAY</span>
+      <span class="dot">●</span>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="category.html?cat=sale" class="nav-sale">Clearance</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill (when logged in) -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ PRODUCT DETAIL ============ -->
+  <main class="pdp" id="pdpMain">
+    <!-- Populated by JS -->
+  </main>
+
+  <!-- ============ RELATED PRODUCTS ============ -->
+  <section class="trending pdp-related">
+    <div class="section-head">
+      <h2>You Might Also Like</h2>
+      <a href="category.html?cat=home" class="view-all">View All Kits →</a>
+    </div>
+    <div class="product-grid" id="relatedGrid"></div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p>Kits for the fans who show up loud. Built for the terraces, not the shelf.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="category.html?cat=home">Home Kits</a>
+        <a href="category.html?cat=away">Away Kits</a>
+        <a href="index.html#new">Retro Vault</a>
+        <a href="cart.html">Cart</a>
+        <a href="category.html?cat=sale">Clearance</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="orders.html">My Orders &amp; Tracking</a>
+        <a href="sizeguide.html">Size Guide</a>
+        <a href="returns.html">Returns & Exchange</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="footer__col">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="products.js"></script>
+  <script src="cart-store.js"></script>
+  <script src="api-client.js"></script>
+  <script src="auth-store.js"></script>
+  <script>
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return "";
+    if (typeof str !== "string") str = String(str);
+    return str.replace(/[&<>'"]/g, 
+      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
+  }
+    // ========== Product Detail Page Logic ==========
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+    let product = getProductById(productId);
+
+    function initPDP() {
+      product = getProductById(productId);
+      if (!product) {
+        document.getElementById("pdpMain").innerHTML = `
+          <div class="pdp__empty">
+            <h2>Product not found</h2>
+            <p>The product you're looking for doesn't exist.</p>
+            <a href="index.html" class="btn btn--solid">Back to Shop</a>
+          </div>`;
+        return;
+      }
+
+      document.title = `${product.name} — FreakFits`;
+
+      let selectedSize = "S";
+      let selectedImage = 0;
+
+      function renderPDP() {
+        const catLabels = { home: "Home Version", away: "Away Version", kit: "Complete Kit" };
+        const initialPrice = typeof getSizePrice === "function" ? getSizePrice(product, selectedSize) : (product.price || 1499);
+        const initialWas = typeof getSizeWasPrice === "function" ? getSizeWasPrice(product, selectedSize) : (initialPrice + 400);
+
+        const pS = typeof getSizePrice === "function" ? getSizePrice(product, "S") : initialPrice;
+        const pM = typeof getSizePrice === "function" ? getSizePrice(product, "M") : initialPrice;
+        const pL = typeof getSizePrice === "function" ? getSizePrice(product, "L") : initialPrice;
+        const pXL = typeof getSizePrice === "function" ? getSizePrice(product, "XL") : initialPrice;
+        const pXXL = typeof getSizePrice === "function" ? getSizePrice(product, "XXL") : initialPrice;
+
+        const wS = typeof getSizeWasPrice === "function" ? getSizeWasPrice(product, "S") : (pS + 400);
+        const wM = typeof getSizeWasPrice === "function" ? getSizeWasPrice(product, "M") : (pM + 400);
+        const wL = typeof getSizeWasPrice === "function" ? getSizeWasPrice(product, "L") : (pL + 400);
+        const wXL = typeof getSizeWasPrice === "function" ? getSizeWasPrice(product, "XL") : (pXL + 400);
+        const wXXL = typeof getSizeWasPrice === "function" ? getSizeWasPrice(product, "XXL") : (pXXL + 400);
+
+        document.getElementById("pdpMain").innerHTML = `
+          <div class="pdp__inner">
+            <!-- Gallery -->
+            <div class="pdp__gallery">
+              <div class="pdp__gallery-main">
+                <img src="${product.images[selectedImage]}" alt="${product.name}" id="mainImage" class="pdp__main-img">
+              </div>
+              ${product.images.length > 1 ? `
+              <div class="pdp__gallery-thumbs">
+                ${product.images.map((img, i) => `
+                  <button class="pdp__thumb ${i === selectedImage ? "is-active" : ""}" data-img="${i}">
+                    <img src="${img}" alt="View ${i + 1}">
+                  </button>
+                `).join("")}
+              </div>` : ""}
+            </div>
+
+            <!-- Info -->
+            <div class="pdp__info">
+              <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="breadcrumb__sep">›</span>
+                <a href="category.html?cat=${product.category}">${catLabels[product.category] || "Shop"}</a>
+                <span class="breadcrumb__sep">›</span>
+                <span>${product.name}</span>
+              </nav>
+
+              <span class="pdp__club">${product.club}</span>
+              <h1 class="pdp__title">${product.name}</h1>
+
+              <div class="pdp__rating">
+                <span class="pdp__stars">${starString(product.rating)}</span>
+                <span class="pdp__reviews">${product.rating} (${product.reviews} reviews)</span>
+              </div>
+
+              <div class="pdp__price-row" id="pdpPriceRow">
+                <span class="pdp__price" id="pdpCurrentPrice">₹${initialPrice.toLocaleString("en-IN")}</span>
+                <span class="pdp__was" id="pdpWasPrice">₹${initialWas.toLocaleString("en-IN")}</span>
+                <span class="pdp__save" id="pdpSavePrice">Save ₹${(initialWas - initialPrice).toLocaleString("en-IN")}</span>
+              </div>
+
+              <p class="pdp__desc">${product.description}</p>
+
+              <!-- Size Selector -->
+              <div class="pdp__section">
+                <label class="pdp__label">Select Size & View Price</label>
+                <div class="pdp__sizes" id="sizeSelector">
+                  ${product.sizes.map(s => {
+                    const stockAmt = (product.stock && product.stock[s] !== undefined) ? parseInt(product.stock[s]) : 10;
+                    const isOutOfStock = stockAmt <= 0;
+                    const isLowStock = stockAmt > 0 && stockAmt <= 3;
+                    return `
+                    <div class="size-btn-wrapper">
+                      <button class="pdp__size-btn ${s === selectedSize ? "is-active" : ""}" data-size="${s}" ${isOutOfStock ? "disabled title='Out of Stock'" : ""}>${s}</button>
+                      ${isLowStock ? `<span class="size-low-stock">Only ${stockAmt} left!</span>` : ""}
+                    </div>
+                  `}).join("")}
+                </div>
+                <button class="pdp__size-guide-link" id="sizeGuideToggle">📏 Size Guide & Pricing</button>
+                <div class="pdp__size-guide" id="sizeGuide" style="display:none;">
+                  <table>
+                    <thead><tr><th>Size</th><th>Selling Price</th><th>MRP (Was)</th><th>Chest (in)</th><th>Length (in)</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>S</strong></td><td style="color:var(--green);font-weight:700;">₹${pS.toLocaleString("en-IN")}</td><td style="text-decoration:line-through;opacity:0.6;">₹${wS.toLocaleString("en-IN")}</td><td>36–38</td><td>27</td></tr>
+                      <tr><td><strong>M</strong></td><td style="color:var(--green);font-weight:700;">₹${pM.toLocaleString("en-IN")}</td><td style="text-decoration:line-through;opacity:0.6;">₹${wM.toLocaleString("en-IN")}</td><td>38–40</td><td>28</td></tr>
+                      <tr><td><strong>L</strong></td><td style="color:var(--green);font-weight:700;">₹${pL.toLocaleString("en-IN")}</td><td style="text-decoration:line-through;opacity:0.6;">₹${wL.toLocaleString("en-IN")}</td><td>40–42</td><td>29</td></tr>
+                      <tr><td><strong>XL</strong></td><td style="color:var(--green);font-weight:700;">₹${pXL.toLocaleString("en-IN")}</td><td style="text-decoration:line-through;opacity:0.6;">₹${wXL.toLocaleString("en-IN")}</td><td>42–44</td><td>30</td></tr>
+                      <tr><td><strong>XXL</strong></td><td style="color:var(--green);font-weight:700;">₹${pXXL.toLocaleString("en-IN")}</td><td style="text-decoration:line-through;opacity:0.6;">₹${wXXL.toLocaleString("en-IN")}</td><td>44–46</td><td>31</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Quantity -->
+              <div class="pdp__section">
+                <label class="pdp__label">Quantity</label>
+                <div class="pdp__qty">
+                  <button class="pdp__qty-btn" id="qtyMinus">−</button>
+                  <span class="pdp__qty-val" id="qtyVal">1</span>
+                  <button class="pdp__qty-btn" id="qtyPlus">+</button>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div style="display:flex; gap:12px; margin-top:24px;">
+                <button class="btn btn--solid btn--wide pdp__add" id="addToCartBtn" style="flex:1;">Add to Cart — ₹${initialPrice.toLocaleString("en-IN")}</button>
+                <button class="btn btn--outline" id="pdpWishlistBtn" style="padding: 0 16px; border-color: var(--border); color: var(--text);" aria-label="Save for later" data-wish="${product.id}">
+                  <svg viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" fill="currentColor"/></svg>
+                </button>
+                <button class="btn btn--outline" id="pdpShareBtn" style="padding: 0 16px; border-color: var(--border); color: var(--text);" aria-label="Share product">
+                  <svg viewBox="0 0 24 24" fill="none" width="24" height="24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                </button>
+              </div>
+              <!-- Product Details Accordion -->
+              <div class="pdp__details">
+                <details class="pdp__accordion" open>
+                  <summary>Product Details</summary>
+                  <div class="pdp__accordion-body">
+                    <ul>
+                      <li><strong>Material:</strong> ${product.material}</li>
+                      <li><strong>Fit:</strong> ${product.fit}</li>
+                      <li><strong>Season:</strong> 2025/26</li>
+                      <li><strong>Collection:</strong> ${catLabels[product.category] || "Standard"}</li>
+                    </ul>
+                  </div>
+                </details>
+                <details class="pdp__accordion">
+                  <summary>Care Instructions</summary>
+                  <div class="pdp__accordion-body">
+                    <p>${product.care}</p>
+                  </div>
+                </details>
+                <details class="pdp__accordion">
+                  <summary>Shipping & Returns Policy</summary>
+                  <div class="pdp__accordion-body">
+                    <ul>
+                      <li><strong>Free shipping</strong> on orders ₹500 and above (₹99 for orders below ₹500)</li>
+                      <li><strong>48-Hour Return Window:</strong> Returns must be initiated within 48 hours of delivery.</li>
+                      <li><strong>Mandatory Unboxing Video:</strong> An unboxing video of opening the sealed package is mandatory for all return claims.</li>
+                      <li><strong>Factory Damage Covered:</strong> Only products with manufacturing/company-side defects are eligible for return. Client-side damage is not returnable.</li>
+                      <li><strong>Size Exchanges:</strong> Size discrepancy exchanges are supported. Customer pays the new size price, and the previous size amount is refunded within 48 hours.</li>
+                      <li><a href="returns.html" style="color:var(--green); font-weight:700; text-decoration:underline;">View Full Return Policy & Initiate Claim →</a></li>
+                    </ul>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer's Reaction Section -->
+          <div class="pdp-reviews-section">
+            <h2 class="pdp-reviews-title">Customer's Reaction</h2>
+            <div id="pdpReviewsContainer" class="pdp-reviews-container">
+              <div class="reviews-loading">Loading reactions...</div>
+            </div>
+          </div>
+        `;
+
+        // Attach event listeners
+        attachPDPEvents();
+      }
+
+      function attachPDPEvents() {
+        let qty = 1;
+
+        function updatePriceDisplay() {
+          const unitPrice = typeof getSizePrice === "function" ? getSizePrice(product, selectedSize) : (product.price || 1499);
+          const unitWas = typeof getSizeWasPrice === "function" ? getSizeWasPrice(product, selectedSize) : (unitPrice + 400);
+          const totalPrice = unitPrice * qty;
+
+          const currentPriceEl = document.getElementById("pdpCurrentPrice");
+          const wasPriceEl = document.getElementById("pdpWasPrice");
+          const savePriceEl = document.getElementById("pdpSavePrice");
+          const addBtn = document.getElementById("addToCartBtn");
+
+          if (currentPriceEl) currentPriceEl.textContent = `₹${unitPrice.toLocaleString("en-IN")}`;
+          if (wasPriceEl) wasPriceEl.textContent = `₹${unitWas.toLocaleString("en-IN")}`;
+          if (savePriceEl) {
+            const saveAmt = unitWas - unitPrice;
+            savePriceEl.textContent = saveAmt > 0 ? `Save ₹${saveAmt.toLocaleString("en-IN")}` : "";
+            savePriceEl.style.display = saveAmt > 0 ? "inline-block" : "none";
+          }
+          if (addBtn) addBtn.textContent = `Add to Cart — ₹${totalPrice.toLocaleString("en-IN")}`;
+        }
+
+        // Thumbnail switching
+        document.querySelectorAll(".pdp__thumb").forEach(btn => {
+          btn.addEventListener("click", () => {
+            selectedImage = parseInt(btn.dataset.img);
+            document.getElementById("mainImage").src = product.images[selectedImage];
+            document.querySelectorAll(".pdp__thumb").forEach(t => t.classList.remove("is-active"));
+            btn.classList.add("is-active");
+          });
+        });
+
+        // Size selection
+        // Prevent clicking disabled sizes
+        document.querySelectorAll(".pdp__size-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            if (btn.disabled) return;
+            document.querySelectorAll(".pdp__size-btn").forEach(b => b.classList.remove("is-active"));
+            btn.classList.add("is-active");
+            selectedSize = btn.dataset.size;
+            updatePriceDisplay();
+          });
+        });
+
+        // Size guide toggle
+        document.getElementById("sizeGuideToggle").addEventListener("click", () => {
+          const guide = document.getElementById("sizeGuide");
+          guide.style.display = guide.style.display === "none" ? "block" : "none";
+        });
+
+        // Quantity
+        document.getElementById("qtyMinus").addEventListener("click", () => {
+          qty = Math.max(1, qty - 1);
+          document.getElementById("qtyVal").textContent = qty;
+          updatePriceDisplay();
+        });
+        document.getElementById("qtyPlus").addEventListener("click", () => {
+          qty = Math.min(10, qty + 1);
+          document.getElementById("qtyVal").textContent = qty;
+          updatePriceDisplay();
+        });
+
+        // Add to Cart
+        document.getElementById("addToCartBtn").addEventListener("click", () => {
+          if (!selectedSize) {
+            showToast("Please select a size");
+            document.querySelector(".pdp__sizes").classList.add("pdp__sizes--shake");
+            setTimeout(() => document.querySelector(".pdp__sizes").classList.remove("pdp__sizes--shake"), 600);
+            return;
+          }
+          const unitPrice = typeof getSizePrice === "function" ? getSizePrice(product, selectedSize) : (product.price || 1499);
+          const unitWas = typeof getSizeWasPrice === "function" ? getSizeWasPrice(product, selectedSize) : (unitPrice + 400);
+
+          CartStore.addItem({
+            id: product.id,
+            name: product.name,
+            club: product.club,
+            price: unitPrice,
+            was: unitWas,
+            color: product.color,
+            size: selectedSize,
+            qty: qty,
+            image: product.images[0],
+            category: product.category,
+          });
+          showToast(`Added ${qty}× ${product.name} (${selectedSize} • ₹${unitPrice.toLocaleString("en-IN")}) to cart`);
+        });
+
+        // Wishlist
+        const wishBtn = document.getElementById("pdpWishlistBtn");
+        if (typeof AuthStore !== "undefined" && AuthStore.getCurrentUser()) {
+          FreakFitsAPI.getWishlist().then(items => {
+            if (items.some(i => i.product_id === product.id)) {
+              wishBtn.style.color = "var(--pink)";
+              wishBtn.classList.add("is-saved");
+            }
+          });
+        }
+        
+        wishBtn.addEventListener("click", async () => {
+          const currentUser = typeof AuthStore !== "undefined" ? AuthStore.getCurrentUser() : null;
+          if (!currentUser) {
+            showToast("⚠️ Please log in to save items to your wishlist.");
+            return;
+          }
+          
+          const isActive = wishBtn.classList.contains("is-saved");
+          try {
+            if (isActive) {
+              await FreakFitsAPI.removeFromWishlist(product.id);
+              wishBtn.classList.remove("is-saved");
+              wishBtn.style.color = "var(--text)";
+              showToast("Removed from your list");
+            } else {
+              await FreakFitsAPI.addToWishlist(product.id);
+              wishBtn.classList.add("is-saved");
+              wishBtn.style.color = "var(--pink)";
+              showToast("Saved to your list");
+            }
+          } catch (err) {
+            showToast("Failed to update wishlist.");
+          }
+        });
+
+        // Share
+        const shareBtn = document.getElementById("pdpShareBtn");
+        shareBtn.addEventListener("click", async () => {
+          const shareData = {
+            title: `FreakFits | ${product.name}`,
+            text: `Check out this ${product.club} jersey on FreakFits!`,
+            url: window.location.href,
+          };
+          if (navigator.share) {
+            try {
+              await navigator.share(shareData);
+            } catch (err) {
+              console.log("Error sharing:", err);
+            }
+          } else {
+            // Fallback: copy to clipboard
+            navigator.clipboard.writeText(window.location.href).then(() => {
+              showToast("Link copied to clipboard!");
+            }).catch(() => {
+              showToast("Failed to copy link.");
+            });
+          }
+        });
+      }
+
+      renderPDP();
+      loadProductReviews(product.id);
+      renderRelated();
+    }
+
+    function renderRelated() {
+      if (!product) return;
+      const related = PRODUCTS.filter(p => p.id !== product.id).slice(0, 5);
+      const relatedGrid = document.getElementById("relatedGrid");
+      if (!relatedGrid) return;
+      relatedGrid.innerHTML = related.map(p => `
+        <article class="product-card" style="--card-accent:${p.color}">
+          <a href="product.html?id=${p.id}" class="product-card__link">
+            <div class="product-card__media">
+              ${p.badge ? `<span class="product-card__badge" style="--badge-bg:${p.badgeBg || p.color}">${p.badge}</span>` : ""}
+              <img src="${p.images[0]}" alt="${p.name}" class="product-card__img" loading="lazy">
+            </div>
+          </a>
+          <div class="product-card__body">
+            <span class="product-card__club">${p.club}</span>
+            <a href="product.html?id=${p.id}" class="product-card__name">${p.name}</a>
+            <span class="product-card__stars">${starString(p.rating)} <span>(${p.reviews})</span></span>
+            <div class="product-card__price">
+              <span class="now">₹${p.price.toLocaleString("en-IN")}</span>
+              ${p.was ? `<span class="was">₹${p.was.toLocaleString("en-IN")}</span>` : ""}
+            </div>
+            <button class="product-card__add" data-add="${p.id}">Add to Cart</button>
+          </div>
+        </article>
+      `).join("");
+
+      relatedGrid.querySelectorAll("[data-add]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const prod = getProductById(btn.dataset.add);
+          CartStore.addItem({ id: prod.id, name: prod.name, club: prod.club, price: prod.price, was: prod.was, color: prod.color, image: prod.images[0], category: prod.category });
+          showToast(`Added — ${prod.name}`);
+        });
+      });
+    }
+
+    initPDP();
+
+    // Re-render when backend products sync
+    window.addEventListener("freakfits:products-synced", () => {
+      initPDP();
+    });
+
+    // Toast
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2200);
+    }
+
+    // Mobile nav
+    const burgerBtn = document.getElementById("burgerBtn");
+    const mainNav = document.getElementById("mainNav");
+    if (burgerBtn && mainNav) {
+      burgerBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("is-open");
+        burgerBtn.classList.toggle("is-active");
+      });
+      mainNav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          mainNav.classList.remove("is-open");
+          burgerBtn.classList.remove("is-active");
+        });
+      });
+    }
+
+    // Newsletter
+    document.getElementById("newsletterForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      document.getElementById("newsletterNote").textContent = "You're on the list — watch your inbox.";
+      e.target.reset();
+    });
+
+    async function loadProductReviews(productId) {
+      const container = document.getElementById("pdpReviewsContainer");
+      if (!container) return;
+
+      try {
+        const apiBase = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
+        const res = await fetch(`${apiBase}/products/${productId}/reviews?_t=${Date.now()}`);
+        if (!res.ok) throw new Error("Failed to load reviews");
+        const reviews = await res.json();
+
+        if (reviews.length === 0) {
+          container.innerHTML = `
+            <div class="reviews-empty">
+              <p>No reactions yet. Be the first to share your look!</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = reviews.map(r => {
+          const starsHtml = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+          
+          // Fix Cloudinary URL prefixes
+          let imgSrc = "";
+          if (r.image_url) {
+            imgSrc = r.image_url.startsWith("http") ? r.image_url : `${apiBase.replace('/api', '')}${r.image_url}`;
+          }
+          const photoHtml = r.image_url 
+            ? `<div class="review-card__photo-wrap">
+                 <img src="${escapeHtml(imgSrc)}" class="review-card__photo" alt="Customer look" onclick="zoomReviewImage(this.src)">
+               </div>`
+            : "";
+
+          // Fix undefined customer name display
+          const displayAuthor = (r.user_name && r.user_name !== "undefined") ? r.user_name : "FreakFits Fan";
+
+          // Show delete option if user is logged in and is the author of this review
+          const currentUser = typeof AuthStore !== "undefined" ? AuthStore.getCurrentUser() : null;
+          const isAuthor = currentUser && currentUser.name && currentUser.name === r.user_name;
+          const deleteBtnHtml = isAuthor
+            ? `<button onclick="deleteMyReview(${escapeHtml(r.id)})" title="Delete My Review" style="background:none; border:none; color:var(--admin-pink, #FF3E7A); cursor:pointer; font-size:1rem; padding:0; line-height:1; opacity:0.8; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">🗑️</button>`
+            : "";
+
+          return `
+            <div class="review-card">
+              <div class="review-card__header">
+                <span class="review-card__author">${escapeHtml(displayAuthor)}</span>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="review-card__date">${r.created_at}</span>
+                  ${deleteBtnHtml}
+                </div>
+              </div>
+              <div class="review-card__stars">${starsHtml}</div>
+              <p class="review-card__comment">${escapeHtml(r.comment || "")}</p>
+              ${photoHtml}
+            </div>
+          `;
+        }).join("");
+
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `
+          <div class="reviews-error">
+            <p>Failed to load reactions from fans.</p>
+          </div>
+        `;
+      }
+    }
+
+    window.zoomReviewImage = function(src) {
+      let zoomOverlay = document.getElementById("zoomOverlay");
+      if (!zoomOverlay) {
+        zoomOverlay = document.createElement("div");
+        zoomOverlay.id = "zoomOverlay";
+        zoomOverlay.className = "zoom-overlay";
+        zoomOverlay.innerHTML = `
+          <span class="zoom-overlay__close">&times;</span>
+          <img class="zoom-overlay__img" id="zoomImg">
+        `;
+        document.body.appendChild(zoomOverlay);
+        
+        zoomOverlay.addEventListener("click", (e) => {
+          if (e.target.className !== "zoom-overlay__img") {
+            zoomOverlay.style.display = "none";
+          }
+        });
+      }
+      
+      document.getElementById("zoomImg").src = src;
+      zoomOverlay.style.display = "flex";
+    }
+
+    window.deleteMyReview = async function(reviewId) {
+      if (!confirm("Are you sure you want to delete your review? This will automatically remove it from the product page and Cloudinary storage.")) {
+        return;
+      }
+      try {
+        const apiBase = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
+        const res = await fetch(`${apiBase}/products/reviews/${reviewId}`, {
+          method: "DELETE"
+        });
+        if (!res.ok) throw new Error("Failed to delete review");
+        
+        showToast("✓ Your review has been deleted.");
+        // Reload reviews dynamically
+        loadProductReviews(productId);
+      } catch (err) {
+        showToast(`❌ Error: ${err.message}`);
+      }
+    }
+  </script>
+</body>
+
+</html>

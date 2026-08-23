@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Wishlist — FreakFits</title>
+  <meta name="description" content="View your saved kits on FreakFits.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .profile-section {
+      max-width: 900px;
+      margin: 60px auto 100px;
+      padding: 0 20px;
+    }
+
+    .profile-title {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      font-size: 2.5rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .profile-title span {
+      color: var(--green);
+    }
+
+    .profile-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      text-align: center;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="sizeguide.html">Size Guide</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill (when logged in) -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="profile-section">
+    <h1 class="profile-title">My <span>Wishlist</span></h1>
+    <p class="profile-subtitle">Keep track of the kits you love.</p>
+
+    <div id="wishlistGrid" class="product-grid" style="margin-top: 10px; padding: 0;">
+      <!-- JS rendered wishlist items -->
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p class="footer__tagline">Premium football apparel engineered for the next generation. Designed & printed in India.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Shop</h4>
+          <a href="category.html?cat=home">Home Version</a>
+          <a href="category.html?cat=away">Away Version</a>
+          <a href="category.html?cat=kit">Complete Kit</a>
+        </div>
+        <div class="footer__col">
+          <h4>Support</h4>
+          <a href="sizeguide.html">Size Guide</a>
+          <a href="returns.html">Returns & Claim Desk</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer__newsletter">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>Not affiliated with any club — fan merchandise demo.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared JS Utilities -->
+  <script src="cart-store.js"></script>
+  <script src="auth-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = AuthStore.getCurrentUser();
+      if (!user) {
+        showToast("⚠️ Please sign in to view your wishlist");
+        setTimeout(() => {
+          window.location.href = "auth.html?redirect=wishlist.html";
+        }, 1200);
+        return;
+      }
+      
+      // Update greeting in header if logged in
+      const greeting = document.getElementById("userGreeting");
+      const nameDisp = document.getElementById("userNameDisplay");
+      if (greeting && nameDisp) {
+        greeting.style.display = "flex";
+        nameDisp.textContent = user.name || "Fan";
+      }
+
+      loadWishlist();
+    });
+
+    async function loadWishlist() {
+      const grid = document.getElementById("wishlistGrid");
+      grid.innerHTML = `<p style="grid-column: 1/-1; color: var(--text-dim); text-align: center;">Loading wishlist...</p>`;
+      try {
+        const items = await FreakFitsAPI.getWishlist();
+        if (!items || items.length === 0) {
+          grid.innerHTML = `<p style="grid-column: 1/-1; color: var(--text-dim); text-align: center; padding: 20px;">Your wishlist is empty. Start saving some kits!</p>`;
+          return;
+        }
+
+        window.wishlistProducts = {};
+        grid.innerHTML = items.map(item => {
+          const p = item.product;
+          window.wishlistProducts[p.id] = p;
+          
+          let ratingHtml = "";
+          for(let i=0; i<5; i++) {
+            ratingHtml += i < Math.floor(p.rating) ? "★" : "☆";
+          }
+          
+          return `
+            <article class="product-card" style="--card-accent:${p.color}">
+              <a href="product.html?id=${p.id}" class="product-card__link">
+                <div class="product-card__media">
+                  ${p.badge ? `<span class="product-card__badge" style="--badge-bg:${p.badgeBg || p.color}">${p.badge}</span>` : ""}
+                  <button class="product-card__wish is-active" aria-label="Remove ${p.name}" onclick="removeWishlistItem(event, ${p.id})">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" fill="currentColor"/></svg>
+                  </button>
+                  <img src="${p.images[0]}" alt="${p.name}" class="product-card__img" loading="lazy">
+                </div>
+              </a>
+              <div class="product-card__body">
+                <span class="product-card__club">${p.club}</span>
+                <a href="product.html?id=${p.id}" class="product-card__name">${p.name}</a>
+                <span class="product-card__stars">${ratingHtml} <span>(${p.reviews})</span></span>
+                <div class="product-card__price">
+                  <span class="now">₹${p.price.toLocaleString("en-IN")}</span>
+                  ${p.was_price ? `<span class="was">₹${p.was_price.toLocaleString("en-IN")}</span>` : ""}
+                </div>
+                <button class="product-card__add" onclick="addToCartFromWishlist(event, ${p.id})">Add to Cart</button>
+              </div>
+            </article>
+          `;
+        }).join("");
+      } catch (err) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; color: var(--pink); text-align: center;">Error loading wishlist: ${err.message}</p>`;
+      }
+    }
+
+    async function removeWishlistItem(event, productId) {
+      event.preventDefault();
+      event.stopPropagation();
+      try {
+        await FreakFitsAPI.removeFromWishlist(productId);
+        showToast("Removed from wishlist");
+        loadWishlist();
+      } catch (err) {
+        showToast("Error: " + err.message);
+      }
+    }
+
+    function addToCartFromWishlist(event, productId) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (typeof CartStore === "undefined") {
+        showToast("Cart is currently unavailable");
+        return;
+      }
+      const prod = window.wishlistProducts[productId];
+      if (!prod) return;
+      
+      CartStore.addItem({
+        id: prod.id,
+        name: prod.name,
+        club: prod.club,
+        price: prod.price,
+        was: prod.was_price,
+        color: prod.color,
+        image: prod.images[0],
+        category: prod.category,
+      });
+      showToast(`Added — ${prod.name}`);
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2200);
+    }
+  </script>
+</body>
+</html>

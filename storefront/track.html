@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Your Kit — FreakFits</title>
+  <meta name="description" content="Check your order status and track shipping details live without logging in.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .track-section {
+      max-width: 800px;
+      margin: 40px auto 80px;
+      padding: 0 20px;
+    }
+
+    .track-title {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      font-size: 2.2rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 30px;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .track-title span {
+      color: var(--green);
+    }
+
+    /* Track Form Card */
+    .track-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+
+    .track-form-card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .track-form-card p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .track-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .track-form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .track-form__field label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+    }
+
+    .track-form__field input {
+      background: var(--bg-input);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14.5px;
+      padding: 14px 16px;
+      outline: none;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .track-form__field input:focus {
+      border-color: var(--green);
+    }
+
+    .track-form__submit {
+      padding: 16px 28px;
+      height: 52px;
+      font-size: 0.95rem;
+    }
+
+    /* Graphical Stepper */
+    .stepper-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 40px 30px;
+      margin-bottom: 30px;
+    }
+
+    .stepper-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .stepper-header__code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.3rem;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .stepper-header__date {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    /* The timeline bar */
+    .stepper::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 5%;
+      right: 5%;
+      height: 4px;
+      background: var(--border);
+      z-index: 1;
+    }
+
+    /* Active progress bar */
+    .stepper-progress {
+      position: absolute;
+      top: 20px;
+      left: 5%;
+      height: 4px;
+      background: var(--green);
+      z-index: 1;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      width: 20%;
+    }
+
+    .step__node {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #141712;
+      border: 3px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--text-faint);
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .step__label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      transition: color 0.3s ease;
+    }
+
+    /* Completed state */
+    .step.is-completed .step__node {
+      border-color: var(--green);
+      background: var(--green);
+      color: #0A0C08;
+      box-shadow: 0 0 12px rgba(140, 255, 59, 0.3);
+    }
+
+    .step.is-completed .step__label {
+      color: var(--text);
+    }
+
+    /* Active/current state */
+    .step.is-active .step__node {
+      border-color: var(--green);
+      color: var(--green);
+      background: #141712;
+      box-shadow: 0 0 12px rgba(140, 255, 59, 0.2);
+    }
+
+    .step.is-active .step__label {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* Stepper Note Banner */
+    .stepper-note {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(140, 255, 59, 0.05);
+      border: 1px solid rgba(140, 255, 59, 0.2);
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin-top: 30px;
+      color: var(--green);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .stepper-note__icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    
+    .stepper-note__text strong {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* Details Grid */
+    .track-details-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .track-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+
+    .track-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .track-item-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.95rem;
+    }
+
+    .track-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .track-item__name {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .track-item__custom {
+      font-size: 0.8rem;
+      color: var(--pink);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 2px;
+    }
+
+    .track-item__price {
+      color: var(--text-dim);
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .detail-row label {
+      color: var(--text-faint);
+    }
+
+    .detail-row span {
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .track-form {
+        grid-template-columns: 1fr;
+      }
+
+      .track-details-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stepper::before {
+        display: none;
+      }
+
+      .stepper-progress {
+        display: none;
+      }
+
+      .stepper {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+      }
+
+      .step {
+        flex-direction: row;
+        width: 100%;
+        text-align: left;
+        gap: 16px;
+      }
+
+      .step__node {
+        margin-bottom: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ ANNOUNCEMENT BAR ============ -->
+  <div class="announce">
+    <div class="announce__track">
+      <span>FREE EXPRESS SHIPPING ACROSS INDIA ON ORDERS OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>100% PREMIUM MATCHDAY QUALITY</span>
+      <span class="dot">●</span>
+      <span>EASY EXCHANGE &amp; RETURNS ON SIZE</span>
+      <span class="dot">●</span>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html#new">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="category.html?cat=sale" class="nav-sale">Clearance</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ LIVE TRACKING MAIN ============ -->
+  <main class="track-section">
+    <h1 class="track-title">Track Your <span>Fitted Kit</span></h1>
+
+    <!-- Search Form Card -->
+    <div class="track-form-card">
+      <h2>Live Shipment Tracking</h2>
+      <p>Enter your Order ID (starts with FF-) and the mobile number used during checkout to track your delivery status.</p>
+      
+      <form class="track-form" id="trackForm">
+        <div class="track-form__field">
+          <label for="trackOrderCode">Order ID</label>
+          <input type="text" id="trackOrderCode" placeholder="e.g. FF-05B0B924" required autocomplete="off">
+        </div>
+        <div class="track-form__field">
+          <label for="trackPhone">Mobile Number</label>
+          <input type="text" id="trackPhone" placeholder="e.g. +91 93309 05205" required autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn--solid track-form__submit">Track Order</button>
+      </form>
+    </div>
+
+    <!-- Stepper & Details (Hidden initially) -->
+    <div id="trackingResult" style="display:none;">
+      
+      <!-- Stepper Progress card -->
+      <div class="stepper-container">
+        <div class="stepper-header">
+          <div>
+            <span class="stepper-header__code" id="resOrderCode">FF-XXXXXXX</span>
+            <div class="stepper-header__date" id="resOrderDate">Placed on ---</div>
+          </div>
+          <span id="resStatusBadge" class="order-card__badge status-badge--pending">Pending</span>
+        </div>
+
+        <div class="stepper">
+          <div class="stepper-progress" id="stepperProgressLine"></div>
+          
+          <div class="step" id="step1">
+            <div class="step__node">✓</div>
+            <span class="step__label">Order Confirmed</span>
+          </div>
+          <div class="step" id="step2">
+            <div class="step__node">2</div>
+            <span class="step__label">Preparing Kit</span>
+          </div>
+          <div class="step" id="step3">
+            <div class="step__node">3</div>
+            <span class="step__label">Packing</span>
+          </div>
+          <div class="step" id="step4">
+            <div class="step__node">4</div>
+            <span class="step__label">Shipped</span>
+          </div>
+        </div>
+        
+        <!-- Shipped Info Banner -->
+        <div class="stepper-note" id="stepperShippedNote" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stepper-note__icon">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <span class="stepper-note__text"><strong>NOTE:</strong> Soon you will receive tracking details from the shipment agency in your message inbox or email.</span>
+        </div>
+      </div>
+
+      <!-- Details Columns -->
+      <div class="track-details-grid">
+        <div class="track-card">
+          <h3>Items List</h3>
+          <div id="resItemsList">
+            <!-- items go here -->
+          </div>
+        </div>
+        
+        <div class="track-card">
+          <h3>Summary & Info</h3>
+          <div class="detail-row">
+            <label>Payment Method</label>
+            <span id="resPaymentMethod">---</span>
+          </div>
+          <div class="detail-row">
+            <label>Payment Status</label>
+            <span id="resPaymentStatus">---</span>
+          </div>
+          <div class="detail-row">
+            <label>Grand Total</label>
+            <span id="resGrandTotal" style="color:var(--green); font-weight:700;">₹0</span>
+          </div>
+          <div class="detail-row" id="resAddressRow" style="display:none; flex-direction:column; align-items:flex-start; gap:4px; margin-top:8px; width: 100%;">
+            <label>Delivery Address</label>
+            <span id="resShippingAddress" style="white-space:pre-line; line-height:1.4; font-size:13px; text-align:left; color:var(--text-dim);">---</span>
+          </div>
+          <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;" id="trackActionsContainer">
+            <!-- Actions will be injected here -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p>Kits for the fans who show up loud. Built for the terraces, not the shelf.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="category.html?cat=home">Home Kits</a>
+        <a href="category.html?cat=away">Away Kits</a>
+        <a href="index.html#new">Retro Vault</a>
+        <a href="cart.html">Cart</a>
+        <a href="category.html?cat=sale">Clearance</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="orders.html">My Orders &amp; Tracking</a>
+        <a href="sizeguide.html">Size Guide</a>
+        <a href="returns.html">Returns & Exchange</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="footer__col">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved. Developed By Arnab Bindu Chakraborty</span>
+      <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Script tags -->
+  <script src="api-client.js"></script>
+  <script src="auth-store.js"></script>
+  <script>
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return "";
+    if (typeof str !== "string") str = String(str);
+    return str.replace(/[&<>'"]/g, 
+      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
+  }
+    document.addEventListener("DOMContentLoaded", async () => {
+      // 1. Check URL parameters for auto-track
+      const params = new URLSearchParams(window.location.search);
+      const urlOrder = params.get("order");
+      const urlPhone = params.get("phone");
+
+      if (urlOrder && urlPhone) {
+        document.getElementById("trackOrderCode").value = urlOrder;
+        document.getElementById("trackPhone").value = urlPhone;
+        await performTracking(urlOrder, urlPhone);
+      }
+
+      // 2. Form submission
+      document.getElementById("trackForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const code = document.getElementById("trackOrderCode").value.trim();
+        const phone = document.getElementById("trackPhone").value.trim();
+        await performTracking(code, phone);
+      });
+    });
+
+    async function performTracking(code, phone) {
+      const resultDiv = document.getElementById("trackingResult");
+      resultDiv.style.display = "none";
+
+      try {
+        const order = await FreakFitsAPI.trackOrder(code, phone);
+        renderTracking(order);
+        resultDiv.style.display = "block";
+        resultDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+      } catch (err) {
+        showToast(`❌ ${err.message || "Failed to find order. Please verify inputs."}`);
+      }
+    }
+
+    function renderTracking(order) {
+      document.getElementById("resOrderCode").textContent = order.order_code;
+      const dateStr = new Date(order.created_at || new Date()).toLocaleDateString("en-IN", {
+        day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
+      });
+      document.getElementById("resOrderDate").textContent = `Placed on ${dateStr}`;
+
+      const status = (order.order_status || "Pending").toLowerCase();
+      const badge = document.getElementById("resStatusBadge");
+      badge.textContent = order.order_status || "Pending";
+      badge.className = "order-card__badge " + getBadgeClass(status);
+
+      // Render items
+      const itemsContainer = document.getElementById("resItemsList");
+      itemsContainer.innerHTML = (order.items || []).map(itm => {
+        const custText = (itm.custom_name || itm.custom_number)
+          ? `<div class="track-item__custom">CUSTOMIZATION: ${escapeHtml(itm.custom_name || "—")} #${escapeHtml(itm.custom_number || "—")}</div>`
+          : "";
+        return `
+          <div class="track-item-row">
+            <div>
+              <span class="track-item__name">${escapeHtml(itm.product_name)} (${escapeHtml(itm.size)})</span>
+              ${custText}
+              <div style="font-size:0.8rem; color:var(--text-faint);">Qty: ${itm.quantity}</div>
+            </div>
+            <span class="track-item__price">₹${(itm.unit_price * itm.quantity).toLocaleString("en-IN")}</span>
+          </div>
+        `;
+      }).join("");
+
+      // Render summary info
+      document.getElementById("resPaymentMethod").textContent = order.payment_method === "razorpay" ? "💳 Razorpay Online" : "🚚 Cash on Delivery";
+      document.getElementById("resPaymentStatus").textContent = order.payment_status === "PAID" ? "Paid" : "Pending";
+      document.getElementById("resGrandTotal").textContent = `₹${Math.round(order.total).toLocaleString("en-IN")}`;
+
+      const addrRow = document.getElementById("resAddressRow");
+      const addrVal = document.getElementById("resShippingAddress");
+      if (addrRow && addrVal) {
+        if (order.shipping_address) {
+          addrRow.style.display = "flex";
+          addrVal.textContent = order.shipping_address;
+        } else {
+          addrRow.style.display = "none";
+        }
+      }
+
+      // Stepper status mappings:
+      // Steps: [Order Confirmed] -> [Preparing Kit] -> [Packing] -> [Shipped]
+      const steps = [
+        document.getElementById("step1"), // Step 1: Confirmed
+        document.getElementById("step2"), // Step 2: Preparing
+        document.getElementById("step3"), // Step 3: Packing
+        document.getElementById("step4")  // Step 4: Shipped
+      ];
+
+      // Reset
+      steps.forEach((step, idx) => {
+        step.className = "step";
+        const node = step.querySelector(".step__node");
+        node.textContent = idx === 0 ? "✓" : idx + 1;
+      });
+
+      let progressWidth = "0%";
+      let activeIndex = 0; // index of the active step
+
+      if (status === "pending" || status === "confirmed" || status === "paid") {
+        activeIndex = 0;
+        progressWidth = "0%";
+      } else if (status === "processing" || status === "preparing" || status === "preparing kit") {
+        activeIndex = 1;
+        progressWidth = "33%";
+      } else if (status === "packing" || status === "packed") {
+        activeIndex = 2;
+        progressWidth = "66%";
+      } else if (status === "shipped" || status === "delivered") {
+        activeIndex = 3;
+        progressWidth = "100%";
+      }
+
+      // Mark completed/active steps
+      steps.forEach((step, idx) => {
+        const node = step.querySelector(".step__node");
+        if (idx <= activeIndex) {
+          step.classList.add("is-completed");
+          node.textContent = "✓";
+        }
+      });
+
+      // Special override: if Delivered, change Shipped text to Delivered and check it off
+      if (status === "delivered") {
+        const step4Label = steps[3].querySelector(".step__label");
+        step4Label.textContent = "Delivered";
+        steps[3].classList.remove("is-active");
+        steps[3].classList.add("is-completed");
+        steps[3].querySelector(".step__node").textContent = "✓";
+      } else {
+        steps[3].querySelector(".step__label").textContent = "Shipped";
+      }
+
+      // Show note box if status is Shipped or Delivered
+      const noteBox = document.getElementById("stepperShippedNote");
+      if (noteBox) {
+        if (status === "shipped" || status === "delivered") {
+          noteBox.style.display = "flex";
+        } else {
+          noteBox.style.display = "none";
+        }
+      }
+
+      document.getElementById("stepperProgressLine").style.width = progressWidth;
+
+      // Render Actions
+      const actionsContainer = document.getElementById("trackActionsContainer");
+      if (status === "pending" || status === "confirmed") {
+        actionsContainer.innerHTML = `
+          <button class="btn btn--outline" id="btnCancelOrderTrack" style="width: 100%; border-color: var(--pink); color: var(--pink);">Cancel Order</button>
+        `;
+        document.getElementById("btnCancelOrderTrack").addEventListener("click", async () => {
+          if (!confirm("Are you sure you want to cancel this order? This action cannot be undone.")) return;
+          const btn = document.getElementById("btnCancelOrderTrack");
+          btn.disabled = true;
+          btn.textContent = "Cancelling...";
+          try {
+            const res = await FreakFitsAPI.cancelOrder(order.order_code);
+            showToast(res.message || "Order cancelled successfully");
+            setTimeout(() => window.location.reload(), 1500);
+          } catch (err) {
+            showToast("Error: " + err.message);
+            btn.disabled = false;
+            btn.textContent = "Cancel Order";
+          }
+        });
+      } else {
+        actionsContainer.innerHTML = "";
+      }
+    }
+
+    function getBadgeClass(status) {
+      if (status === "completed" || status === "paid" || status === "confirmed" || status === "delivered") {
+        return "status-badge--delivered";
+      } else if (status === "shipped") {
+        return "status-badge--shipped";
+      } else if (status === "cancelled") {
+        return "status-badge--cancelled";
+      } else {
+        return "status-badge--pending";
+      }
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2200);
+    }
+  </script>
+</body>
+
+</html>

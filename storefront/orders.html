@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders — FreakFits</title>
+  <meta name="description" content="View your order history, payment status, active shipments, and download invoices.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .orders-section {
+      max-width: 900px;
+      margin: 40px auto 80px;
+      padding: 0 20px;
+    }
+
+    .orders-title {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      font-size: 2.2rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 30px;
+      color: var(--text);
+    }
+
+    .orders-title span {
+      color: var(--green);
+    }
+
+    .orders-empty {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .orders-empty__icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      color: var(--text-faint);
+    }
+
+    .orders-empty h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .orders-empty p {
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .order-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 30px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .order-card:hover {
+      border-color: rgba(140, 255, 59, 0.4);
+    }
+
+    .order-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .order-card__meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .order-card__code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .order-card__date {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .order-card__badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* Status badge themes matching brand colors */
+    .status-badge--pending {
+      background: rgba(255, 179, 0, 0.1);
+      color: #FFB300;
+      border: 1px solid rgba(255, 179, 0, 0.3);
+    }
+
+    .status-badge--completed,
+    .status-badge--paid,
+    .status-badge--confirmed {
+      background: rgba(140, 255, 59, 0.1);
+      color: var(--green);
+      border: 1px solid rgba(140, 255, 59, 0.3);
+    }
+
+    .status-badge--preparing-kit {
+      background: rgba(255, 62, 122, 0.1);
+      color: #FF3E7A;
+      border: 1px solid rgba(255, 62, 122, 0.3);
+    }
+
+    .status-badge--packing {
+      background: rgba(255, 112, 67, 0.1);
+      color: #FF7043;
+      border: 1px solid rgba(255, 112, 67, 0.3);
+    }
+
+    .status-badge--shipped {
+      background: rgba(0, 184, 212, 0.1);
+      color: #00B8D4;
+      border: 1px solid rgba(0, 184, 212, 0.3);
+    }
+
+    .status-badge--delivered {
+      background: rgba(0, 230, 118, 0.1);
+      color: #00E676;
+      border: 1px solid rgba(0, 230, 118, 0.3);
+    }
+
+    .order-card__items {
+      margin-bottom: 20px;
+    }
+
+    .order-item-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .order-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .order-item__info {
+      flex: 1;
+    }
+
+    .order-item__name {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .order-item__size {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .order-item__custom {
+      font-size: 0.85rem;
+      color: var(--pink);
+      margin-top: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    .order-item__pricing {
+      text-align: right;
+    }
+
+    .order-item__qty {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .order-item__total {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .order-card__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .order-card__details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      flex: 1;
+    }
+
+    .order-detail-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .order-detail-group label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-faint);
+      font-weight: 600;
+    }
+
+    .order-detail-group span {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    .order-card__actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .order-card__grand-total {
+      text-align: right;
+      min-width: 140px;
+    }
+
+    .order-card__grand-total span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .order-card__grand-total strong {
+      font-size: 1.4rem;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* Help & Support Widget */
+    .support-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-top: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .support-bar__content h3 {
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .support-bar__content p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    /* ==========================================
+       Review Modal Styles
+       ========================================== */
+    .review-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 12, 8, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .review-modal__card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 550px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(140, 255, 59, 0.05);
+    }
+
+    .review-modal__close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .review-modal__close:hover {
+      color: var(--green);
+    }
+
+    .review-modal h2 {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 5px;
+      color: var(--text);
+    }
+
+    .review-modal__subtitle {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      padding: 12px 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--green);
+      background: rgba(140, 255, 59, 0.02);
+    }
+
+    /* Star Rating Selector */
+    .star-rating-selector {
+      display: flex;
+      gap: 8px;
+      font-size: 1.8rem;
+      color: var(--text-faint);
+    }
+
+    .star-select-item {
+      cursor: pointer;
+      transition: transform 0.15s, color 0.15s;
+    }
+
+    .star-select-item:hover {
+      transform: scale(1.15);
+    }
+
+    .star-select-item.is-selected {
+      color: var(--green);
+      text-shadow: 0 0 10px rgba(140, 255, 59, 0.3);
+    }
+
+    /* Image Upload Dropzone */
+    .upload-dropzone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px 16px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.01);
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .upload-dropzone:hover {
+      border-color: var(--green);
+      background: rgba(140, 255, 59, 0.01);
+    }
+
+    .upload-icon {
+      width: 32px;
+      height: 32px;
+      margin: 0 auto 10px;
+      color: var(--text-faint);
+    }
+
+    .upload-text {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .upload-preview {
+      width: 100%;
+      max-height: 150px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      margin-top: 10px;
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      .order-card__header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .order-card__footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .order-card__actions {
+        width: 100%;
+        margin-top: 10px;
+      }
+      .order-card__actions .btn {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ ANNOUNCEMENT BAR ============ -->
+  <div class="announce">
+    <div class="announce__track">
+      <span>FREE EXPRESS SHIPPING ACROSS INDIA ON ORDERS OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>100% PREMIUM MATCHDAY QUALITY</span>
+      <span class="dot">●</span>
+      <span>EASY EXCHANGE &amp; RETURNS ON SIZE</span>
+      <span class="dot">●</span>
+      <span>FREE EXPRESS SHIPPING ACROSS INDIA ON ORDERS OVER ₹500</span>
+      <span class="dot">●</span>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html#new">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="category.html?cat=sale" class="nav-sale">Clearance</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MY ORDERS CONTENT ============ -->
+  <main class="orders-section">
+    <h1 class="orders-title">Your <span>Order History</span></h1>
+
+    <!-- Orders list container -->
+    <div id="ordersContainer">
+      <!-- Loading state -->
+      <div style="text-align:center; padding:60px 0; color:var(--text-dim);">
+        <p>Loading your order history...</p>
+      </div>
+    </div>
+
+    <!-- Help & Support Banner -->
+    <div class="support-bar">
+      <div class="support-bar__content">
+        <h3>Have questions about a shipment?</h3>
+        <p>Contact our support team anytime at <strong>support@freakfits.com</strong>.</p>
+      </div>
+      <a href="contact.html?reason=shipping" class="btn btn--solid" style="padding:12px 24px;">Message Support</a>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p>Kits for the fans who show up loud. Built for the terraces, not the shelf.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="category.html?cat=home">Home Kits</a>
+        <a href="category.html?cat=away">Away Kits</a>
+        <a href="index.html#new">Retro Vault</a>
+        <a href="cart.html">Cart</a>
+        <a href="category.html?cat=sale">Clearance</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="orders.html">My Orders &amp; Tracking</a>
+        <a href="sizeguide.html">Size Guide</a>
+        <a href="returns.html">Returns & Exchange</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="footer__col">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
+    </div>
+  </footer>
+
+  <!-- Review Modal -->
+  <div class="review-modal" id="reviewModal" style="display:none;">
+    <div class="review-modal__card">
+      <button class="review-modal__close" id="closeReviewModalBtn">&times;</button>
+      <h2>Share Your Experience</h2>
+      <p class="review-modal__subtitle">Reviewing items from order <span id="reviewModalOrderCode" style="color:var(--green); font-weight:700;"></span></p>
+      
+      <form id="reviewForm">
+        <input type="hidden" id="reviewRatingVal" value="0">
+        
+        <!-- Select Item Dropdown -->
+        <div class="form-group">
+          <label for="reviewItemSelect">Choose Product to Review</label>
+          <select id="reviewItemSelect" class="form-control" style="background:#1a1d17;" required></select>
+        </div>
+
+        <!-- Stars Rating -->
+        <div class="form-group">
+          <label>Your Rating</label>
+          <div class="star-rating-selector" id="starSelector">
+            <span class="star-select-item" data-val="1">★</span>
+            <span class="star-select-item" data-val="2">★</span>
+            <span class="star-select-item" data-val="3">★</span>
+            <span class="star-select-item" data-val="4">★</span>
+            <span class="star-select-item" data-val="5">★</span>
+          </div>
+        </div>
+
+        <!-- Comment Text -->
+        <div class="form-group">
+          <label for="reviewComment">Written Review</label>
+          <textarea id="reviewComment" class="form-control" rows="4" placeholder="How is the jersey quality, embroidery, sizing fit, and customization printing? Share details!" style="resize:vertical;" required></textarea>
+        </div>
+
+        <!-- Photo Upload Box -->
+        <div class="form-group">
+          <label>Upload a Picture (Optional)</label>
+          <div class="upload-dropzone" id="reviewUploadDropzone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="upload-icon">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+            </svg>
+            <p class="upload-text" id="uploadStatusText">Click or drag a photo here to upload your look</p>
+            <input type="file" id="reviewPhoto" accept="image/*" style="display:none;">
+            <img class="upload-preview" id="reviewPhotoPreview" style="display:none;">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--solid btn--wide" id="reviewSubmitBtn" style="margin-top:20px;">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Shared JS Utilities -->
+  <script src="products.js"></script>
+  <script src="cart-store.js"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
+  <script src="orders-controller.js?v=2.0"></script>
+</body>
+
+</html>

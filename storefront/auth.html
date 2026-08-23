@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account — FreakFits</title>
+  <meta name="description" content="Log in or create your FreakFits account to access exclusive kit drops, track orders, and save your custom fits.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ============ ANNOUNCEMENT BAR ============ -->
+  <div class="announce">
+    <div class="announce__track">
+      <span>FREE SHIPPING OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>HIGH QUALITY MATERIAL</span>
+      <span class="dot">●</span>
+      <span>NEW DROPS EVERY FRIDAY</span>
+      <span class="dot">●</span>
+      <span>FREE SHIPPING OVER ₹500</span>
+      <span class="dot">●</span>
+      <span>HIGH QUALITY MATERIAL</span>
+      <span class="dot">●</span>
+      <span>NEW DROPS EVERY FRIDAY</span>
+      <span class="dot">●</span>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png" alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="category.html?cat=sale" class="nav-sale">Clearance</a>
+      </nav>
+
+      <div class="header__actions">
+        <!-- User Greeting Pill (when logged in) -->
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ AUTH MAIN ============ -->
+  <main class="auth-page">
+    <div class="auth-card">
+      <div class="auth-card__header">
+        <span class="eyebrow">JOIN THE SQUAD</span>
+        <h1 class="auth-card__title" id="authHeaderTitle">Welcome Back</h1>
+        <p class="auth-card__subtitle" id="authHeaderSubtitle">Enter your credentials to access your account</p>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="auth-tabs" id="authTabs">
+        <button class="auth-tab is-active" data-tab="login" id="tabLoginBtn">Log In</button>
+        <button class="auth-tab" data-tab="signup" id="tabSignupBtn">Sign Up</button>
+      </div>
+
+      <!-- ============ LOGIN FORM ============ -->
+      <form class="auth-form" id="loginForm">
+        <div class="auth-form__field">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" required autocomplete="email">
+        </div>
+
+        <div class="auth-form__field">
+          <div class="auth-form__label-row">
+            <label for="loginPassword">Password</label>
+            <a href="#" class="auth-form__forgot" id="forgotPassLink">Forgot?</a>
+          </div>
+          <div class="auth-form__pass-wrap">
+            <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="auth-form__toggle-pass" data-target="loginPassword" aria-label="Show password">👁</button>
+          </div>
+        </div>
+
+        <p class="auth-form__err" id="loginError" style="display:none;"></p>
+
+        <button type="submit" class="btn btn--solid btn--wide auth-form__submit">Log In to FreakFits</button>
+
+        <div class="auth-card__switch">
+          <span>Don't have an account?</span>
+          <button type="button" class="auth-link-btn" id="switchToSignup">Create one</button>
+        </div>
+      </form>
+
+      <!-- ============ SIGN UP FORM ============ -->
+      <form class="auth-form" id="signupForm" style="display:none;">
+        <div class="auth-form__field">
+          <label for="signupName">Full Name</label>
+          <input type="text" id="signupName" placeholder="e.g. Leo Messi" required autocomplete="name">
+        </div>
+
+        <div class="auth-form__field">
+          <label for="signupPhone">Mobile Number</label>
+          <div class="auth-form__phone-wrap">
+            <span class="auth-form__phone-prefix">+91</span>
+            <input type="tel" id="signupPhone" placeholder="98765 43210" maxlength="10" required autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="auth-form__field">
+          <label for="signupEmail">Email ID</label>
+          <div class="auth-form__verify-row">
+            <input type="email" id="signupEmail" placeholder="you@example.com" required autocomplete="email">
+            <button type="button" class="btn btn--ghost auth-verify-btn" id="sendOtpBtn">Verify</button>
+          </div>
+          <span class="auth-form__verified-badge" id="emailVerifiedBadge" style="display:none;">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Email Verified
+          </span>
+        </div>
+
+        <!-- OTP Verification Section (Revealed upon clicking verify) -->
+        <div class="auth-otp-section" id="otpSection" style="display:none;">
+          <div class="auth-otp__box">
+            <div class="auth-otp__header">
+              <span class="auth-otp__title">Enter 4-Digit OTP</span>
+              <span class="auth-otp__hint">OTP sent to <strong id="otpEmailTarget">your email</strong> (Demo OTP: <strong style="color:var(--green)">4826</strong>)</span>
+            </div>
+            <div class="auth-otp__inputs" id="otpInputs">
+              <input type="text" maxlength="1" class="otp-digit" inputmode="numeric">
+              <input type="text" maxlength="1" class="otp-digit" inputmode="numeric">
+              <input type="text" maxlength="1" class="otp-digit" inputmode="numeric">
+              <input type="text" maxlength="1" class="otp-digit" inputmode="numeric">
+            </div>
+            <div class="auth-otp__actions">
+              <button type="button" class="btn btn--solid auth-otp__submit-btn" id="confirmOtpBtn">Confirm OTP</button>
+              <button type="button" class="auth-otp__resend" id="resendOtpBtn">Resend Code</button>
+            </div>
+            <p class="auth-otp__err" id="otpError" style="display:none;"></p>
+          </div>
+        </div>
+
+        <div class="auth-form__field">
+          <label for="signupPassword">Create Password</label>
+          <div class="auth-form__pass-wrap">
+            <input type="password" id="signupPassword" placeholder="Minimum 6 characters" minlength="6" required autocomplete="new-password">
+            <button type="button" class="auth-form__toggle-pass" data-target="signupPassword" aria-label="Show password">👁</button>
+          </div>
+        </div>
+
+        <p class="auth-form__err" id="signupError" style="display:none;"></p>
+
+        <button type="submit" class="btn btn--solid btn--wide auth-form__submit" id="signupSubmitBtn">Create FreakFits Account</button>
+
+        <div class="auth-card__switch">
+          <span>Already have an account?</span>
+          <button type="button" class="auth-link-btn" id="switchToLogin">Log in</button>
+        </div>
+      </form>
+
+      <!-- ============ FORGOT PASSWORD FORM ============ -->
+      <form class="auth-form" id="forgotForm" style="display:none;">
+        
+        <!-- Phase 1: Enter email -->
+        <div id="forgotEmailPhase">
+          <div class="auth-form__field">
+            <label for="forgotEmail">Registered Email Address</label>
+            <input type="email" id="forgotEmail" placeholder="you@example.com" required>
+          </div>
+          <button type="submit" class="btn btn--solid btn--wide auth-form__submit">Send Verification Code</button>
+        </div>
+
+        <!-- Phase 2: Enter OTP -->
+        <div id="forgotOtpPhase" style="display:none;">
+          <div class="auth-otp__box">
+            <div class="auth-otp__header">
+              <span class="auth-otp__title">Enter 4-Digit OTP</span>
+              <span class="auth-otp__hint">We sent a reset code to <strong id="forgotOtpEmailTarget">your email</strong></span>
+            </div>
+            <div class="auth-otp__inputs" id="forgotOtpInputs">
+              <input type="text" maxlength="1" class="otp-digit forgot-otp-digit" inputmode="numeric">
+              <input type="text" maxlength="1" class="otp-digit forgot-otp-digit" inputmode="numeric">
+              <input type="text" maxlength="1" class="otp-digit forgot-otp-digit" inputmode="numeric">
+              <input type="text" maxlength="1" class="otp-digit forgot-otp-digit" inputmode="numeric">
+            </div>
+            <div class="auth-otp__actions">
+              <button type="button" class="btn btn--solid auth-otp__submit-btn" id="confirmForgotOtpBtn">Confirm OTP</button>
+              <button type="button" class="auth-otp__resend" id="resendForgotOtpBtn">Resend Code</button>
+            </div>
+            <p class="auth-otp__err" id="forgotOtpError" style="display:none;"></p>
+          </div>
+        </div>
+
+        <!-- Phase 3: Choose new password -->
+        <div id="forgotResetPhase" style="display:none;">
+          <div class="auth-form__field">
+            <label for="newPassword">New Password</label>
+            <div class="auth-form__pass-wrap">
+              <input type="password" id="newPassword" placeholder="Minimum 6 characters">
+              <button type="button" class="auth-form__toggle-pass" data-target="newPassword" aria-label="Show password">👁</button>
+            </div>
+          </div>
+          <div class="auth-form__field">
+            <label for="confirmNewPassword">Confirm New Password</label>
+            <div class="auth-form__pass-wrap">
+              <input type="password" id="confirmNewPassword" placeholder="Re-enter new password">
+              <button type="button" class="auth-form__toggle-pass" data-target="confirmNewPassword" aria-label="Show password">👁</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn--solid btn--wide auth-form__submit" id="submitNewPasswordBtn">Reset Password &amp; Login</button>
+        </div>
+
+        <div class="auth-card__switch" style="margin-top: 16px;">
+          <button type="button" class="auth-link-btn" id="forgotBackToLogin">Back to Log In</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png" alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p>Kits for the fans who show up loud. Built for the terraces, not the shelf.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="category.html?cat=home">Home Kits</a>
+        <a href="category.html?cat=away">Away Kits</a>
+        <a href="index.html#new">Retro Vault</a>
+        <a href="cart.html">Cart</a>
+        <a href="category.html?cat=sale">Clearance</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="orders.html">My Orders &amp; Tracking</a>
+        <a href="sizeguide.html">Size Guide</a>
+        <a href="returns.html">Returns & Exchange</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="footer__col">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="cart-store.js"></script>
+  <script src="api-client.js"></script>
+  <script src="auth-store.js"></script>
+  <script>
+    // ========== Tab Switching ==========
+    const tabLogin = document.getElementById("tabLoginBtn");
+    const tabSignup = document.getElementById("tabSignupBtn");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const headerTitle = document.getElementById("authHeaderTitle");
+    const headerSubtitle = document.getElementById("authHeaderSubtitle");
+
+    const authTabs = document.getElementById("authTabs");
+    const forgotForm = document.getElementById("forgotForm");
+
+    function setTab(tab) {
+      if (authTabs) authTabs.style.display = "flex";
+      if (forgotForm) forgotForm.style.display = "none";
+      if (tab === "login") {
+        tabLogin.classList.add("is-active");
+        tabSignup.classList.remove("is-active");
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+        headerTitle.textContent = "Welcome Back";
+        headerSubtitle.textContent = "Enter your credentials to access your account";
+      } else {
+        tabSignup.classList.add("is-active");
+        tabLogin.classList.remove("is-active");
+        signupForm.style.display = "block";
+        loginForm.style.display = "none";
+        headerTitle.textContent = "Create Account";
+        headerSubtitle.textContent = "Fill in your details to start collecting matchday kits";
+      }
+    }
+
+    function setForgotView() {
+      if (authTabs) authTabs.style.display = "none";
+      loginForm.style.display = "none";
+      signupForm.style.display = "none";
+      forgotForm.style.display = "block";
+
+      document.getElementById("forgotEmailPhase").style.display = "block";
+      document.getElementById("forgotOtpPhase").style.display = "none";
+      document.getElementById("forgotResetPhase").style.display = "none";
+
+      headerTitle.textContent = "Reset Password";
+      headerSubtitle.textContent = "Enter your registered email to receive a verification code";
+
+      document.getElementById("forgotEmail").value = "";
+      document.getElementById("newPassword").value = "";
+      document.getElementById("confirmNewPassword").value = "";
+      document.querySelectorAll(".forgot-otp-digit").forEach(d => d.value = "");
+    }
+
+    tabLogin.addEventListener("click", () => setTab("login"));
+    tabSignup.addEventListener("click", () => setTab("signup"));
+    document.getElementById("switchToSignup").addEventListener("click", () => setTab("signup"));
+    document.getElementById("switchToLogin").addEventListener("click", () => setTab("login"));
+
+    // Check URL params (?mode=signup)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("mode") === "signup") {
+      setTab("signup");
+    }
+
+    // ========== Show/Hide Password Toggle ==========
+    document.querySelectorAll(".auth-form__toggle-pass").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.dataset.target;
+        const input = document.getElementById(targetId);
+        if (input.type === "password") {
+          input.type = "text";
+          btn.textContent = "🔒";
+        } else {
+          input.type = "password";
+          btn.textContent = "👁";
+        }
+      });
+    });
+
+    // ========== OTP Verification Logic ==========
+    let isEmailVerified = false;
+    const sendOtpBtn = document.getElementById("sendOtpBtn");
+    const otpSection = document.getElementById("otpSection");
+    const otpError = document.getElementById("otpError");
+    const emailVerifiedBadge = document.getElementById("emailVerifiedBadge");
+    const signupEmailInput = document.getElementById("signupEmail");
+
+    sendOtpBtn.addEventListener("click", async () => {
+      const email = signupEmailInput.value.trim();
+      if (!email || !email.includes("@")) {
+        showToast("Please enter a valid email ID first");
+        signupEmailInput.focus();
+        return;
+      }
+
+      document.getElementById("otpEmailTarget").textContent = email;
+      otpSection.style.display = "block";
+      otpError.style.display = "none";
+      sendOtpBtn.textContent = "Resend";
+
+      try {
+        const res = await FreakFitsAPI.sendOtp(email);
+        showToast("✓ OTP sent to your email address!");
+      } catch (err) {
+        showToast("Error connecting to auth service.");
+      }
+
+      // Focus first digit
+      const digits = document.querySelectorAll(".otp-digit");
+      digits.forEach(d => d.value = "");
+      digits[0].focus();
+    });
+
+    // Auto-advance OTP input boxes
+    const digitInputs = document.querySelectorAll(".otp-digit");
+    digitInputs.forEach((input, index) => {
+      input.addEventListener("input", (e) => {
+        input.value = input.value.replace(/[^0-9]/g, "");
+        if (input.value && index < digitInputs.length - 1) {
+          digitInputs[index + 1].focus();
+        }
+      });
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && !input.value && index > 0) {
+          digitInputs[index - 1].focus();
+        }
+      });
+    });
+
+    document.getElementById("confirmOtpBtn").addEventListener("click", async () => {
+      let enteredOtp = "";
+      digitInputs.forEach(d => enteredOtp += d.value.trim());
+      const email = signupEmailInput.value.trim();
+
+      if (enteredOtp.length < 4) {
+        otpError.textContent = "Please enter the full 4-digit code.";
+        otpError.style.display = "block";
+        return;
+      }
+
+      let verified = false;
+      try {
+        const res = await FreakFitsAPI.verifyOtp(email, enteredOtp);
+        if (res.is_verified) {
+          verified = true;
+        }
+      } catch (err) {
+        otpError.textContent = err.message || "Invalid OTP code. Please enter the correct code.";
+        otpError.style.display = "block";
+        return;
+      }
+
+      if (verified) {
+        isEmailVerified = true;
+        otpSection.style.display = "none";
+        sendOtpBtn.style.display = "none";
+        signupEmailInput.disabled = true;
+        emailVerifiedBadge.style.display = "inline-flex";
+        otpError.style.display = "none";
+        showToast("✓ Email verified successfully!");
+      }
+    });
+
+    document.getElementById("resendOtpBtn").addEventListener("click", async () => {
+      const email = signupEmailInput.value.trim();
+      otpError.style.display = "none";
+      digitInputs.forEach(d => d.value = "");
+      digitInputs[0].focus();
+
+      try {
+        const res = await FreakFitsAPI.sendOtp(email);
+        showToast("✓ New OTP sent to your email!");
+      } catch (err) {
+        showToast("Failed to resend OTP.");
+      }
+    });
+
+    // ========== Form Submissions ==========
+    const redirectTarget = new URLSearchParams(window.location.search).get("redirect") || "index.html";
+
+    // Login Submit
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const pass = document.getElementById("loginPassword").value;
+      const errEl = document.getElementById("loginError");
+
+      try {
+        const apiRes = await FreakFitsAPI.login(email, pass);
+        AuthStore.saveSession(apiRes.user); // save database user to session
+        showToast(`Welcome back, ${apiRes.user.full_name}!`);
+        setTimeout(() => {
+          window.location.href = redirectTarget;
+        }, 700);
+      } catch (err) {
+        // Fallback to client auth store
+        const res = AuthStore.login(email, pass);
+        if (res.success) {
+          showToast(`Welcome back, ${res.user.name}!`);
+          setTimeout(() => {
+            window.location.href = redirectTarget;
+          }, 700);
+        } else {
+          errEl.textContent = err.message || res.message;
+          errEl.style.display = "block";
+        }
+      }
+    });
+
+    // Signup Submit
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("signupName").value;
+      const phone = document.getElementById("signupPhone").value;
+      const email = signupEmailInput.value;
+      const pass = document.getElementById("signupPassword").value;
+      const errEl = document.getElementById("signupError");
+
+      if (!isEmailVerified) {
+        errEl.textContent = "Please verify your email address via OTP first.";
+        errEl.style.display = "block";
+        showToast("Please verify your email first");
+        otpSection.style.display = "block";
+        return;
+      }
+
+      try {
+        const apiRes = await FreakFitsAPI.register({ name, mobile: phone, email, password: pass });
+        AuthStore.saveSession(apiRes.user); // save database user to session
+        showToast(`Account created! Welcome, ${apiRes.user.full_name}`);
+        setTimeout(() => {
+          window.location.href = redirectTarget;
+        }, 800);
+      } catch (err) {
+        const res = AuthStore.register({ name, phone, email, password: pass });
+        if (res.success) {
+          showToast(`Account created! Welcome, ${res.user.name}`);
+          setTimeout(() => {
+            window.location.href = redirectTarget;
+          }, 800);
+        } else {
+          errEl.textContent = err.message || res.message;
+          errEl.style.display = "block";
+        }
+      }
+    });
+
+    document.getElementById("forgotPassLink").addEventListener("click", (e) => {
+      e.preventDefault();
+      setForgotView();
+    });
+
+    // ========== Forgot Password UI Logic ==========
+    const forgotFormEl = document.getElementById("forgotForm");
+    const forgotEmailInput = document.getElementById("forgotEmail");
+    const forgotOtpPhase = document.getElementById("forgotOtpPhase");
+    const forgotEmailPhase = document.getElementById("forgotEmailPhase");
+    const forgotResetPhase = document.getElementById("forgotResetPhase");
+    const forgotOtpError = document.getElementById("forgotOtpError");
+    const forgotOtpEmailTarget = document.getElementById("forgotOtpEmailTarget");
+
+    forgotFormEl.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = forgotEmailInput.value.trim();
+      if (!email || !email.includes("@")) {
+        showToast("Please enter a valid email address.");
+        return;
+      }
+
+      try {
+        const res = await FreakFitsAPI.forgotPassword(email);
+        forgotOtpEmailTarget.textContent = email;
+        forgotEmailPhase.style.display = "none";
+        forgotOtpPhase.style.display = "block";
+        forgotOtpError.style.display = "none";
+        showToast("✓ Reset code sent to your email!");
+
+        // Focus first digit
+        const digits = document.querySelectorAll(".forgot-otp-digit");
+        digits.forEach(d => d.value = "");
+        digits[0].focus();
+      } catch (err) {
+        if (err.message && err.message.toLowerCase().includes("not registered")) {
+          showToast("the email is not registered, please sign up");
+          setTimeout(() => {
+            setTab("signup");
+            document.getElementById("signupEmail").value = email;
+          }, 1500);
+        } else {
+          showToast(err.message || "Failed to initiate password reset.");
+        }
+      }
+    });
+
+    // Auto-advance forgot OTP input boxes
+    const forgotDigitInputs = document.querySelectorAll(".forgot-otp-digit");
+    forgotDigitInputs.forEach((input, index) => {
+      input.addEventListener("input", (e) => {
+        input.value = input.value.replace(/[^0-9]/g, "");
+        if (input.value && index < forgotDigitInputs.length - 1) {
+          forgotDigitInputs[index + 1].focus();
+        }
+      });
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && !input.value && index > 0) {
+          forgotDigitInputs[index - 1].focus();
+        }
+      });
+    });
+
+    document.getElementById("confirmForgotOtpBtn").addEventListener("click", async () => {
+      let enteredOtp = "";
+      forgotDigitInputs.forEach(d => enteredOtp += d.value.trim());
+      const email = forgotEmailInput.value.trim();
+
+      if (enteredOtp.length < 4) {
+        forgotOtpError.textContent = "Please enter the 4-digit code.";
+        forgotOtpError.style.display = "block";
+        return;
+      }
+
+      try {
+        const res = await FreakFitsAPI.verifyOtp(email, enteredOtp);
+        if (res.is_verified) {
+          forgotOtpPhase.style.display = "none";
+          forgotResetPhase.style.display = "block";
+          forgotOtpError.style.display = "none";
+          showToast("✓ Email verified! Please set your new password.");
+        }
+      } catch (err) {
+        forgotOtpError.textContent = err.message || "Invalid OTP code.";
+        forgotOtpError.style.display = "block";
+      }
+    });
+
+    document.getElementById("resendForgotOtpBtn").addEventListener("click", async () => {
+      const email = forgotEmailInput.value.trim();
+      forgotOtpError.style.display = "none";
+      forgotDigitInputs.forEach(d => d.value = "");
+      forgotDigitInputs[0].focus();
+
+      try {
+        await FreakFitsAPI.forgotPassword(email);
+        showToast("✓ New OTP sent to your email!");
+      } catch (err) {
+        showToast("Failed to resend OTP.");
+      }
+    });
+
+    document.getElementById("submitNewPasswordBtn").addEventListener("click", async () => {
+      const email = forgotEmailInput.value.trim();
+      const newPass = document.getElementById("newPassword").value;
+      const confirmPass = document.getElementById("confirmNewPassword").value;
+
+      if (!newPass || newPass.length < 6) {
+        showToast("Password must be at least 6 characters.");
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        showToast("✗ Passwords do not match!");
+        return;
+      }
+
+      try {
+        await FreakFitsAPI.resetPassword(email, newPass, confirmPass);
+        showToast("✓ Password reset successfully! Please login.");
+        setTimeout(() => {
+          setTab("login");
+          document.getElementById("loginEmail").value = email;
+        }, 1200);
+      } catch (err) {
+        showToast(err.message || "Failed to reset password.");
+      }
+    });
+
+    document.getElementById("forgotBackToLogin").addEventListener("click", () => setTab("login"));
+
+    // Mobile nav
+    const burgerBtn = document.getElementById("burgerBtn");
+    const mainNav = document.getElementById("mainNav");
+    if (burgerBtn && mainNav) {
+      burgerBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("is-open");
+        burgerBtn.classList.toggle("is-active");
+      });
+      mainNav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          mainNav.classList.remove("is-open");
+          burgerBtn.classList.remove("is-active");
+        });
+      });
+    }
+
+    // Toast
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2500);
+    }
+  </script>
+</body>
+
+</html>
