@@ -457,14 +457,17 @@
         flex-direction: column;
         align-items: stretch;
       }
+
       .order-card__footer {
         flex-direction: column;
         align-items: stretch;
       }
+
       .order-card__actions {
         width: 100%;
         margin-top: 10px;
       }
+
       .order-card__actions .btn {
         flex: 1;
       }
@@ -531,7 +534,9 @@
         </a>
         <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
         <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
@@ -617,11 +622,12 @@
     <div class="review-modal__card">
       <button class="review-modal__close" id="closeReviewModalBtn">&times;</button>
       <h2>Share Your Experience</h2>
-      <p class="review-modal__subtitle">Reviewing items from order <span id="reviewModalOrderCode" style="color:var(--green); font-weight:700;"></span></p>
-      
+      <p class="review-modal__subtitle">Reviewing items from order <span id="reviewModalOrderCode"
+          style="color:var(--green); font-weight:700;"></span></p>
+
       <form id="reviewForm">
         <input type="hidden" id="reviewRatingVal" value="0">
-        
+
         <!-- Select Item Dropdown -->
         <div class="form-group">
           <label for="reviewItemSelect">Choose Product to Review</label>
@@ -643,15 +649,18 @@
         <!-- Comment Text -->
         <div class="form-group">
           <label for="reviewComment">Written Review</label>
-          <textarea id="reviewComment" class="form-control" rows="4" placeholder="How is the jersey quality, embroidery, sizing fit, and customization printing? Share details!" style="resize:vertical;" required></textarea>
+          <textarea id="reviewComment" class="form-control" rows="4"
+            placeholder="How is the jersey quality, embroidery, sizing fit, and customization printing? Share details!"
+            style="resize:vertical;" required></textarea>
         </div>
 
         <!-- Photo Upload Box -->
         <div class="form-group">
           <label>Upload a Picture (Optional)</label>
           <div class="upload-dropzone" id="reviewUploadDropzone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="upload-icon">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" class="upload-icon">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
             </svg>
             <p class="upload-text" id="uploadStatusText">Click or drag a photo here to upload your look</p>
             <input type="file" id="reviewPhoto" accept="image/*" style="display:none;">
@@ -659,7 +668,8 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn--solid btn--wide" id="reviewSubmitBtn" style="margin-top:20px;">Submit Review</button>
+        <button type="submit" class="btn btn--solid btn--wide" id="reviewSubmitBtn" style="margin-top:20px;">Submit
+          Review</button>
       </form>
     </div>
   </div>
