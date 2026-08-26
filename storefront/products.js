@@ -3,7 +3,7 @@
 // Connected to FastAPI Backend (MySQL freakfits_db)
 // ==========================================================
 
-const API_BASE_URL = (typeof window !== "undefined" && window.FREAKFITS_API_URL) || "http://127.0.0.1:8000/api";
+const API_BASE_URL = (typeof window !== "undefined" && window.FREAKFITS_API_URL) || "https://freakfits-api.onrender.com/api";
 
 const JERSEY_PATH =
   "M14 3 L6 9 L2 17 L8 22 L12 19 L12 45 Q22 48 32 45 L32 19 L36 22 L42 17 L38 9 L30 3 Q26 7 22 7 Q18 7 14 3Z";
