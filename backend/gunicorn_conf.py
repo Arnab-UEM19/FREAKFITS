@@ -11,7 +11,7 @@ loglevel = os.getenv("LOG_LEVEL", "info")
 #
 # Set WEB_CONCURRENCY in Render's dashboard to tune this per plan
 # (e.g. 1 for 512MB instances, 2-3 for 1-2GB instances).
-workers = int(os.getenv("WEB_CONCURRENCY", "2"))
+workers = int(os.getenv("WEB_CONCURRENCY", "1"))
 
 # Render provides the port to bind to via the PORT env var.
 bind = os.getenv("BIND", f"0.0.0.0:{os.getenv('PORT', '8000')}")
