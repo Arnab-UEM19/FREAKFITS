@@ -2,20 +2,20 @@
 // FreakFits - Frontend API Client Connector (FastAPI Backend)
 // ==========================================================
 
-window.escapeHtml = function(unsafe) {
+window.escapeHtml = function (unsafe) {
   if (typeof unsafe !== 'string') return unsafe;
   return unsafe
-       .replace(/&/g, "&amp;")
-       .replace(/</g, "&lt;")
-       .replace(/>/g, "&gt;")
-       .replace(/"/g, "&quot;")
-       .replace(/'/g, "&#039;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 };
 
 const FreakFitsAPI = (function () {
-  const BASE_URL = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
+  const BASE_URL = window.FREAKFITS_API_URL || "https://freakfits-api.onrender.com/api";
   const TOKEN_KEY = "freakfits_jwt_token";
-  
+
   let consecutiveFailures = 0;
   let offlineBanner = null;
 
@@ -65,7 +65,7 @@ const FreakFitsAPI = (function () {
     }
 
     var controller = new AbortController();
-    var timeoutId = setTimeout(function() { controller.abort(); }, 10000);
+    var timeoutId = setTimeout(function () { controller.abort(); }, 10000);
 
     // Add credentials: "include" to send cookies
     var fetchOptions = Object.assign({ credentials: "include" }, options, { headers: headers, signal: controller.signal });
@@ -73,11 +73,11 @@ const FreakFitsAPI = (function () {
     try {
       var response = await fetch(url, fetchOptions);
       clearTimeout(timeoutId);
-      
+
       consecutiveFailures = 0;
       hideOfflineBanner();
-      
-      var data = await response.json().catch(function() { return {}; });
+
+      var data = await response.json().catch(function () { return {}; });
       if (response.status === 401) {
         localStorage.removeItem(TOKEN_KEY);
         localStorage.removeItem("freakfits_user");
@@ -92,14 +92,14 @@ const FreakFitsAPI = (function () {
       return data;
     } catch (err) {
       clearTimeout(timeoutId);
-      
+
       if (err.name === 'TypeError' || err.name === 'AbortError') {
         consecutiveFailures++;
         if (consecutiveFailures >= 2) {
           showOfflineBanner();
         }
       }
-      
+
       console.warn("[FreakFits API] Request to " + endpoint + " failed:", err.message);
       throw err;
     }
@@ -144,9 +144,9 @@ const FreakFitsAPI = (function () {
   }
 
   async function getMe() { return _fetch("/auth/me"); }
-  async function logout() { 
-    try { await _fetch("/auth/logout", { method: "POST" }); } catch(e) {}
-    setToken(null); 
+  async function logout() {
+    try { await _fetch("/auth/logout", { method: "POST" }); } catch (e) { }
+    setToken(null);
   }
 
   // ============ PRODUCT ENDPOINTS ============

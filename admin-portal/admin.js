@@ -15,7 +15,7 @@
     );
   }
 
-  const API_BASE = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
+  const API_BASE = window.FREAKFITS_API_URL || "https://freakfits-api.onrender.com/api";
   const STORAGE_KEY_TOKEN = "freakfits_admin_jwt";
   const STORAGE_KEY_ADMIN = "freakfits_admin_profile";
 
