@@ -1,18 +1,22 @@
-from typing import List, Optional
+import math
+
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
+
 from ..database import get_db
 from ..models import Product, User
-from ..schemas import ProductResponse
+from ..schemas import PaginatedResponse, ProductResponse
 from ..security import require_current_user
 
 router = APIRouter(prefix="/products", tags=["Products"])
 
-@router.get("", response_model=List[ProductResponse])
+@router.get("", response_model=PaginatedResponse[ProductResponse])
 def list_products(
-    category: Optional[str] = Query(None, description="Filter by category (home, away, kit)"),
-    sort: Optional[str] = Query("featured", description="Sort order: featured, price_asc, price_desc, rating"),
-    q: Optional[str] = Query(None, description="Search query"),
+    category: str | None = Query(None, description="Filter by category (home, away, kit)"),
+    sort: str | None = Query("featured", description="Sort order: featured, price_asc, price_desc, rating"),
+    q: str | None = Query(None, description="Search query"),
+    skip: int = Query(0, ge=0, description="Skip N records"),
+    limit: int = Query(100, ge=1, le=1000, description="Limit records returned"),
     db: Session = Depends(get_db)
 ):
     query = db.query(Product).filter(Product.is_active == True)
@@ -35,15 +39,41 @@ def list_products(
     else:
         query = query.order_by(new_drop_order, Product.id.desc())
 
-    return query.all()
+    total = query.count()
+    items = query.offset(skip).limit(limit).all()
+    pages = math.ceil(total / limit) if limit > 0 else 0
 
-@router.get("/category/{category}", response_model=List[ProductResponse])
-def get_products_by_category(category: str, db: Session = Depends(get_db)):
-    products = db.query(Product).filter(
+    return {
+        "items": items,
+        "total": total,
+        "page": (skip // limit) + 1 if limit > 0 else 1,
+        "size": limit,
+        "pages": pages
+    }
+
+@router.get("/category/{category}", response_model=PaginatedResponse[ProductResponse])
+def get_products_by_category(
+    category: str, 
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000),
+    db: Session = Depends(get_db)
+):
+    query = db.query(Product).filter(
         Product.category == category.lower().strip(),
         Product.is_active == True
-    ).order_by((Product.badge == 'NEW DROP').desc(), Product.id.desc()).all()
-    return products
+    ).order_by((Product.badge == 'NEW DROP').desc(), Product.id.desc())
+    
+    total = query.count()
+    items = query.offset(skip).limit(limit).all()
+    pages = math.ceil(total / limit) if limit > 0 else 0
+
+    return {
+        "items": items,
+        "total": total,
+        "page": (skip // limit) + 1 if limit > 0 else 1,
+        "size": limit,
+        "pages": pages
+    }
 
 @router.get("/{product_id}", response_model=ProductResponse)
 def get_product(product_id: int, db: Session = Depends(get_db)):
@@ -56,13 +86,15 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
     return product
 
 
-import uuid
 import os
-from fastapi import File, UploadFile, Form
+import uuid
+
 import cloudinary
 import cloudinary.uploader
-from ..models import Review
+from fastapi import File, Form, UploadFile
+
 from ..config import settings
+from ..models import Review
 
 # Initialize Cloudinary config
 cloudinary.config(
@@ -72,7 +104,7 @@ cloudinary.config(
     secure=True
 )
 
-def extract_cloudinary_public_id(url: str) -> Optional[str]:
+def extract_cloudinary_public_id(url: str) -> str | None:
     if not url or "res.cloudinary.com" not in url:
         return None
     try:
@@ -97,7 +129,7 @@ def create_product_review(
     user_name: str = Form(None),
     rating: int = Form(...),
     comment: str = Form(None),
-    photo: Optional[UploadFile] = File(None),
+    photo: UploadFile | None = File(None),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_current_user)
 ):
@@ -143,6 +175,7 @@ def create_product_review(
         
     review = Review(
         product_id=product_id,
+        user_id=current_user.id,
         user_name=verified_user_name,
         rating=rating,
         comment=comment,
@@ -177,11 +210,15 @@ def create_product_review(
 @router.delete("/reviews/{review_id}", status_code=status.HTTP_200_OK)
 def delete_product_review(
     review_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_current_user)
 ):
     review = db.query(Review).filter(Review.id == review_id).first()
     if not review:
         raise HTTPException(status_code=404, detail="Review not found")
+        
+    if review.user_id is None or review.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="You can only delete your own reviews")
         
     product_id = review.product_id
 

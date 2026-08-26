@@ -1,5 +1,7 @@
 from sqlalchemy import text
+
 from app.database import get_engine
+
 
 def migrate():
     engine = get_engine()

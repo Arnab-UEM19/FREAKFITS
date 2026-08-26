@@ -1,10 +1,22 @@
 import datetime
-from sqlalchemy import Column, Integer, String, Float, Boolean, Text, DateTime, ForeignKey, JSON
+
+from sqlalchemy import (
+    JSON,
+    Boolean,
+    Column,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    Text,
+)
 from sqlalchemy.orm import relationship
+
 from .database import Base
 
+
 def get_ist_time():
-    import datetime
     return datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)
 
 class User(Base):
@@ -18,6 +30,7 @@ class User(Base):
     is_verified = Column(Boolean, default=False)
     created_at = Column(DateTime, default=get_ist_time)
     updated_at = Column(DateTime, default=get_ist_time, onupdate=get_ist_time)
+    password_changed_at = Column(DateTime, nullable=True)
 
     orders = relationship("Order", back_populates="user")
     addresses = relationship("Address", back_populates="user", cascade="all, delete-orphan")
@@ -29,6 +42,7 @@ class OTPVerification(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     email = Column(String(150), index=True, nullable=False)
     otp_code = Column(String(10), nullable=False)
+    otp_purpose = Column(String(50), nullable=False, default="register")
     is_used = Column(Boolean, default=False)
     failed_attempts = Column(Integer, default=0, nullable=False)
     expires_at = Column(DateTime, nullable=False)
@@ -46,6 +60,33 @@ class Admin(Base):
     status = Column(String(50), default="pending")
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=get_ist_time)
+    password_changed_at = Column(DateTime, nullable=True)
+
+
+class AdminAuditLog(Base):
+    __tablename__ = "admin_audit_logs"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    admin_identifier = Column(String(150), index=True, nullable=False)
+    action = Column(String(100), index=True, nullable=False)
+    target_type = Column(String(50), nullable=False)
+    target_id = Column(String(100), nullable=False)
+    details = Column(JSON, nullable=True)
+    timestamp = Column(DateTime, default=get_ist_time)
+
+
+class FailedOrderRecovery(Base):
+    __tablename__ = "failed_order_recovery"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    payment_id = Column(String(100), index=True, nullable=False)
+    razorpay_order_id = Column(String(100), nullable=False)
+    amount = Column(Float, nullable=False)
+    currency = Column(String(10), default="INR")
+    customer_identifier = Column(String(150), nullable=False)
+    error_detail = Column(Text, nullable=True)
+    timestamp = Column(DateTime, default=get_ist_time)
+    is_resolved = Column(Boolean, default=False)
 
 
 class Product(Base):
@@ -94,7 +135,8 @@ class Order(Base):
     payment_method = Column(String(50), nullable=False) # 'credit', 'debit', 'upi', 'netbanking', 'cod', 'razorpay'
     payment_status = Column(String(50), default="COMPLETED") # PENDING, COMPLETED, PAID, FAILED
     order_status = Column(String(50), default="Pending") # 'Pending', 'Confirmed', 'Shipped', 'Delivered'
-    razorpay_order_id = Column(String(100), nullable=True)  # Razorpay order ID for payment tracking
+    razorpay_order_id = Column(String(100), index=True, nullable=True)  # Razorpay order ID for payment tracking
+    razorpay_payment_id = Column(String(100), index=True, nullable=True) # Razorpay payment ID for idempotency checks
     shipping_address = Column(Text, nullable=True)
     created_at = Column(DateTime, default=get_ist_time)
 
@@ -166,6 +208,7 @@ class Review(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     user_name = Column(String(120), nullable=False)
     rating = Column(Integer, nullable=False)  # 1 to 5
     comment = Column(Text, nullable=True)
@@ -199,7 +242,7 @@ class Wishlist(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
+    product_id = Column(Integer, ForeignKey("products.id", ondelete="CASCADE"), nullable=False)
     created_at = Column(DateTime, default=get_ist_time)
 
     user = relationship("User", backref="wishlist_items")
@@ -210,4 +253,40 @@ class NewsletterSubscriber(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     email = Column(String(150), unique=True, index=True, nullable=False)
+    created_at = Column(DateTime, default=get_ist_time)
+
+
+class CartItem(Base):
+    __tablename__ = "cart_items"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    product_id = Column(Integer, ForeignKey("products.id", ondelete="CASCADE"), nullable=False)
+    size = Column(String(10), nullable=False)
+    quantity = Column(Integer, default=1, nullable=False)
+    custom_name = Column(String(50), nullable=True)
+    custom_number = Column(String(10), nullable=True)
+    created_at = Column(DateTime, default=get_ist_time)
+    updated_at = Column(DateTime, default=get_ist_time, onupdate=get_ist_time)
+
+    user = relationship("User", backref="cart_items")
+    product = relationship("Product")
+
+class ApiDocsMaster(Base):
+    __tablename__ = "api_docs_master"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    username = Column(String(100), unique=True, nullable=False, default="admin")
+    hashed_password = Column(String(255), nullable=False)
+    created_at = Column(DateTime, default=get_ist_time)
+    updated_at = Column(DateTime, default=get_ist_time, onupdate=get_ist_time)
+
+class ApiDocsAccess(Base):
+    __tablename__ = "api_docs_access"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    email = Column(String(150), unique=True, index=True, nullable=False)
+    hashed_password = Column(String(255), nullable=False)
+    bound_ip = Column(String(50), nullable=True)
+    is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=get_ist_time)

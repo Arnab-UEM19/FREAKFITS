@@ -1,9 +1,11 @@
 import logging
+
+import mysql.connector
 from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
 from .config import settings
-import mysql.connector
 
 logger = logging.getLogger("uvicorn")
 

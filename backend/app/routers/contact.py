@@ -1,11 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from sqlalchemy.orm import Session
+
 from ..database import get_db
-from ..models import ContactMessage
 from ..limiter import limiter
-from fastapi import Request
+from ..models import ContactMessage
 
 router = APIRouter(prefix="/contact", tags=["Contact"])
 
@@ -13,7 +13,7 @@ class ContactCreate(BaseModel):
     name: str
     email: EmailStr
     reason: str
-    message: Optional[str] = None
+    message: str | None = None
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 @limiter.limit("3/minute")

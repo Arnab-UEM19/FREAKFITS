@@ -1,12 +1,12 @@
 import os
 import shutil
 import uuid
-import datetime
-from fastapi import APIRouter, Depends, HTTPException, status, Form, File, UploadFile
+
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
-from typing import Optional
+
 from ..database import get_db
-from ..models import ReturnRequest, Order, User
+from ..models import Order, ReturnRequest, User
 from ..security import require_current_user
 
 router = APIRouter(prefix="/returns", tags=["Returns"])
@@ -21,12 +21,12 @@ async def submit_return_request(
     customer_name: str = Form(...),
     customer_email: str = Form(...),
     return_type: str = Form(...),
-    current_size: Optional[str] = Form(None),
-    requested_size: Optional[str] = Form(None),
-    reason_details: Optional[str] = Form(None),
+    current_size: str | None = Form(None),
+    requested_size: str | None = Form(None),
+    reason_details: str | None = Form(None),
     terms_accepted: bool = Form(...),
-    video: Optional[UploadFile] = File(None),
-    video_url: Optional[str] = Form(None),
+    video: UploadFile | None = File(None),
+    video_url: str | None = Form(None),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_current_user)
 ):
@@ -50,6 +50,8 @@ async def submit_return_request(
 
     video_proof_path = ""
 
+    ALLOWED_VIDEO_EXTENSIONS = {".mp4", ".mov", ".webm", ".avi", ".mkv"}
+
     if video and video.filename:
         # Check size by reading
         content = await video.read()
@@ -63,8 +65,11 @@ async def submit_return_request(
 
         # Secure filename using uuid extension
         _, ext = os.path.splitext(video.filename)
-        if not ext:
-            ext = ".mp4"  # Default extension if missing
+        if not ext or ext.lower() not in ALLOWED_VIDEO_EXTENSIONS:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Only video files are allowed ({', '.join(ALLOWED_VIDEO_EXTENSIONS)})."
+            )
         safe_filename = f"{uuid.uuid4().hex}{ext.lower()}"
         file_path = os.path.join(UPLOAD_DIR, safe_filename)
 
@@ -74,6 +79,11 @@ async def submit_return_request(
         video_proof_path = f"/static/uploads/returns/{safe_filename}"
     elif video_url and video_url.strip():
         url = video_url.strip()
+        if not (url.startswith("http://") or url.startswith("https://")):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Video URL must start with http:// or https://"
+            )
         allowed_domains = ["youtube.com", "youtu.be", "drive.google.com"]
         if not any(domain in url.lower() for domain in allowed_domains):
             raise HTTPException(

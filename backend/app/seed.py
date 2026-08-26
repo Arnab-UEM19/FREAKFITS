@@ -1,7 +1,9 @@
 import logging
+
 from sqlalchemy.orm import Session
-from .database import SessionLocal, engine, Base
-from .models import Product, Coupon
+
+from .database import Base, SessionLocal, engine
+from .models import Coupon, Product
 
 logger = logging.getLogger("uvicorn")
 
@@ -193,7 +195,7 @@ INITIAL_COUPONS = [
     }
 ]
 
-from .models import Product, Coupon, Admin, Order, OrderItem
+from .models import Admin
 from .security import get_password_hash
 
 INITIAL_ORDERS = [
@@ -299,44 +301,24 @@ INITIAL_ORDERS = [
     }
 ]
 
-from sqlalchemy import text
 
 def seed_database():
     """Create tables and seed initial data if empty."""
     Base.metadata.create_all(bind=engine)
     
-    # Auto-migrate any new columns on existing tables
-    with engine.connect() as conn:
-        try:
-            conn.execute(text("ALTER TABLE products ADD COLUMN stock JSON NULL;"))
-            conn.commit()
-        except Exception:
-            pass
-        try:
-            conn.execute(text("ALTER TABLE products ADD COLUMN size_prices JSON NULL;"))
-            conn.commit()
-        except Exception:
-            pass
-        try:
-            conn.execute(text("ALTER TABLE products ADD COLUMN size_was_prices JSON NULL;"))
-            conn.commit()
-        except Exception:
-            pass
-        try:
-            conn.execute(text("ALTER TABLE orders ADD COLUMN order_status VARCHAR(50) DEFAULT 'Pending';"))
-            conn.commit()
-        except Exception:
-            pass
-        try:
-            conn.execute(text("ALTER TABLE orders ADD COLUMN shipping_address TEXT NULL;"))
-            conn.commit()
-        except Exception:
-            pass
-        try:
-            conn.execute(text("ALTER TABLE admins ADD COLUMN status VARCHAR(50) DEFAULT 'approved';"))
-            conn.commit()
-        except Exception:
-            pass
+    # Auto-migrate using Alembic
+    try:
+        import os
+
+        from alembic.config import Config
+
+        from alembic import command
+        alembic_ini_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "alembic.ini")
+        alembic_cfg = Config(alembic_ini_path)
+        command.upgrade(alembic_cfg, "head")
+        logger.info("Successfully ran Alembic migrations.")
+    except Exception as e:
+        logger.error(f"Alembic migration failed: {e}")
 
     db: Session = SessionLocal()
     try:
@@ -386,8 +368,7 @@ def seed_database():
                 prod = Product(**prod_data, stock=stock_matrix, size_prices=size_prices_dict, size_was_prices=size_was_dict)
                 db.add(prod)
             else:
-                for k, v in prod_data.items():
-                    setattr(existing, k, v)
+                # Do not overwrite user-edited data (like price) on every restart
                 if not existing.stock:
                     existing.stock = {"S": 12, "M": 8, "L": 10, "XL": 4, "XXL": 2}
                 if not existing.size_prices:

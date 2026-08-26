@@ -1,11 +1,21 @@
 import datetime
-from typing import List, Optional
-from pydantic import BaseModel, EmailStr, Field
+from typing import List, Optional, Generic, TypeVar
+from pydantic import BaseModel, EmailStr, Field, field_validator
+
+T = TypeVar("T")
+
+class PaginatedResponse(BaseModel, Generic[T]):
+    items: List[T]
+    total: int
+    page: int
+    size: int
+    pages: int
 
 # ============ AUTH SCHEMAS ============
 
 class SendOTPRequest(BaseModel):
     email: EmailStr
+    purpose: str = "register"
 
 class SendOTPResponse(BaseModel):
     success: bool
@@ -15,6 +25,7 @@ class SendOTPResponse(BaseModel):
 class VerifyOTPRequest(BaseModel):
     email: EmailStr
     otp_code: str = Field(..., min_length=4, max_length=6)
+    purpose: str = "register"
 
 class VerifyOTPResponse(BaseModel):
     success: bool
@@ -25,7 +36,14 @@ class RegisterRequest(BaseModel):
     full_name: str = Field(..., min_length=2, max_length=120)
     email: EmailStr
     mobile_number: Optional[str] = Field(None, max_length=20)
-    password: str = Field(..., min_length=6)
+    password: str = Field(..., min_length=8)
+
+    @field_validator("password")
+    @classmethod
+    def validate_password(cls, v: str) -> str:
+        if not any(char.isalpha() for char in v) or not any(char.isdigit() for char in v):
+            raise ValueError("Password must contain at least one letter and one number")
+        return v
 
 class LoginRequest(BaseModel):
     email: EmailStr
@@ -85,8 +103,8 @@ class ProductResponse(BaseModel):
 class ProductCreateAdmin(BaseModel):
     name: str
     club: str
-    price: float
-    was_price: Optional[float] = None
+    price: float = Field(..., ge=0)
+    was_price: Optional[float] = Field(None, ge=0)
     category: str
     badge: Optional[str] = None
     images: List[str]
@@ -97,8 +115,8 @@ class ProductCreateAdmin(BaseModel):
 class ProductUpdateAdmin(BaseModel):
     name: Optional[str] = None
     club: Optional[str] = None
-    price: Optional[float] = None
-    was_price: Optional[float] = None
+    price: Optional[float] = Field(None, ge=0)
+    was_price: Optional[float] = Field(None, ge=0)
     stock: Optional[dict] = None
     size_prices: Optional[dict] = None
     size_was_prices: Optional[dict] = None
@@ -115,7 +133,7 @@ class OrderItemCreate(BaseModel):
     size: str
     custom_name: Optional[str] = None
     custom_number: Optional[str] = None
-    quantity: int = 1
+    quantity: int = Field(default=1, gt=0)
     unit_price: float
 
 class OrderCreate(BaseModel):
@@ -191,6 +209,7 @@ class AdminTokenResponse(BaseModel):
 
 class AdminStatsResponse(BaseModel):
     today_revenue: float
+    revenue_change_percentage: Optional[float] = None
     active_orders: int
     low_stock_count: int
     total_products: int
@@ -214,7 +233,7 @@ class CouponResponse(BaseModel):
 
 class CouponCreateAdmin(BaseModel):
     code: str
-    discount_percent: float
+    discount_percent: float = Field(..., ge=0, le=100)
     label: str
     is_active: bool = True
     usage_limit: Optional[int] = None
@@ -358,3 +377,51 @@ class NewsletterSubscribeRequest(BaseModel):
 
 class NewsletterResponse(BaseModel):
     message: str
+
+
+# ============ CART SCHEMAS ============
+
+class CartItemBase(BaseModel):
+    product_id: int
+    size: str
+    quantity: int = 1
+    custom_name: Optional[str] = None
+    custom_number: Optional[str] = None
+
+class CartItemCreate(CartItemBase):
+    pass
+
+class CartItemUpdate(BaseModel):
+    quantity: int
+
+class CartItemResponse(CartItemBase):
+    id: int
+    user_id: int
+    
+    class Config:
+        from_attributes = True
+
+# ============ ADMIN EXTRA SCHEMAS ============
+
+class AdminProfileUpdateInput(BaseModel):
+    full_name: str
+
+# ============ API DOCS SCHEMAS ============
+
+class ApiDocsMasterUpdate(BaseModel):
+    username: str
+    password: str
+
+class ApiDocsAccessCreate(BaseModel):
+    email: EmailStr
+    password: str
+
+class ApiDocsAccessResponse(BaseModel):
+    id: int
+    email: EmailStr
+    bound_ip: Optional[str] = None
+    is_active: bool
+    created_at: datetime.datetime
+
+    class Config:
+        from_attributes = True

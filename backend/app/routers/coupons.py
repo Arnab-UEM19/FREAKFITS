@@ -1,10 +1,15 @@
-from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
+
 from ..database import get_db
-from ..models import Coupon, Order, User
-from ..schemas import CouponValidateRequest, CouponResponse, CouponCreateAdmin, CouponAdminResponse
-from ..security import get_current_admin, get_current_user
+from ..models import Coupon, Order
+from ..schemas import (
+    CouponAdminResponse,
+    CouponCreateAdmin,
+    CouponResponse,
+    CouponValidateRequest,
+)
+from ..security import require_role, get_current_admin, get_current_user
 
 router = APIRouter(prefix="/coupons", tags=["Coupons"])
 
@@ -61,15 +66,14 @@ def validate_coupon(
         message=f"{coupon.label} applied successfully!"
     )
 
-@router.get("/admin/list", response_model=List[CouponAdminResponse])
-def get_all_coupons(db: Session = Depends(get_db), current_admin=Depends(get_current_admin)):
+@router.get("/admin/list", response_model=list[CouponAdminResponse])
+def get_all_coupons(db: Session = Depends(get_db), current_admin=Depends(require_role("viewer"))):
     """Fetch all coupons for admin dashboard"""
     return db.query(Coupon).order_by(Coupon.id.desc()).all()
 
 @router.post("/admin/create", response_model=CouponAdminResponse)
-def create_coupon(payload: CouponCreateAdmin, db: Session = Depends(get_db), current_admin=Depends(get_current_admin)):
+def create_coupon(payload: CouponCreateAdmin, db: Session = Depends(get_db), current_admin=Depends(require_role("manager"))):
     """Create a new coupon (Admin only)"""
-    # ensure super admin or manager (optional check, currently any valid admin)
     code = payload.code.upper().strip()
     existing = db.query(Coupon).filter(Coupon.code == code).first()
     if existing:
@@ -88,7 +92,7 @@ def create_coupon(payload: CouponCreateAdmin, db: Session = Depends(get_db), cur
     return new_coupon
 
 @router.patch("/admin/{coupon_id}/toggle", response_model=CouponAdminResponse)
-def toggle_coupon(coupon_id: int, db: Session = Depends(get_db), current_admin=Depends(get_current_admin)):
+def toggle_coupon(coupon_id: int, db: Session = Depends(get_db), current_admin=Depends(require_role("manager"))):
     """Toggle a coupon's active status"""
     coupon = db.query(Coupon).filter(Coupon.id == coupon_id).first()
     if not coupon:
@@ -100,11 +104,8 @@ def toggle_coupon(coupon_id: int, db: Session = Depends(get_db), current_admin=D
     return coupon
 
 @router.delete("/admin/{coupon_id}")
-def delete_coupon(coupon_id: int, db: Session = Depends(get_db), current_admin=Depends(get_current_admin)):
+def delete_coupon(coupon_id: int, db: Session = Depends(get_db), current_admin=Depends(require_role("manager"))):
     """Hard delete a coupon (Admin only)"""
-    if current_admin.role not in ["super_admin", "manager"]:
-         raise HTTPException(status_code=403, detail="Not authorized to delete coupons")
-
     coupon = db.query(Coupon).filter(Coupon.id == coupon_id).first()
     if not coupon:
         raise HTTPException(status_code=404, detail="Coupon not found")

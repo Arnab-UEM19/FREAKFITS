@@ -5,23 +5,24 @@ POST /api/payments/create  - creates a Razorpay order + pre-creates DB row (stat
 POST /api/payments/verify  - HMAC-verifies the signature; marks DB row as PAID/Confirmed
 """
 
-import uuid
-import logging
 import datetime
-import jwt
-from typing import Optional
+import logging
+import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, status
+import jwt
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.attributes import flag_modified
+from ..limiter import limiter
 
+from ..config import settings
 from ..database import get_db
-from ..models import Order, OrderItem, Coupon, User, Product
+from ..models import Coupon, Order, OrderItem, Product, User, FailedOrderRecovery
 from ..schemas import (
-    CreatePaymentRequest, CreatePaymentResponse,
+    CreatePaymentRequest,
+    CreatePaymentResponse,
     VerifyPaymentRequest,
 )
-from ..config import settings
 from ..security import get_current_user
 from ..utils.email import send_order_confirmation
 
@@ -44,7 +45,25 @@ def _razorpay_client():
 
 
 def _calculate_totals(items, coupon_code, db):
-    subtotal = sum(round(i.unit_price * i.quantity, 2) for i in items)
+    """Calculate order totals using server-verified prices from the database.
+    Never trusts client-sent unit_price — always looks up product.size_prices."""
+    verified_prices = []  # parallel list of DB-verified prices per item
+    subtotal = 0.0
+    
+    product_ids = [item.product_id for item in items]
+    products = db.query(Product).filter(Product.id.in_(product_ids)).all()
+    products_by_id = {p.id: p for p in products}
+    
+    for item in items:
+        product = products_by_id.get(item.product_id)
+        if product:
+            size_prices = product.size_prices or {}
+            price = float(size_prices.get(item.size, product.price))
+        else:
+            price = float(item.unit_price)  # fallback only if product missing (edge case)
+        verified_prices.append(price)
+        subtotal += round(price * item.quantity, 2)
+
     discount = 0.0
     applied_coupon_code = None
     if coupon_code:
@@ -57,11 +76,13 @@ def _calculate_totals(items, coupon_code, db):
             applied_coupon_code = coupon.code
     shipping_fee = 0.0 if (subtotal == 0.0 or (subtotal - discount) >= 500.0) else 99.0
     total = round(max(0.0, (subtotal - discount) + shipping_fee), 2)
-    return subtotal, discount, shipping_fee, total, applied_coupon_code
+    return subtotal, discount, shipping_fee, total, applied_coupon_code, verified_prices
 
 
 @router.post("/create", response_model=CreatePaymentResponse)
+@limiter.limit("10/minute")
 def create_razorpay_payment(
+    request: Request,
     payload: CreatePaymentRequest,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
@@ -70,8 +91,12 @@ def create_razorpay_payment(
         raise HTTPException(status_code=400, detail="Cart is empty.")
 
     # ===== Stock Validation =====
+    product_ids = [item.product_id for item in payload.items]
+    products = db.query(Product).filter(Product.id.in_(product_ids)).all()
+    products_by_id = {p.id: p for p in products}
+    
     for item in payload.items:
-        product = db.query(Product).filter(Product.id == item.product_id).first()
+        product = products_by_id.get(item.product_id)
         if not product:
             raise HTTPException(status_code=400, detail=f"Product '{item.product_name}' not found.")
         stock_dict = product.stock or {}
@@ -82,8 +107,10 @@ def create_razorpay_payment(
                 detail=f"{item.product_name} in size {item.size} has only {available} unit(s) left."
             )
 
+    # Calculate totals using DB-verified prices (ignores client-sent unit_price)
+
     client = _razorpay_client()
-    subtotal, discount, shipping_fee, total, applied_coupon_code = _calculate_totals(
+    subtotal, discount, shipping_fee, total, applied_coupon_code, verified_prices = _calculate_totals(
         payload.items, payload.coupon_code, db
     )
     amount_paisa = int(round(total * 100))
@@ -122,7 +149,7 @@ def create_razorpay_payment(
         })
     except Exception as exc:
         logger.error(f"[Razorpay] Order creation failed: {exc}")
-        raise HTTPException(status_code=502, detail=f"Payment gateway error: {str(exc)}")
+        raise HTTPException(status_code=502, detail=f"Payment gateway error: {exc!s}")
 
     razorpay_order_id = rz_order["id"]
 
@@ -135,9 +162,9 @@ def create_razorpay_payment(
             "custom_name": item.custom_name,
             "custom_number": item.custom_number,
             "quantity": item.quantity,
-            "unit_price": item.unit_price,
+            "unit_price": verified_prices[idx],  # DB-verified price, not client-sent
         }
-        for item in payload.items
+        for idx, item in enumerate(payload.items)
     ]
 
     order_data = {
@@ -178,8 +205,11 @@ def create_razorpay_payment(
 
 
 @router.post("/verify")
+@limiter.limit("10/minute")
 def verify_razorpay_payment(
+    request: Request,
     payload: VerifyPaymentRequest,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
     client = _razorpay_client()
@@ -209,7 +239,7 @@ def verify_razorpay_payment(
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=400, detail="Checkout session expired. Please try again.")
     except jwt.PyJWTError as exc:
-        raise HTTPException(status_code=400, detail=f"Order token validation failed: {str(exc)}")
+        raise HTTPException(status_code=400, detail=f"Order token validation failed: {exc!s}")
 
     # Safety checks
     if order_data.get("order_code") != payload.freakfits_order_code:
@@ -218,7 +248,10 @@ def verify_razorpay_payment(
         raise HTTPException(status_code=400, detail="Razorpay order ID mismatch.")
 
     # Check if order already exists in database (idempotent request)
-    db_order = db.query(Order).filter(Order.order_code == payload.freakfits_order_code).first()
+    db_order = db.query(Order).filter(
+        (Order.order_code == payload.freakfits_order_code) | 
+        (Order.razorpay_payment_id == payload.razorpay_payment_id)
+    ).first()
     if db_order:
         logger.info(f"[Razorpay] Order {payload.freakfits_order_code} already confirmed in DB.")
         return {
@@ -259,6 +292,7 @@ def verify_razorpay_payment(
         payment_status="PAID",
         order_status="Confirmed",
         razorpay_order_id=order_data["razorpay_order_id"],
+        razorpay_payment_id=payload.razorpay_payment_id,
         shipping_address=order_data.get("shipping_address"),
         items=order_items,
     )
@@ -267,29 +301,69 @@ def verify_razorpay_payment(
 
     # Increment Coupon Usage Count if a coupon was used
     if order_data.get("coupon_code"):
-        coupon = db.query(Coupon).filter(Coupon.code == order_data["coupon_code"]).first()
+        coupon = db.query(Coupon).filter(Coupon.code == order_data["coupon_code"]).with_for_update().first()
         if coupon:
             coupon.usage_count += 1
             if coupon.usage_limit is not None and coupon.usage_count >= coupon.usage_limit:
                 coupon.is_active = False
 
-    # ===== Deduct Stock =====
-    for item in order_data["items"]:
-        product = db.query(Product).filter(Product.id == item["product_id"]).first()
-        if product:
-            current_stock = dict(product.stock or {})
-            current_stock[item["size"]] = max(0, int(current_stock.get(item["size"], 0)) - item["quantity"])
-            product.stock = current_stock
-            flag_modified(product, "stock")
+    try:
+        # ===== Deduct Stock =====
+        for item in order_data["items"]:
+            product = db.query(Product).filter(Product.id == item["product_id"]).with_for_update().first()
+            if product:
+                current_stock = dict(product.stock or {})
+                available = int(current_stock.get(item["size"], 0))
+                if available < item["quantity"]:
+                    raise Exception(f"oversold - stock unavailable at verification for {product.name} ({item['size']})")
+                new_qty = available - item["quantity"]
+                current_stock[item["size"]] = new_qty
+                product.stock = current_stock
+                flag_modified(product, "stock")
 
-    db.commit()
-    db.refresh(db_order)
+                if new_qty <= 2:
+                    from ..utils.email import send_low_stock_alert
+                    admin_email = settings.SMTP_USER or settings.SMTP_FROM_EMAIL
+                    if admin_email:
+                        background_tasks.add_task(
+                            send_low_stock_alert,
+                            product_name=product.name,
+                            club=product.club,
+                            size=item["size"],
+                            remaining_stock=new_qty,
+                            admin_email=admin_email
+                        )
+
+        db.commit()
+        db.refresh(db_order)
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Transaction failed during payment verification for {payload.freakfits_order_code}: {e}")
+        
+        try:
+            failed_log = FailedOrderRecovery(
+                payment_id=payload.razorpay_payment_id,
+                razorpay_order_id=payload.razorpay_order_id,
+                amount=order_data["total"],
+                currency="INR",
+                customer_identifier=order_data.get("customer_email") or str(order_data.get("user_id")),
+                error_detail=str(e),
+                is_resolved=False
+            )
+            db.add(failed_log)
+            db.commit()
+        except Exception as log_e:
+            db.rollback()
+            logger.critical(f"Failed to write to FailedOrderRecovery: {log_e}")
+
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to finalize order details after payment.")
 
     logger.info(f"[Razorpay] Payment VERIFIED and Order CREATED - {payload.freakfits_order_code} (payment_id: {payload.razorpay_payment_id})")
 
-    # ===== Send Order Confirmation Email =====
+    # ===== Send Order Confirmation Email in Background =====
     try:
-        send_order_confirmation(
+        background_tasks.add_task(
+            send_order_confirmation,
             recipient_email=db_order.customer_email,
             recipient_name=db_order.customer_name,
             order_code=db_order.order_code,
@@ -299,7 +373,7 @@ def verify_razorpay_payment(
             shipping_address=db_order.shipping_address
         )
     except Exception as e:
-        logger.warning(f"[Email] Order confirmation email failed for {db_order.order_code}: {e}")
+        logger.error(f"Failed to queue order confirmation email: {e}")
 
     return {
         "success": True,
