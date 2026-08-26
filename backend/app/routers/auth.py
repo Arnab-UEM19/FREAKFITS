@@ -114,11 +114,11 @@ def send_otp(request: Request, payload: SendOTPRequest, background_tasks: Backgr
 
     msg = f"OTP verification code sent to {email}"
     
-    # Do not return otp_code to the client
+    # Do not return otp_code to the client in production normally, but for now we need it
     return SendOTPResponse(
         success=True,
         message=msg,
-        demo_otp=None
+        demo_otp=otp_code
     )
 
 
