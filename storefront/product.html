@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -180,6 +180,7 @@
       animation: modalFadeIn 0.25s ease-out;
     }
   </style>
+  <link rel="icon" href="assets/favicon.ico">
 </head>
 
 <body>
@@ -264,6 +265,7 @@
 
   <!-- ============ PRODUCT DETAIL ============ -->
   <main class="pdp" id="pdpMain">
+    <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">FreakFits Football Jersey</h1>
     <!-- Populated by JS -->
   </main>
 
@@ -313,17 +315,17 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
       <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
     </div>
   </footer>
 
   <div class="toast" id="toast"></div>
 
-  <script src="products.js"></script>
-  <script src="cart-store.js"></script>
-  <script src="api-client.js"></script>
-  <script src="auth-store.js"></script>
+  <script src="products.js?v=2.0"></script>
+  <script src="cart-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
   <script>
   function escapeHtml(str) {
     if (str === null || str === undefined) return "";
@@ -349,7 +351,7 @@
         return;
       }
 
-      document.title = `${product.name} — FreakFits`;
+      document.title = `${escapeHtml(product.name)} — FreakFits`;
 
       let selectedSize = "S";
       let selectedImage = 0;
@@ -376,13 +378,13 @@
             <!-- Gallery -->
             <div class="pdp__gallery">
               <div class="pdp__gallery-main">
-                <img src="${product.images[selectedImage]}" alt="${product.name}" id="mainImage" class="pdp__main-img">
+                <img src="${escapeHtml(product.images[selectedImage])}" alt="${escapeHtml(product.name)}" id="mainImage" class="pdp__main-img">
               </div>
               ${product.images.length > 1 ? `
               <div class="pdp__gallery-thumbs">
                 ${product.images.map((img, i) => `
                   <button class="pdp__thumb ${i === selectedImage ? "is-active" : ""}" data-img="${i}">
-                    <img src="${img}" alt="View ${i + 1}">
+                    <img src="${escapeHtml(img)}" alt="View ${i + 1}">
                   </button>
                 `).join("")}
               </div>` : ""}
@@ -393,13 +395,13 @@
               <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="index.html">Home</a>
                 <span class="breadcrumb__sep">›</span>
-                <a href="category.html?cat=${product.category}">${catLabels[product.category] || "Shop"}</a>
+                <a href="category.html?cat=${escapeHtml(product.category)}">${catLabels[product.category] || "Shop"}</a>
                 <span class="breadcrumb__sep">›</span>
-                <span>${product.name}</span>
+                <span>${escapeHtml(product.name)}</span>
               </nav>
 
-              <span class="pdp__club">${product.club}</span>
-              <h1 class="pdp__title">${product.name}</h1>
+              <span class="pdp__club">${escapeHtml(product.club)}</span>
+              <h1 class="pdp__title">${escapeHtml(product.name)}</h1>
 
               <div class="pdp__rating">
                 <span class="pdp__stars">${starString(product.rating)}</span>
@@ -412,7 +414,7 @@
                 <span class="pdp__save" id="pdpSavePrice">Save ₹${(initialWas - initialPrice).toLocaleString("en-IN")}</span>
               </div>
 
-              <p class="pdp__desc">${product.description}</p>
+              <p class="pdp__desc">${escapeHtml(product.description)}</p>
 
               <!-- Size Selector -->
               <div class="pdp__section">
@@ -424,7 +426,7 @@
                     const isLowStock = stockAmt > 0 && stockAmt <= 3;
                     return `
                     <div class="size-btn-wrapper">
-                      <button class="pdp__size-btn ${s === selectedSize ? "is-active" : ""}" data-size="${s}" ${isOutOfStock ? "disabled title='Out of Stock'" : ""}>${s}</button>
+                      <button class="pdp__size-btn ${s === selectedSize ? "is-active" : ""}" data-size="${escapeHtml(s)}" ${isOutOfStock ? "disabled title='Out of Stock'" : ""}>${escapeHtml(s)}</button>
                       ${isLowStock ? `<span class="size-low-stock">Only ${stockAmt} left!</span>` : ""}
                     </div>
                   `}).join("")}
@@ -457,7 +459,7 @@
               <!-- Actions -->
               <div style="display:flex; gap:12px; margin-top:24px;">
                 <button class="btn btn--solid btn--wide pdp__add" id="addToCartBtn" style="flex:1;">Add to Cart — ₹${initialPrice.toLocaleString("en-IN")}</button>
-                <button class="btn btn--outline" id="pdpWishlistBtn" style="padding: 0 16px; border-color: var(--border); color: var(--text);" aria-label="Save for later" data-wish="${product.id}">
+                <button class="btn btn--outline" id="pdpWishlistBtn" style="padding: 0 16px; border-color: var(--border); color: var(--text);" aria-label="Save for later" data-wish="${escapeHtml(product.id)}">
                   <svg viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" fill="currentColor"/></svg>
                 </button>
                 <button class="btn btn--outline" id="pdpShareBtn" style="padding: 0 16px; border-color: var(--border); color: var(--text);" aria-label="Share product">
@@ -470,8 +472,8 @@
                   <summary>Product Details</summary>
                   <div class="pdp__accordion-body">
                     <ul>
-                      <li><strong>Material:</strong> ${product.material}</li>
-                      <li><strong>Fit:</strong> ${product.fit}</li>
+                      <li><strong>Material:</strong> ${escapeHtml(product.material)}</li>
+                      <li><strong>Fit:</strong> ${escapeHtml(product.fit)}</li>
                       <li><strong>Season:</strong> 2025/26</li>
                       <li><strong>Collection:</strong> ${catLabels[product.category] || "Standard"}</li>
                     </ul>
@@ -480,7 +482,7 @@
                 <details class="pdp__accordion">
                   <summary>Care Instructions</summary>
                   <div class="pdp__accordion-body">
-                    <p>${product.care}</p>
+                    <p>${escapeHtml(product.care)}</p>
                   </div>
                 </details>
                 <details class="pdp__accordion">
@@ -577,7 +579,7 @@
         });
 
         // Add to Cart
-        document.getElementById("addToCartBtn").addEventListener("click", () => {
+        document.getElementById("addToCartBtn").addEventListener("click", async () => {
           if (!selectedSize) {
             showToast("Please select a size");
             document.querySelector(".pdp__sizes").classList.add("pdp__sizes--shake");
@@ -587,7 +589,7 @@
           const unitPrice = typeof getSizePrice === "function" ? getSizePrice(product, selectedSize) : (product.price || 1499);
           const unitWas = typeof getSizeWasPrice === "function" ? getSizeWasPrice(product, selectedSize) : (unitPrice + 400);
 
-          CartStore.addItem({
+          await CartStore.addItem({
             id: product.id,
             name: product.name,
             club: product.club,
@@ -599,7 +601,7 @@
             image: product.images[0],
             category: product.category,
           });
-          showToast(`Added ${qty}× ${product.name} (${selectedSize} • ₹${unitPrice.toLocaleString("en-IN")}) to cart`);
+          showToast(`Added ${qty}× ${escapeHtml(product.name)} (${selectedSize} • ₹${unitPrice.toLocaleString("en-IN")}) to cart`);
         });
 
         // Wishlist
@@ -642,8 +644,8 @@
         const shareBtn = document.getElementById("pdpShareBtn");
         shareBtn.addEventListener("click", async () => {
           const shareData = {
-            title: `FreakFits | ${product.name}`,
-            text: `Check out this ${product.club} jersey on FreakFits!`,
+            title: `FreakFits | ${escapeHtml(product.name)}`,
+            text: `Check out this ${escapeHtml(product.club)} jersey on FreakFits!`,
             url: window.location.href,
           };
           if (navigator.share) {
@@ -686,8 +688,8 @@
             <a href="product.html?id=${p.id}" class="product-card__name">${p.name}</a>
             <span class="product-card__stars">${starString(p.rating)} <span>(${p.reviews})</span></span>
             <div class="product-card__price">
-              <span class="now">₹${p.price.toLocaleString("en-IN")}</span>
-              ${p.was ? `<span class="was">₹${p.was.toLocaleString("en-IN")}</span>` : ""}
+              <span class="now">₹${getSizePrice(p).toLocaleString("en-IN")}</span>
+              <span class="was">₹${getSizeWasPrice(p).toLocaleString("en-IN")}</span>
             </div>
             <button class="product-card__add" data-add="${p.id}">Add to Cart</button>
           </div>
@@ -695,9 +697,9 @@
       `).join("");
 
       relatedGrid.querySelectorAll("[data-add]").forEach(btn => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", async () => {
           const prod = getProductById(btn.dataset.add);
-          CartStore.addItem({ id: prod.id, name: prod.name, club: prod.club, price: prod.price, was: prod.was, color: prod.color, image: prod.images[0], category: prod.category });
+          await CartStore.addItem({ id: prod.id, name: prod.name, club: prod.club, price: prod.price, was: prod.was, color: prod.color, image: prod.images[0], category: prod.category });
           showToast(`Added — ${prod.name}`);
         });
       });
@@ -783,7 +785,7 @@
           const currentUser = typeof AuthStore !== "undefined" ? AuthStore.getCurrentUser() : null;
           const isAuthor = currentUser && currentUser.name && currentUser.name === r.user_name;
           const deleteBtnHtml = isAuthor
-            ? `<button onclick="deleteMyReview(${escapeHtml(r.id)})" title="Delete My Review" style="background:none; border:none; color:var(--admin-pink, #FF3E7A); cursor:pointer; font-size:1rem; padding:0; line-height:1; opacity:0.8; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">🗑️</button>`
+            ? `<button data-action="delete-review" data-review-id="${escapeHtml(r.id)}" title="Delete My Review" style="background:none; border:none; color:var(--admin-pink, #FF3E7A); cursor:pointer; font-size:1rem; padding:0; line-height:1; opacity:0.8; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">🗑️</button>`
             : "";
 
           return `
@@ -853,7 +855,15 @@
         showToast(`❌ Error: ${err.message}`);
       }
     }
-  </script>
+  
+    // EVENT DELEGATION
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-action="delete-review"]');
+      if (target) {
+        deleteMyReview(target.getAttribute('data-review-id'));
+      }
+    });
+</script>
 </body>
 
 </html>

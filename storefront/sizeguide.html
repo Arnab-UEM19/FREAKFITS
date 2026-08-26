@@ -264,6 +264,7 @@
       }
     }
   </style>
+  <link rel="icon" href="assets/favicon.ico">
 </head>
 
 <body>
@@ -356,7 +357,6 @@
                   <th>Shoulder</th>
                   <th>Fit Height</th>
                   <th>Fit Weight</th>
-                  <th>Price</th>
                 </tr>
               </thead>
               <tbody id="sizeTableBody">
@@ -404,8 +404,6 @@
               <div style="font-size:13px; color:var(--text-dim); margin-top:4px;" id="resultNote">Ideal for 170–178 cm height and 65–75 kg weight.</div>
             </div>
             <div style="text-align:right;">
-              <div style="font-size:12px; color:var(--text-dim);">Tier Price</div>
-              <div style="font-family:var(--font-mono); font-weight:700; color:var(--green); font-size:20px;" id="resultPrice">₹899</div>
               <a href="index.html#shop" class="btn btn--ghost" style="padding:6px 14px; font-size:12px; margin-top:6px;">Browse Kits</a>
             </div>
           </div>
@@ -495,16 +493,16 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
       <span>All India standard sports jersey sizing.</span>
     </div>
   </footer>
 
   <div class="toast" id="toast"></div>
 
-  <script src="cart-store.js"></script>
-  <script src="api-client.js"></script>
-  <script src="auth-store.js"></script>
+  <script src="cart-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
   <script>
     // Size Data in Inches & CM
     const SIZE_DATA = [
@@ -593,7 +591,6 @@
           <td>${currentUnit === "in" ? d.shIn + ' in' : d.shCm + ' cm'}</td>
           <td>${currentUnit === "in" ? d.heightIn : d.heightCm}</td>
           <td>${d.weight}</td>
-          <td><span class="price-badge">${d.price}</span></td>
         </tr>
       `).join("");
     }
@@ -658,7 +655,6 @@
       }
 
       document.getElementById("resultSize").textContent = `Size ${recSize} (${recSize === "S" ? "38" : recSize === "M" ? "40" : recSize === "L" ? "42" : recSize === "XL" ? "44" : "46"})`;
-      document.getElementById("resultPrice").textContent = recPrice;
       document.getElementById("resultNote").textContent = recNote;
       document.getElementById("calcResult").classList.add("is-active");
     });
@@ -697,3 +693,4 @@
 </body>
 
 </html>
+

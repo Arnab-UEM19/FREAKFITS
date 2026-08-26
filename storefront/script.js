@@ -7,36 +7,54 @@ function renderProducts() {
   const grid = document.getElementById("productGrid");
   if (!grid) return;
 
-  grid.innerHTML = PRODUCTS.map((p, i) => `
-    <article class="product-card" style="--card-accent:${p.color}">
-      <a href="product.html?id=${p.id}" class="product-card__link">
+  if (PRODUCTS.length === 0) {
+    grid.innerHTML = Array.from({length: 6}).map(() => `
+      <article class="skeleton-card skeleton">
+        <div class="img"></div>
+        <div class="title"></div>
+        <div class="subtitle"></div>
+        <div class="price"></div>
+        <div class="btn"></div>
+      </article>
+    `).join("");
+    return;
+  }
+
+  const e = window.escapeHtml || (s => s);
+  
+  // Only show the top 12 latest/trending products on the homepage
+  const trendingProducts = PRODUCTS.slice(0, 12);
+
+  grid.innerHTML = trendingProducts.map((p, i) => `
+    <article class="product-card" style="--card-accent:${e(p.color)}">
+      <a href="product.html?id=${e(p.id)}" class="product-card__link">
         <div class="product-card__media">
-          ${p.badge ? `<span class="product-card__badge" style="--badge-bg:${p.badgeBg || p.color}">${p.badge}</span>` : ""}
-          <button class="product-card__wish" aria-label="Save ${p.name}" data-wish="${p.id}">
+          ${p.badge ? `<span class="product-card__badge" style="--badge-bg:${e(p.badgeBg || p.color)}">${e(p.badge)}</span>` : ""}
+          <button class="product-card__wish" aria-label="Save ${e(p.name)}" data-wish="${e(p.id)}">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" fill="currentColor"/></svg>
           </button>
-          <img src="${p.images[0]}" alt="${p.name}" class="product-card__img" loading="lazy">
+          <img src="${e(p.images[0])}" alt="${e(p.name)}" class="product-card__img" loading="lazy">
         </div>
       </a>
       <div class="product-card__body">
-        <span class="product-card__club">${p.club}</span>
-        <a href="product.html?id=${p.id}" class="product-card__name">${p.name}</a>
+        <span class="product-card__club">${e(p.club)}</span>
+        <a href="product.html?id=${e(p.id)}" class="product-card__name">${e(p.name)}</a>
         <span class="product-card__stars">${starString(p.rating)} <span>(${p.reviews})</span></span>
         <div class="product-card__price">
-          <span class="now">₹${p.price.toLocaleString("en-IN")}</span>
-          ${p.was ? `<span class="was">₹${p.was.toLocaleString("en-IN")}</span>` : ""}
+          <span class="now">₹${getSizePrice(p).toLocaleString("en-IN")}</span>
+          <span class="was">₹${getSizeWasPrice(p).toLocaleString("en-IN")}</span>
         </div>
-        <button class="product-card__add" data-add="${p.id}">Add to Cart</button>
+        <button class="product-card__add" data-add="${e(p.id)}">Add to Cart</button>
       </div>
     </article>
   `).join("");
 
   grid.querySelectorAll("[data-add]").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", async (e) => {
       e.preventDefault();
       e.stopPropagation();
       const prod = getProductById(btn.dataset.add);
-      CartStore.addItem({
+      await CartStore.addItem({
         id: prod.id,
         name: prod.name,
         club: prod.club,

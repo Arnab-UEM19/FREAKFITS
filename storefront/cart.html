@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <!-- Razorpay Payment Gateway -->
@@ -26,6 +26,7 @@
       color: #0A0C08 !important;
     }
   </style>
+  <link rel="icon" href="assets/favicon.ico">
 </head>
 
 <body>
@@ -198,6 +199,7 @@
             </div>
             <button class="btn btn--solid btn--wide cart-sidebar__checkout" id="proceedPayBtn">Proceed for
               Payment</button>
+            <p style="font-size: 0.75rem; color: var(--text-faint); margin-top: 12px; text-align: center;">Note: Your cart is stored locally on this device only.</p>
           </div>
         </aside>
       </div>
@@ -384,22 +386,22 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
       <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
     </div>
   </footer>
 
   <div class="toast" id="toast"></div>
 
-  <script src="products.js"></script>
-  <script src="cart-store.js"></script>
-  <script src="api-client.js"></script>
-  <script src="auth-store.js"></script>
+  <script src="products.js?v=2.0"></script>
+  <script src="cart-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
   <script>
     // ========== Cart Page Logic ==========
 
-    function renderCart() {
-      const cart = CartStore.getCart();
+    async function renderCart() {
+      const cart = await CartStore.getCart();
       const itemsEl = document.getElementById("cartItems");
 
       if (cart.length === 0) {
@@ -421,20 +423,36 @@
         return;
       }
 
+      const e = window.escapeHtml || (s => s);
+
+      if (cart.length > 0 && PRODUCTS.length === 0) {
+        itemsEl.innerHTML = Array.from({length: cart.length}).map(() => `
+          <div class="skeleton-row skeleton">
+            <div class="img"></div>
+            <div class="details">
+              <div class="line-1"></div>
+              <div class="line-2"></div>
+            </div>
+          </div>
+        `).join("");
+        document.getElementById("customizeSection").style.display = "none";
+        return;
+      }
+
       document.getElementById("customizeSection").style.display = "block";
 
       itemsEl.innerHTML = cart.map(item => {
         const prod = getProductById(item.id);
         const imgSrc = item.image || (prod ? prod.images[0] : "");
         return `
-        <div class="cart-item" data-id="${item.id}" data-size="${item.size}">
+        <div class="cart-item" data-id="${item.id}" data-size="${e(item.size)}">
           <a href="product.html?id=${item.id}" class="cart-item__img-link">
-            <img src="${imgSrc}" alt="${item.name}" class="cart-item__img">
+            <img src="${e(imgSrc)}" alt="${e(item.name)}" class="cart-item__img">
           </a>
           <div class="cart-item__info">
-            <a href="product.html?id=${item.id}" class="cart-item__name">${item.name}</a>
-            <span class="cart-item__club">${item.club}</span>
-            <span class="cart-item__meta">Size: ${item.size}${item.customName ? ` · Name: ${item.customName}` : ""}${item.customNumber ? ` · #${item.customNumber}` : ""}</span>
+            <a href="product.html?id=${item.id}" class="cart-item__name">${e(item.name)}</a>
+            <span class="cart-item__club">${e(item.club)}</span>
+            <span class="cart-item__meta">Size: ${e(item.size)}${item.customName ? ` · Name: ${e(item.customName)}` : ""}${item.customNumber ? ` · #${e(item.customNumber)}` : ""}</span>
             <div class="cart-item__price-row">
               <span class="cart-item__price">₹${item.price.toLocaleString("en-IN")}</span>
               ${item.was ? `<span class="cart-item__was">₹${item.was.toLocaleString("en-IN")}</span>` : ""}
@@ -456,31 +474,36 @@
 
       // Attach qty and remove handlers
       itemsEl.querySelectorAll(".cart-item__qty-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", async () => {
           const id = parseInt(btn.dataset.id);
           const size = btn.dataset.size;
-          const item = CartStore.getCart().find(i => i.id === id && i.size === size);
+          const currentCart = await CartStore.getCart();
+          const item = currentCart.find(i => i.id === id && i.size === size);
           if (!item) return;
           const newQty = btn.dataset.action === "plus" ? item.qty + 1 : item.qty - 1;
           if (newQty < 1) {
-            CartStore.removeItem(id, size);
+            await CartStore.removeItem(id, size);
           } else {
-            CartStore.updateQty(id, size, Math.min(10, newQty));
+            await CartStore.updateQty(id, size, Math.min(10, newQty));
           }
-          renderCart();
+          await renderCart();
         });
       });
 
       itemsEl.querySelectorAll(".cart-item__remove").forEach(btn => {
-        btn.addEventListener("click", () => {
-          CartStore.removeItem(parseInt(btn.dataset.id), btn.dataset.size);
+        btn.addEventListener("click", async () => {
+          await CartStore.removeItem(parseInt(btn.dataset.id), btn.dataset.size);
           showToast("Item removed from cart");
-          renderCart();
+          await renderCart();
         });
       });
 
       updateSummary();
     }
+
+    window.addEventListener("freakfits:products-synced", () => {
+      renderCart();
+    });
 
     function updateSummary() {
       const totals = CartStore.getTotal();
@@ -507,7 +530,7 @@
       document.getElementById("summaryTotal").textContent = `₹${Math.round(finalTotal).toLocaleString("en-IN")}`;
 
       // Update payment totals
-      ["payTotalRzp", "payTotalCod"].forEach(id => {
+      ["payTotalRzp"].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.textContent = `₹${Math.round(finalTotal).toLocaleString("en-IN")}`;
       });
@@ -556,24 +579,25 @@
       this.value = this.value.replace(/[^0-9]/g, "").slice(0, 2);
     });
 
-    document.getElementById("applyCustomBtn").addEventListener("click", () => {
+    document.getElementById("applyCustomBtn").addEventListener("click", async () => {
       const name = document.getElementById("customName").value.trim().toUpperCase();
       const number = document.getElementById("customNumber").value.trim();
       if (!name && !number) {
         showToast("Enter a name or number to customize");
         return;
       }
-      const cart = CartStore.getCart();
-      cart.forEach(item => {
-        CartStore.updateCustomization(item.id, item.size, name, number);
-      });
+      const cart = await CartStore.getCart();
+      for (let item of cart) {
+        await CartStore.updateCustomization(item.id, item.size, name, number);
+      }
       showToast(`Customization applied: ${name || "—"} #${number || "—"}`);
-      renderCart();
+      await renderCart();
     });
 
     // ========== Payment ==========
-    document.getElementById("proceedPayBtn").addEventListener("click", () => {
-      if (CartStore.getCart().length === 0) {
+    document.getElementById("proceedPayBtn").addEventListener("click", async () => {
+      const cart = await CartStore.getCart();
+      if (cart.length === 0) {
         showToast("Your cart is empty");
         return;
       }
@@ -589,17 +613,20 @@
     });
 
     // If redirected back after signing up, auto-reveal payment section and load addresses
-    if (typeof AuthStore !== "undefined" && AuthStore.getCurrentUser() && CartStore.getCart().length > 0) {
-      if (new URLSearchParams(window.location.search).get("checkout") === "1") {
-        document.getElementById("paymentSection").style.display = "block";
-        loadCheckoutAddresses();
+    (async function initPaymentUI() {
+      if (typeof AuthStore !== "undefined" && AuthStore.getCurrentUser()) {
+        const cart = await CartStore.getCart();
+        if (cart.length > 0) {
+          if (new URLSearchParams(window.location.search).get("checkout") === "1") {
+            document.getElementById("paymentSection").style.display = "block";
+            loadCheckoutAddresses();
+          }
+        }
       }
-    }
-
-
+    })();
 
     // ========== Shared: show order success screen ==========
-    function showOrderSuccess(orderCode) {
+    async function showOrderSuccess(orderCode) {
       document.getElementById("orderId").textContent = orderCode;
       const trackBtn = document.getElementById("btnTrackSuccess");
       const user = (typeof AuthStore !== "undefined" && AuthStore.getCurrentUser()) || null;
@@ -621,7 +648,7 @@
         successEl.style.display = "block";
         successEl.scrollIntoView({ behavior: "smooth" });
       }
-      CartStore.clearCart();
+      await CartStore.clearCart();
       showToast("🎉 Order placed successfully!");
     }
 
@@ -644,11 +671,11 @@
         }
         
         listEl.innerHTML = checkoutAddresses.map(addr => `
-          <div class="checkout-addr-card" data-id="${addr.id}" style="border: 2px solid var(--border); border-radius: var(--radius-md); padding: 16px; background: rgba(255,255,255,0.01); cursor: pointer; text-align: left; position: relative; transition: all 0.2s;">
+          <div class="checkout-addr-card" data-id="${escapeHtml(addr.id)}" style="border: 2px solid var(--border); border-radius: var(--radius-md); padding: 16px; background: rgba(255,255,255,0.01); cursor: pointer; text-align: left; position: relative; transition: all 0.2s;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
               <strong style="color: var(--text);">${escapeHtml(addr.full_name)}</strong>
               <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: rgba(140,255,59,0.1); color: var(--green); border: 1px solid rgba(140,255,59,0.2);">
-                ${addr.address_type}
+                ${escapeHtml(addr.address_type)}
               </span>
             </div>
             <p style="font-size: 13px; color: var(--text-dim); margin: 2px 0; line-height: 1.4;">${escapeHtml(addr.street_address)}</p>
@@ -728,7 +755,8 @@
     });
 
     function escapeHtml(str) {
-      if (!str) return "";
+      if (str === null || str === undefined) return "";
+      if (typeof str !== "string") str = String(str);
       return str.replace(/[&<>'"]/g, 
         tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
       );
@@ -736,7 +764,7 @@
 
     // ========== Razorpay Online Payment ==========
     async function processRazorpayCheckout() {
-      const cart = CartStore.getCart();
+      const cart = await CartStore.getCart();
       const user = (typeof AuthStore !== "undefined" && AuthStore.getCurrentUser()) || null;
 
       if (cart.length === 0) { showToast("Your cart is empty"); return; }
@@ -782,7 +810,7 @@
       } catch (err) {
         btn.disabled = false;
         btn.innerHTML = `🔐 Pay Securely — <span id="payTotalRzp">₹${CartStore.getGrandTotal().toLocaleString("en-IN")}</span>`;
-        showToast(`❌ Could not initiate payment: ${err.message}`);
+        showToast(`❌ Could not initiate payment: ${escapeHtml(err.message)}`);
         return;
       }
 

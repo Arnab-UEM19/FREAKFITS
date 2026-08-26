@@ -15,7 +15,7 @@
     );
   }
 
-  const API_BASE = "http://127.0.0.1:8000/api";
+  const API_BASE = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
   const STORAGE_KEY_TOKEN = "freakfits_admin_jwt";
   const STORAGE_KEY_ADMIN = "freakfits_admin_profile";
 
@@ -47,10 +47,11 @@
     try {
       const response = await fetch(url, {
         ...options,
-        headers
+        headers,
+        credentials: "include"
       });
 
-      if (response.status === 401 || response.status === 403) {
+      if (response.status === 401) {
         if (!endpoint.includes("/login")) {
           // Session expired or unauthorized
           localStorage.removeItem(STORAGE_KEY_TOKEN);
@@ -58,6 +59,14 @@
           checkAuthView();
           throw new Error("Session expired. Please log in again.");
         }
+      }
+      if (response.status === 403) {
+         if (endpoint === "/admin/access-requests/pending") {
+             // If a viewer accidentally gets stuck with access-requests as their active tab
+             localStorage.setItem("freakfits_admin_active_tab", "dashboard");
+             window.location.reload();
+         }
+         throw new Error("You do not have permission to perform this action.");
       }
 
       const data = await response.json();
@@ -72,6 +81,44 @@
   }
 
   // ============ AUTHENTICATION ============
+  async function promptSuperAdminName(adminProfile) {
+    if (adminProfile.role === "super_admin" && adminProfile.full_name === "Super Admin") {
+      const modal = document.getElementById("superAdminProfileModal");
+      const form = document.getElementById("superAdminProfileForm");
+      if (modal && form) {
+        modal.style.display = "flex";
+        
+        form.onsubmit = async (e) => {
+          e.preventDefault();
+          const newName = document.getElementById("newSuperAdminName").value;
+          if (newName && newName.trim() !== "" && newName.trim().toLowerCase() !== "super admin") {
+            try {
+              const btn = document.getElementById("superAdminProfileSubmitBtn");
+              btn.disabled = true;
+              btn.textContent = "Saving...";
+              
+              const res = await apiFetch("/admin/profile", {
+                method: "PATCH",
+                body: JSON.stringify({ full_name: newName.trim() })
+              });
+              
+              localStorage.setItem(STORAGE_KEY_ADMIN, JSON.stringify(res));
+              const nameEl = document.getElementById("currentAdminName");
+              if (nameEl) nameEl.textContent = res.full_name;
+              showToast("Profile name updated successfully!");
+              modal.style.display = "none";
+            } catch (err) {
+              showToast("Failed to update name: " + err.message);
+              const btn = document.getElementById("superAdminProfileSubmitBtn");
+              btn.disabled = false;
+              btn.textContent = "Save Profile";
+            }
+          }
+        };
+      }
+    }
+  }
+
   function isAuthenticated() {
     return !!localStorage.getItem(STORAGE_KEY_TOKEN);
   }
@@ -97,10 +144,33 @@
         }
 
         // Toggle access requests nav link
+        // Toggle API Docs nav link
+        const navApi = document.getElementById("nav-api-access");
+        if (navApi) {
+          navApi.style.display = adminProfile.role === "super_admin" ? "flex" : "none";
+        }
+        
         const navReq = document.getElementById("nav-access-requests");
         if (navReq) {
           navReq.style.display = adminProfile.role === "super_admin" ? "flex" : "none";
         }
+        
+        const navAudit = document.getElementById("top-audit-logs");
+        if (navAudit) {
+          navAudit.style.display = adminProfile.role === "super_admin" ? "flex" : "none";
+        }
+        
+        const btnAccessGiven = document.getElementById("btnQuickAccessGiven");
+        if (btnAccessGiven) {
+          btnAccessGiven.style.display = adminProfile.role === "super_admin" ? "flex" : "none";
+        }
+
+        const navFailed = document.getElementById("nav-failed-payments");
+        if (navFailed) {
+          navFailed.style.display = adminProfile.role !== "super_admin" ? "none" : "flex";
+        }
+        
+        setTimeout(() => promptSuperAdminName(adminProfile), 500);
       } catch (_) {}
 
       enforceRolePermissions();
@@ -128,6 +198,23 @@
         addSubmit.style.opacity = "0.5";
         addSubmit.style.cursor = "not-allowed";
       }
+      
+      const btnAddNewCoupon = document.getElementById("btnAddNewCoupon");
+      if (btnAddNewCoupon) {
+        btnAddNewCoupon.style.display = "none";
+      }
+      
+      const returnActionSelects = document.querySelectorAll(".return-action-select");
+      returnActionSelects.forEach(select => {
+        select.disabled = true;
+        select.title = "Viewers cannot update return status";
+      });
+      
+      const cancelOrderBtns = document.querySelectorAll(".cancel-order-btn");
+      cancelOrderBtns.forEach(btn => {
+        btn.disabled = true;
+        btn.title = "Viewers cannot cancel orders";
+      });
     }
 
     // 2. Locks/Permissions for MANAGER role (Cannot change pricing)
@@ -161,11 +248,12 @@
       showToast(`✓ Welcome, ${res.admin.full_name}!`);
       checkAuthView();
     } catch (err) {
-      showToast(`Login failed: ${err.message}`);
+      showToast(`Login failed: ${escapeHtml(err.message)}`);
     }
   }
 
-  function handleLogout() {
+  async function handleLogout() {
+    try { await apiFetch("/admin/logout", { method: "POST" }); } catch(e) {}
     localStorage.removeItem(STORAGE_KEY_TOKEN);
     localStorage.removeItem(STORAGE_KEY_ADMIN);
     showToast("Logged out of Admin Portal");
@@ -186,17 +274,21 @@
 
     // Update Topbar Title
     const titleMap = {
-      dashboard: "System Overview",
-      orders: "Order Fulfillment",
-      "add-product": "Add New Jersey",
-      inventory: "Inventory & Price Editor",
-      returns: "Returns & Claims Desk",
-      reviews: "Customer Reviews Moderation",
-      messages: "Support Messages",
-      coupons: "Coupons Management",
-      newsletter: "Newsletter Subscribers",
-      "access-requests": "Employee Access Requests"
-    };
+        dashboard: "System Overview",
+        orders: "Order Fulfillment",
+        "add-product": "Add New Jersey",
+        inventory: "Inventory & Price Editor",
+        returns: "Returns & Claims Desk",
+        reviews: "Customer Reviews Moderation",
+        messages: "Support Messages",
+        coupons: "Coupons Management",
+        newsletter: "Newsletter Subscribers",
+        "access-requests": "Employee Access Requests",
+        "access-given": "Access Given",
+        "api-access": "API Access Management",
+        "failed-payments": "Failed Payments Recovery",
+        "audit-logs": "System Audit Logs"
+      };
     const titleEl = document.getElementById("topbarTitle");
     if (titleEl) titleEl.textContent = titleMap[tabId] || "Dashboard";
 
@@ -214,6 +306,10 @@
     else if (activeTab === "coupons") loadCoupons();
     else if (activeTab === "newsletter") loadNewsletter();
     else if (activeTab === "access-requests") loadAccessRequests();
+    else if (activeTab === "access-given") loadAccessGiven();
+    else if (activeTab === "api-access") loadApiAccess();
+    else if (activeTab === "failed-payments") loadFailedPayments();
+    else if (activeTab === "audit-logs") loadAuditLogs();
   }
 
   // ============ VIEW 1: DASHBOARD ============
@@ -229,14 +325,38 @@
 
       const results = await Promise.all(promises);
       const stats = results[0];
-      orders = results[1];
       if (results[2]) {
         products = results[2];
       }
 
-      document.getElementById("statRevenue").textContent = `₹${stats.today_revenue.toLocaleString("en-IN")}`;
+       // Render Revenue Stats
+      const revEl = document.getElementById("statRevenue");
+      if (revEl) {
+        revEl.textContent = "₹" + parseFloat(stats.today_revenue).toLocaleString("en-IN", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+      const revChangeEl = document.getElementById("statRevenueChange");
+      const revFooterEl = document.getElementById("statRevenueFooter");
+      if (revChangeEl && revFooterEl && stats.revenue_change_percentage !== undefined) {
+        const change = stats.revenue_change_percentage;
+        const arrow = change >= 0 ? "↑" : "↓";
+        revChangeEl.textContent = `${arrow} ${Math.abs(change).toFixed(1)}%`;
+        if (change >= 0) {
+          revFooterEl.classList.remove("trend-down");
+          revFooterEl.classList.add("trend-up");
+        } else {
+          revFooterEl.classList.remove("trend-up");
+          revFooterEl.classList.add("trend-down");
+        }
+      }
+
       document.getElementById("statActiveOrders").textContent = stats.active_orders;
       document.getElementById("statLowStock").textContent = stats.low_stock_count;
+
+      // Extract items properly for orders if it's paginated
+      orders = Array.isArray(results[1]) ? results[1] : (results[1].items || []);
       document.getElementById("statCatalogTotal").textContent = stats.total_products;
 
       // Render Recent Orders panel
@@ -260,7 +380,7 @@
         }
       }
     } catch (err) {
-      showToast(`Error loading stats: ${err.message}`);
+      showToast(`Error loading stats: ${escapeHtml(err.message)}`);
     }
   }
 
@@ -276,13 +396,13 @@
       }
 
       const results = await Promise.all(promises);
-      orders = results[0];
+      orders = Array.isArray(results[0]) ? results[0] : (results[0].items || []);
       if (results[1]) {
-        products = results[1];
+        products = Array.isArray(results[1]) ? results[1] : (results[1].items || []);
       }
       renderOrdersTable();
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load orders: ${err.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load orders: ${escapeHtml(err.message)}</td></tr>`;
     }
   }
 
@@ -355,7 +475,7 @@
             </select>
           </td>
           <td>
-            <button class="btn-secondary" style="padding:4px 10px; font-size:11px;" onclick="window.FreakFitsAdmin.viewOrderDetails('${escapeHtml(o.order_code)}')">View</button>
+            <button class="btn-secondary" style="padding:4px 10px; font-size:11px;" data-action="view-order" data-order-code="${escapeHtml(o.order_code)}">View</button>
           </td>
         </tr>
       `;
@@ -366,6 +486,8 @@
       select.addEventListener("change", async (e) => {
         const orderCode = e.target.dataset.code;
         const newStatus = e.target.value;
+        const ord = orders.find((o) => o.order_code === orderCode);
+        const oldStatus = ord ? (ord.order_status || "Pending") : "Pending";
 
         try {
           const res = await apiFetch(`/admin/orders/${orderCode}/status`, {
@@ -375,18 +497,18 @@
 
           if (res.order_status === "REFUNDED_DELETED" || newStatus === "Refunded") {
             orders = orders.filter((o) => o.order_code !== orderCode);
-            showToast(`✓ Order ${orderCode} refunded and completed`);
+            showToast(`📦 Order ${orderCode} refunded and completed`);
             renderOrdersTable();
             return;
           }
 
-          e.target.className = `status-select ${newStatus.toLowerCase()}`;
-          showToast(`✓ Order ${orderCode} marked as ${newStatus}`);
+          e.target.className = `status-select ${newStatus.toLowerCase().replace(/\s+/g, '-')}`;
+          showToast(`✅ Order ${orderCode} marked as ${newStatus}`);
 
-          const ord = orders.find((o) => o.order_code === orderCode);
           if (ord) ord.order_status = newStatus;
         } catch (err) {
-          showToast(`Failed to update status: ${err.message}`);
+          showToast(`Failed to update status: ${escapeHtml(err.message)}`);
+          e.target.value = oldStatus;
         }
       });
     });
@@ -456,7 +578,7 @@
 
       switchTab("inventory");
     } catch (err) {
-      showToast(`Error creating product: ${err.message}`);
+      showToast(`Error creating product: ${escapeHtml(err.message)}`);
     }
   }
 
@@ -467,10 +589,11 @@
     tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:32px; color:var(--admin-text-dim);">Loading products from database...</td></tr>`;
 
     try {
-      products = await apiFetch("/admin/products");
+      const res = await apiFetch("/admin/products");
+      products = Array.isArray(res) ? res : (res.items || []);
       renderInventoryTable();
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load inventory: ${err.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load inventory: ${escapeHtml(err.message)}</td></tr>`;
     }
   }
 
@@ -502,11 +625,11 @@
       return `
         <tr data-prod-id="${p.id}">
           <td style="width:50px;">
-            <img src="${mainImage}" alt="${p.name}" style="width:44px; height:44px; border-radius:6px; object-fit:contain; background:var(--admin-bg);">
+            <img src="${mainImage}" alt="${escapeHtml(p.name)}" style="width:44px; height:44px; border-radius:6px; object-fit:contain; background:var(--admin-bg);">
           </td>
           <td>
-            <strong>${p.name}</strong>
-            <div style="color:var(--admin-text-faint); font-size:12px;">${p.club} • <span style="text-transform:uppercase;">${p.category}</span></div>
+            <strong>${escapeHtml(p.name)}</strong>
+            <div style="color:var(--admin-text-faint); font-size:12px;">${escapeHtml(p.club)} • <span style="text-transform:uppercase;">${escapeHtml(p.category)}</span></div>
           </td>
           <td>
             <div class="price-badge-group">
@@ -582,7 +705,7 @@
           showToast(`✓ [${size}] price for Product #${prodId} updated to ₹${newPrice}`);
         } catch (err) {
           inputEl.style.outline = "2px solid #FF3E7A";
-          showToast(`Failed to update price: ${err.message}`);
+          showToast(`Failed to update price: ${escapeHtml(err.message)}`);
         }
       });
     });
@@ -620,7 +743,7 @@
           showToast(`✓ [${size}] strikethrough price for Product #${prodId} updated to ₹${newWasPrice}`);
         } catch (err) {
           inputEl.style.outline = "2px solid #FF3E7A";
-          showToast(`Failed to update strikethrough price: ${err.message}`);
+          showToast(`Failed to update strikethrough price: ${escapeHtml(err.message)}`);
         }
       });
     });
@@ -652,7 +775,7 @@
             pill.classList.toggle("low-stock", newQty <= 2);
           }
         } catch (err) {
-          showToast(`Failed to update stock: ${err.message}`);
+          showToast(`Failed to update stock: ${escapeHtml(err.message)}`);
         }
       });
     });
@@ -670,7 +793,7 @@
             showToast(`✓ Product #${prodId} deleted.`);
             loadInventory();
           } catch (err) {
-            showToast(`Failed to delete product: ${err.message}`);
+            showToast(`Failed to delete product: ${escapeHtml(err.message)}`);
           }
         }
       });
@@ -687,10 +810,11 @@
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--admin-text-dim);">Loading return requests from database...</td></tr>`;
 
     try {
-      returnsList = await apiFetch("/admin/returns");
+      const res = await apiFetch("/admin/returns");
+      returnsList = Array.isArray(res) ? res : (res.items || []);
       renderReturnsTable();
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load return requests: ${err.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load return requests: ${escapeHtml(err.message)}</td></tr>`;
     }
   }
 
@@ -726,11 +850,11 @@
 
       const detailsHtml = isExchange
         ? `<div>Exchange <strong>${escapeHtml(r.current_size || "—")}</strong> &rarr; <strong style="color:var(--admin-green);">${escapeHtml(r.requested_size || "—")}</strong></div>`
-        : `<div style="font-size:12px; color:var(--admin-text-dim); max-width:240px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${r.reason_details || "Manufacturing defect reported."}</div>`;
+        : `<div style="font-size:12px; color:var(--admin-text-dim); max-width:240px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(r.reason_details || "Manufacturing defect reported.")}</div>`;
 
       const videoLink = r.video_proof.startsWith("http")
         ? `<a href="${escapeHtml(r.video_proof)}" target="_blank" style="color:var(--admin-green); text-decoration:none; font-family:var(--font-mono); font-size:11px; display:inline-flex; align-items:center; gap:4px;">📹 External Link &rarr;</a>`
-        : `<span style="color:var(--admin-green); font-family:var(--font-mono); font-size:11px; cursor:pointer; text-decoration:underline; font-weight:600;" onclick="window.FreakFitsAdmin.viewReturnDetails('${r.return_code}')">📁 Play Video</span>`;
+        : `<span style="color:var(--admin-green); font-family:var(--font-mono); font-size:11px; cursor:pointer; text-decoration:underline; font-weight:600;" data-action="view-return" data-return-code="${escapeHtml(r.return_code)}">📁 Play Video</span>`;
 
       const currentStatus = r.status || "PENDING_REVIEW";
       let statusClass = "pending";
@@ -739,18 +863,18 @@
       else if (currentStatus === "REJECTED") statusClass = "low-stock";
 
       return `
-        <tr data-return-code="${r.return_code}">
-          <td style="font-family:var(--font-mono); font-weight:700; color:var(--admin-text);">${r.return_code}</td>
+        <tr data-return-code="${escapeHtml(r.return_code)}">
+          <td style="font-family:var(--font-mono); font-weight:700; color:var(--admin-text);">${escapeHtml(r.return_code)}</td>
           <td>
-            <div style="font-weight:700;">${r.customer_name}</div>
-            <div style="color:var(--admin-text-faint); font-size:11px; font-family:var(--font-mono);">Order: ${r.order_code}</div>
-            <div style="color:var(--admin-text-faint); font-size:11px;">${r.customer_email}</div>
+            <div style="font-weight:700;">${escapeHtml(r.customer_name)}</div>
+            <div style="color:var(--admin-text-faint); font-size:11px; font-family:var(--font-mono);">Order: ${escapeHtml(r.order_code)}</div>
+            <div style="color:var(--admin-text-faint); font-size:11px;">${escapeHtml(r.customer_email)}</div>
           </td>
           <td>${typeBadge}</td>
           <td>${detailsHtml}</td>
           <td>${videoLink}</td>
           <td>
-            <select class="status-select ${statusClass}" data-action="change-return-status" data-code="${r.return_code}">
+            <select class="status-select ${statusClass}" data-action="change-return-status" data-code="${escapeHtml(r.return_code)}">
               <option value="PENDING_REVIEW" ${currentStatus === "PENDING_REVIEW" ? "selected" : ""}>⏳ Pending Review</option>
               <option value="APPROVED" ${currentStatus === "APPROVED" ? "selected" : ""}>✓ Approved</option>
               <option value="REFUNDED" ${currentStatus === "REFUNDED" ? "selected" : ""}>💰 Refunded (48h)</option>
@@ -758,7 +882,7 @@
             </select>
           </td>
           <td>
-            <button class="btn-secondary" style="padding:4px 10px; font-size:11px;" onclick="window.FreakFitsAdmin.viewReturnDetails('${r.return_code}')">Review</button>
+            <button class="btn-secondary" style="padding:4px 10px; font-size:11px;" data-action="view-return" data-return-code="${escapeHtml(r.return_code)}">Review</button>
           </td>
         </tr>
       `;
@@ -802,7 +926,7 @@
           const ret = returnsList.find((r) => r.return_code === returnCode);
           if (ret) ret.status = newStatus;
         } catch (err) {
-          showToast(`Failed to update return status: ${err.message}`);
+          showToast(`Failed to update return status: ${escapeHtml(err.message)}`);
         }
       });
     });
@@ -844,7 +968,7 @@
         `;
       } else {
         // Render playable video element pointing to our backend server
-        const videoSrc = r.video_proof.startsWith("/") ? `http://127.0.0.1:8000${r.video_proof}` : r.video_proof;
+        const videoSrc = r.video_proof;
         videoContainer.innerHTML = `
           <div style="background:rgba(255,255,255,0.03); border:1px solid var(--admin-border); padding:16px; border-radius:6px; display:flex; flex-direction:column; gap:12px;">
             <div style="font-weight:700; color:var(--admin-text); font-family:var(--font-mono); font-size:13px;">📁 Play Uploaded Video Proof</div>
@@ -867,7 +991,7 @@
               <div>
                 <strong style="color:var(--admin-text);">${escapeHtml(item.product_name)}</strong>
                 <div style="font-size:11px; color:var(--admin-text-dim); margin-top:2px;">
-                  Size: <span style="color:var(--admin-green);">${escapeHtml(item.size)}</span> | Qty: ${item.quantity}
+                  Size: <span style="color:var(--admin-green);">${escapeHtml(item.size)}</span> | Qty: ${escapeHtml(item.quantity)}
                   ${item.custom_name ? ` | Print: <strong>${escapeHtml(item.custom_name)} (${escapeHtml(item.custom_number)})</strong>` : ""}
                 </div>
               </div>
@@ -879,7 +1003,7 @@
         }
       } catch (err) {
         console.error(err);
-        itemsListContainer.innerHTML = `<div style="color:var(--admin-pink);">Failed to load order products: ${err.message}</div>`;
+        itemsListContainer.innerHTML = `<div style="color:var(--admin-pink);">Failed to load order products: ${escapeHtml(err.message)}</div>`;
       }
     }
 
@@ -946,7 +1070,7 @@
 
       return `
         <div class="modal-item-card">
-          <img src="${imgUrl}" class="modal-item-card__img" alt="${escapeHtml(it.product_name)}">
+          <img src="${escapeHtml(imgUrl)}" class="modal-item-card__img" alt="${escapeHtml(it.product_name)}">
           <div class="modal-item-card__desc">
             <div class="modal-item-card__title">${escapeHtml(it.product_name)}</div>
             <div class="modal-item-card__meta">
@@ -969,13 +1093,13 @@
       if (order.order_status === "Pending" || order.order_status === "Confirmed") {
         actionsContainer.innerHTML = `<button id="btnAdminCancelOrder" class="btn-primary" style="background:var(--admin-pink); color:#fff; border:none; padding:10px 16px;">Cancel Order</button>`;
         document.getElementById("btnAdminCancelOrder").addEventListener("click", async () => {
-          if (!confirm(`Are you sure you want to cancel order ${order.order_code}? This will restore stock and refund the customer.`)) return;
+          if (!confirm(`Are you sure you want to cancel order ${escapeHtml(order.order_code)}? This will restore stock and refund the customer.`)) return;
           
           const btn = document.getElementById("btnAdminCancelOrder");
           btn.disabled = true;
           btn.textContent = "Cancelling...";
           try {
-            const res = await apiFetch(`/orders/${order.order_code}/cancel`, { method: "POST" });
+            const res = await apiFetch(`/orders/${escapeHtml(order.order_code)}/cancel`, { method: "POST" });
             showToast(res.message || "Order cancelled successfully!");
             modal.style.display = "none";
             loadOrders(); // Refresh table
@@ -1004,10 +1128,11 @@
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--admin-text-dim);">Loading fan reviews from database...</td></tr>`;
 
     try {
-      reviewsList = await apiFetch("/admin/reviews");
+      const res = await apiFetch("/admin/reviews");
+      reviewsList = Array.isArray(res) ? res : (res.items || []);
       renderReviewsTable();
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load reviews: ${err.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load reviews: ${escapeHtml(err.message)}</td></tr>`;
     }
   }
 
@@ -1053,8 +1178,8 @@
       const displayAuthor = (r.user_name && r.user_name !== "undefined") ? r.user_name : "FreakFits Fan";
 
       return `
-        <tr data-review-id="${r.id}">
-          <td style="font-family:var(--font-mono); color:var(--admin-text-dim);">${r.id}</td>
+        <tr data-review-id="${escapeHtml(r.id)}">
+          <td style="font-family:var(--font-mono); color:var(--admin-text-dim);">${escapeHtml(r.id)}</td>
           <td>
             <div style="font-weight:700;">${escapeHtml(r.product_name)}</div>
             <div style="color:var(--admin-text-faint); font-size:11px; font-family:var(--font-mono);">${escapeHtml(r.product_club)} (ID: ${escapeHtml(r.product_id)})</div>
@@ -1067,7 +1192,7 @@
           <td>${photoHtml}</td>
           <td>
             ${isSuperAdmin ? `
-              <button style="background:none; border:none; color:var(--admin-pink); cursor:pointer; font-size:1.2rem; padding:4px; line-height:1; opacity:0.85; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.85" data-action="delete-review" data-id="${r.id}" title="Delete Review #${r.id}">
+              <button style="background:none; border:none; color:var(--admin-pink); cursor:pointer; font-size:1.2rem; padding:4px; line-height:1; opacity:0.85; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.85" data-action="delete-review" data-id="${escapeHtml(r.id)}" title="Delete Review #${escapeHtml(r.id)}">
                 🗑️
               </button>
             ` : `<span style="color:var(--admin-text-faint); font-size:11px;">🔒 Locked</span>`}
@@ -1097,7 +1222,7 @@
               renderReviewsTable();
             }
           } catch (err) {
-            showToast(`Failed to delete review: ${err.message}`);
+            showToast(`Failed to delete review: ${escapeHtml(err.message)}`);
           }
         }
       });
@@ -1112,7 +1237,8 @@
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-text-dim);">Loading messages...</td></tr>`;
     
     try {
-      const messages = await apiFetch("/admin/messages");
+      const res = await apiFetch("/admin/messages");
+      const messages = Array.isArray(res) ? res : (res.items || []);
       
       let adminProfile = {};
       try {
@@ -1131,7 +1257,7 @@
           timeStyle: "short"
         });
         return `
-          <tr data-message-id="${m.id}">
+          <tr data-message-id="${escapeHtml(m.id)}">
             <td style="font-family:var(--font-mono); font-size:12px; color:var(--admin-text-dim);">${escapeHtml(dateStr)}</td>
             <td style="font-weight:700;">${escapeHtml(m.name)}</td>
             <td><a href="mailto:${escapeHtml(m.email)}" style="color:var(--admin-green); text-decoration:none;">${escapeHtml(m.email)}</a></td>
@@ -1139,7 +1265,7 @@
             <td style="white-space:pre-wrap; font-size:13px; line-height:1.5; color:var(--admin-text-light);">${escapeHtml(m.message || "—")}</td>
             <td>
               ${isSuperAdmin ? `
-                <button style="background:none; border:none; color:var(--admin-pink); cursor:pointer; font-size:1.2rem; padding:4px; line-height:1; opacity:0.85; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.85" data-action="delete-message" data-id="${m.id}" title="Delete Message #${m.id}">
+                <button style="background:none; border:none; color:var(--admin-pink); cursor:pointer; font-size:1.2rem; padding:4px; line-height:1; opacity:0.85; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.85" data-action="delete-message" data-id="${escapeHtml(m.id)}" title="Delete Message #${escapeHtml(m.id)}">
                   🗑️
                 </button>
               ` : `<span style="color:var(--admin-text-faint); font-size:11px;">🔒 Locked</span>`}
@@ -1168,13 +1294,13 @@
                 tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No customer messages found.</td></tr>`;
               }
             } catch (err) {
-              showToast(`Failed to delete message: ${err.message}`);
+              showToast(`Failed to delete message: ${escapeHtml(err.message)}`);
             }
           }
         });
       });
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load messages: ${err.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load messages: ${escapeHtml(err.message)}</td></tr>`;
     }
   }
 
@@ -1190,7 +1316,7 @@
       accessRequestsList = await apiFetch("/admin/access-requests");
       renderAccessRequestsTable();
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load requests: ${err.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load requests: ${escapeHtml(err.message)}</td></tr>`;
     }
   }
 
@@ -1209,7 +1335,7 @@
       });
 
       return `
-        <tr data-request-id="${req.id}">
+        <tr data-request-id="${escapeHtml(req.id)}">
           <td style="font-family:var(--font-mono); font-size:12px;">${dateStr}</td>
           <td>
             <div style="font-weight:700; color:var(--admin-text);">${escapeHtml(req.full_name || "Employee Candidate")}</div>
@@ -1217,15 +1343,15 @@
           </td>
           <td>
             <span style="background:rgba(255,193,7,0.15); color:#ffc107; border:1px solid rgba(255,193,7,0.3); padding:3px 8px; border-radius:4px; font-size:11px; font-weight:600; text-transform:uppercase;">
-              ${req.status.toUpperCase()}
+              ${escapeHtml(req.status.toUpperCase())}
             </span>
           </td>
           <td>
             <div style="display:flex; gap:8px;">
-              <button class="btn-primary" style="padding:6px 12px; font-size:11px; background:var(--admin-green); border-color:var(--admin-green);" onclick="window.FreakFitsAdmin.openApprovalModal(${req.id}, '${escapeHtml(req.email)}', '${escapeHtml(req.full_name)}')">
+              <button class="btn-primary" style="padding:6px 12px; font-size:11px; background:var(--admin-green); border-color:var(--admin-green);" data-action="open-approval" data-req-id="${escapeHtml(req.id)}" data-req-email="${escapeHtml(req.email)}" data-req-name="${escapeHtml(req.full_name)}">
                 Approve
               </button>
-              <button class="btn-secondary" style="padding:6px 12px; font-size:11px; border-color:var(--admin-pink); color:var(--admin-pink);" onclick="window.FreakFitsAdmin.rejectAccessRequest(${req.id})">
+              <button class="btn-secondary" style="padding:6px 12px; font-size:11px; border-color:var(--admin-pink); color:var(--admin-pink);" data-action="reject-request" data-req-id="${escapeHtml(req.id)}">
                 Reject
               </button>
             </div>
@@ -1256,10 +1382,70 @@
     }
   }
 
+  // ============ VIEW 8.5: ACCESS GIVEN ============
+  async function loadAccessGiven() {
+    const tbody = document.getElementById("accessGivenTableBody");
+    if (!tbody) return;
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:32px; color:var(--admin-text-dim);">Loading access given...</td></tr>`;
+
+    try {
+      const employees = await apiFetch("/admin/employees");
+      if (!employees || employees.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No approved employees found.</td></tr>`;
+        return;
+      }
+      
+      tbody.innerHTML = employees.map(emp => {
+        let roleBadge = "";
+        if (emp.role === "super_admin") {
+          roleBadge = `<span style="background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.2); padding:3px 8px; border-radius:4px; font-size:11px; font-weight:600;">SUPER ADMIN</span>`;
+        } else if (emp.role === "manager") {
+          roleBadge = `<span style="background:rgba(140,255,59,0.15); color:var(--admin-green); border:1px solid rgba(140,255,59,0.3); padding:3px 8px; border-radius:4px; font-size:11px; font-weight:600;">MANAGER</span>`;
+        } else {
+          roleBadge = `<span style="background:rgba(59,130,246,0.15); color:#3b82f6; border:1px solid rgba(59,130,246,0.3); padding:3px 8px; border-radius:4px; font-size:11px; font-weight:600;">VIEWER</span>`;
+        }
+
+        let actionBtn = "";
+        if (emp.role !== "super_admin") {
+          actionBtn = `<button class="btn-secondary" style="padding:6px 12px; font-size:11px; border-color:var(--admin-pink); color:var(--admin-pink);" onclick="window.revokeAccess(${emp.id})">Revoke</button>`;
+        }
+
+        return `
+          <tr>
+            <td>
+              <div style="font-weight:600; color:var(--admin-text);">${escapeHtml(emp.full_name)}</div>
+            </td>
+            <td style="color:var(--admin-text-dim);">${escapeHtml(emp.email)}</td>
+            <td>${roleBadge}</td>
+            <td style="color:var(--admin-text-dim); font-size:13px;">${new Date(emp.created_at).toLocaleDateString()}</td>
+            <td style="text-align:right;">${actionBtn}</td>
+          </tr>
+        `;
+      }).join("");
+    } catch (err) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:32px; color:var(--admin-pink);">Failed to load employees: ${escapeHtml(err.message)}</td></tr>`;
+    }
+  }
+
+  window.revokeAccess = async function(id) {
+    if (!confirm("Are you sure you want to completely revoke this person's access? This action cannot be undone.")) return;
+    try {
+      await apiFetch(`/admin/employees/${id}`, { method: "DELETE" });
+      showToast("✓ Access revoked successfully.");
+      loadAccessGiven();
+    } catch (err) {
+      showToast("Failed to revoke access: " + err.message);
+    }
+  };
+
   // ============ VIEW 9: COUPONS ============
   async function loadCoupons() {
     const tbody = document.getElementById("couponsTableBody");
     if (!tbody) return;
+    let adminProfile = {};
+    try { adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}"); } catch (_) {}
+    const isViewer = adminProfile.role === "viewer";
+    
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Loading coupons...</td></tr>`;
     try {
       const data = await apiFetch("/coupons/admin/list");
@@ -1282,8 +1468,8 @@
             <td>${statusBadge}</td>
             <td>
               <div style="display:flex; gap:8px;">
-                <button class="btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="window.FreakFitsAdmin.toggleCoupon(${c.id})">Toggle</button>
-                <button class="btn-secondary" style="padding:4px 8px; font-size:11px; border-color:var(--admin-pink); color:var(--admin-pink);" onclick="window.FreakFitsAdmin.deleteCoupon(${c.id})">Delete</button>
+                <button class="btn-secondary" style="padding:4px 8px; font-size:11px;" data-action="toggle-coupon" data-coupon-id="${escapeHtml(c.id)}" ${isViewer ? 'disabled title="Viewers cannot toggle coupons"' : ''}>Toggle</button>
+                <button class="btn-secondary" style="padding:4px 8px; font-size:11px; border-color:var(--admin-pink); color:var(--admin-pink);" data-action="delete-coupon" data-coupon-id="${escapeHtml(c.id)}" ${isViewer ? 'disabled title="Viewers cannot delete coupons"' : ''}>Delete</button>
               </div>
             </td>
           </tr>
@@ -1776,4 +1962,289 @@
     deleteCoupon: deleteCoupon,
     loadNewsletter: loadNewsletter
   };
+  // ==========================================
+  // VIEW 11: API DOCS ACCESS
+  // ==========================================
+  async function loadApiAccess() {
+    try {
+      const [masterRes, devsRes] = await Promise.all([
+        apiFetch("/admin/docs-access/master"),
+        apiFetch("/admin/docs-access/developers")
+      ]);
+      
+      const usernameInp = document.getElementById("masterApiUsername");
+      if (masterRes.configured && masterRes.username) {
+        usernameInp.value = masterRes.username;
+      }
+
+      renderDevAccessTable(devsRes);
+    } catch (err) {
+      showToast(`Error loading API access: ${escapeHtml(err.message)}`);
+    }
+  }
+
+  function renderDevAccessTable(devs) {
+    const tbody = document.getElementById("devAccessTableBody");
+    tbody.innerHTML = "";
+
+    if (!devs || devs.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No third-party developers granted access yet.</td></tr>`;
+      return;
+    }
+
+    devs.forEach(dev => {
+      const tr = document.createElement("tr");
+      
+      const ipDisplay = dev.bound_ip ? `<span style="color:var(--admin-green); font-family:var(--font-mono);">${escapeHtml(dev.bound_ip)}</span>` : `<span style="color:var(--admin-text-dim);">Unbound (Awaiting login)</span>`;
+      const resetBtn = dev.bound_ip ? `<button class="btn-secondary" data-action="reset-dev" data-dev-id="${escapeHtml(dev.id)}" style="font-size:11px; padding:4px 8px;">Reset IP</button>` : "";
+      
+      tr.innerHTML = `
+        <td style="font-family:var(--font-mono);">${escapeHtml(dev.email)}</td>
+        <td>${ipDisplay}</td>
+        <td>${new Date(dev.created_at).toLocaleDateString()}</td>
+        <td style="display:flex; gap:8px;">
+          ${resetBtn}
+          <button class="btn-secondary" data-action="revoke-dev" data-dev-id="${escapeHtml(dev.id)}" style="font-size:11px; padding:4px 8px; color:var(--admin-pink); border-color:var(--admin-pink);">Revoke</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  window.resetDevIp = async function(id) {
+    if (!confirm("Reset IP binding? The developer will be able to log in from a new IP.")) return;
+    try {
+      await apiFetch(`/admin/docs-access/developers/${id}/reset-ip`, { method: "PUT" });
+      showToast("IP binding reset successfully", "success");
+      loadApiAccess();
+    } catch (err) {
+      showToast(`Error resetting IP: ${escapeHtml(err.message)}`);
+    }
+  };
+
+  window.revokeDevAccess = async function(id) {
+    if (!confirm("Are you sure you want to revoke API access for this developer?")) return;
+    try {
+      await apiFetch(`/admin/docs-access/developers/${id}`, { method: "DELETE" });
+      showToast("Developer access revoked", "success");
+      loadApiAccess();
+    } catch (err) {
+      showToast(`Error revoking access: ${escapeHtml(err.message)}`);
+    }
+  };
+
+  const masterApiDocsForm = document.getElementById("masterApiDocsForm");
+  if (masterApiDocsForm) {
+    masterApiDocsForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("masterApiUsername").value;
+      const password = document.getElementById("masterApiPassword").value;
+      
+      if (!password && !confirm("You left the password blank. Do you want to use a blank password, or keep the existing one (if any)? We will set it as blank if you proceed.")) {
+         return;
+      }
+
+      try {
+        await apiFetch("/admin/docs-access/master", {
+          method: "PUT",
+          body: JSON.stringify({ username, password })
+        });
+        showToast("Master API credentials saved successfully!", "success");
+        document.getElementById("masterApiPassword").value = "";
+      } catch (err) {
+        showToast(`Error saving master credentials: ${escapeHtml(err.message)}`);
+      }
+    });
+  }
+
+  const btnGrantDevAccess = document.getElementById("btnGrantDevAccess");
+  const grantDevAccessModal = document.getElementById("grantDevAccessModal");
+  const closeGrantDevModalBtn = document.getElementById("closeGrantDevModalBtn");
+  const grantDevAccessForm = document.getElementById("grantDevAccessForm");
+
+  if (btnGrantDevAccess && grantDevAccessModal) {
+    btnGrantDevAccess.addEventListener("click", () => {
+      document.getElementById("devAccessEmail").value = "";
+      // Generate a random 12-char secure password
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+      let pwd = "";
+      for (let i = 0; i < 12; i++) {
+        pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById("devAccessPassword").value = pwd;
+      grantDevAccessModal.style.display = "flex";
+    });
+
+    closeGrantDevModalBtn.addEventListener("click", () => {
+      grantDevAccessModal.style.display = "none";
+    });
+
+    grantDevAccessForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("devAccessEmail").value;
+      const password = document.getElementById("devAccessPassword").value;
+
+      try {
+        await apiFetch("/admin/docs-access/developers", {
+          method: "POST",
+          body: JSON.stringify({ email, password })
+        });
+        showToast("Developer access granted!", "success");
+        grantDevAccessModal.style.display = "none";
+        loadApiAccess();
+      } catch (err) {
+        showToast(`Error granting access: ${escapeHtml(err.message)}`);
+      }
+    });
+  }
+
+  // ============ SIDEBAR TOGGLE ============
+  const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
+  if (sidebarToggleBtn) {
+    sidebarToggleBtn.addEventListener("click", () => {
+      const shell = document.getElementById("adminShell");
+      if (shell) {
+        shell.classList.toggle("sidebar-minimized");
+      }
+    });
+  }
+
+
+
+// EVENT DELEGATION FOR DYNAMIC BUTTONS
+document.addEventListener('click', (e) => {
+  const target = e.target.closest('[data-action]');
+  if (!target) return;
+  
+  const action = target.getAttribute('data-action');
+  
+  if (action === 'view-order') {
+    window.FreakFitsAdmin.viewOrderDetails(target.getAttribute('data-order-code'));
+  } else if (action === 'view-return') {
+    window.FreakFitsAdmin.viewReturnDetails(target.getAttribute('data-return-code'));
+  } else if (action === 'open-approval') {
+    window.FreakFitsAdmin.openApprovalModal(
+      target.getAttribute('data-req-id'),
+      target.getAttribute('data-req-email'),
+      target.getAttribute('data-req-name')
+    );
+  } else if (action === 'reject-request') {
+    window.FreakFitsAdmin.rejectAccessRequest(target.getAttribute('data-req-id'));
+  } else if (action === 'toggle-coupon') {
+    window.FreakFitsAdmin.toggleCoupon(target.getAttribute('data-coupon-id'));
+  } else if (action === 'delete-coupon') {
+    window.FreakFitsAdmin.deleteCoupon(target.getAttribute('data-coupon-id'));
+  } else if (action === 'reset-dev') {
+    if (typeof window.resetDevIp === 'function') window.resetDevIp(target.getAttribute('data-dev-id'));
+  } else if (action === 'revoke-dev') {
+    if (typeof window.revokeDevAccess === 'function') window.revokeDevAccess(target.getAttribute('data-dev-id'));
+  } else if (action === 'resolve-failed') {
+    resolveFailedPayment(target.getAttribute('data-record-id'));
+  }
+});
+
+// ============ FAILED PAYMENTS & AUDIT LOGS ============
+
+async function loadFailedPayments() {
+  const tbody = document.getElementById("failedPaymentsTableBody");
+  if (!tbody) return;
+  tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Loading...</td></tr>`;
+
+  try {
+    const resData = await apiFetch(`/admin/failed-payments`);
+    const data = Array.isArray(resData) ? resData : (resData.items || []);
+    if (!data.length) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No failed payments pending recovery.</td></tr>`;
+      return;
+    }
+
+    let adminProfile = {};
+    try { adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}"); } catch (_) {}
+    const canResolve = adminProfile.role === "super_admin";
+
+    tbody.innerHTML = data.map(r => {
+      const dateStr = new Date(r.timestamp).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" });
+      return `
+        <tr>
+          <td><span class="status-badge" style="background:#333; color:#aaa; font-family:var(--font-mono);">${dateStr}</span></td>
+          <td style="font-family:var(--font-mono); font-size:12px;">${escapeHtml(r.razorpay_order_id)}</td>
+          <td style="font-family:var(--font-mono); font-size:12px; color:var(--admin-pink);">${escapeHtml(r.payment_id)}</td>
+          <td>${escapeHtml(r.customer_identifier)}</td>
+          <td style="font-weight:600;">₹${r.amount}</td>
+          <td><span class="status-badge status-pending">Unresolved</span></td>
+          <td>
+            ${canResolve ? 
+              `<button class="btn-primary" style="padding: 6px 12px; font-size: 12px;" data-action="resolve-failed" data-record-id="${r.id}">Resolve & Delete</button>` :
+              `<button class="btn-primary" style="padding: 6px 12px; font-size: 12px; opacity:0.5; cursor:not-allowed;" disabled title="Requires Super Admin">Resolve & Delete</button>`
+            }
+          </td>
+        </tr>
+      `;
+    }).join("");
+  } catch (err) {
+    console.error(err);
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--admin-pink);">Error loading failed payments.</td></tr>`;
+  }
+}
+
+window.resolveFailedPayment = async function(recordId) {
+  if (!confirm("Are you sure you want to mark this failed payment log as resolved and delete it? (Ensure you have already taken necessary action like issuing a refund or manual order creation)")) return;
+  
+  try {
+    const data = await apiFetch(`/admin/failed-payments/${recordId}/resolve`, {
+      method: "POST"
+    });
+    
+    showToast("Record resolved and deleted successfully.");
+    loadFailedPayments();
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+async function loadAuditLogs() {
+  const tbody = document.getElementById("auditLogsTableBody");
+  if (!tbody) return;
+  tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>`;
+
+  try {
+    let resData;
+    try {
+      resData = await apiFetch(`/admin/audit-logs`);
+    } catch (err) {
+      if (err.message && err.message.toLowerCase().includes("forbidden") || err.message.toLowerCase().includes("super admin")) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-pink);">Access Denied. Super Admin only.</td></tr>`;
+        return;
+      }
+      throw err;
+    }
+    
+    const logs = Array.isArray(resData) ? resData : (resData.items || []);
+    if (!logs.length) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No audit logs available.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = logs.map(log => {
+      const dateStr = new Date(log.timestamp).toLocaleString("en-IN", { dateStyle: "short", timeStyle: "medium" });
+      const detailsStr = log.details ? JSON.stringify(log.details) : "";
+      return `
+        <tr>
+          <td><span style="font-family:var(--font-mono); font-size:11px; color:#888;">${dateStr}</span></td>
+          <td><strong>${escapeHtml(log.admin_identifier)}</strong></td>
+          <td><span class="status-badge" style="background:rgba(140,255,59,0.1); color:var(--admin-green);">${escapeHtml(log.action)}</span></td>
+          <td style="text-transform:uppercase; font-size:11px; letter-spacing:1px; color:#aaa;">${escapeHtml(log.target_type)}</td>
+          <td style="font-family:var(--font-mono); font-size:12px; color:var(--admin-pink);">${escapeHtml(log.target_id)}</td>
+          <td>
+            <div style="max-width:300px; max-height:60px; overflow-y:auto; font-family:var(--font-mono); font-size:11px; background:#111; padding:4px; border-radius:4px; white-space:pre-wrap; word-break:break-all;">${escapeHtml(detailsStr)}</div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  } catch (err) {
+    console.error(err);
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--admin-pink);">Error loading audit logs.</td></tr>`;
+  }
+}
+
 })();

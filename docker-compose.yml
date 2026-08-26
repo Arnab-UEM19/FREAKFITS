@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: freakfits_dev
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - db
+    environment:
+      # In local docker compose, we connect to the local db by default
+      # For production, these would be overridden by the remote TiDB URL
+      - DATABASE_URL=mysql+pymysql://devuser:devpassword@db:3306/freakfits_dev
+      - SECRET_KEY=your-super-secret-key-change-this
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=43200
+    # Command to wait for DB and run migrations then start gunicorn
+    command: >
+      sh -c "alembic upgrade head &&
+             gunicorn -c gunicorn_conf.py app.main:app"
+
+  frontend:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./storefront:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

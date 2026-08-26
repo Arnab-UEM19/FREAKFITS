@@ -2,9 +2,37 @@
 // FreakFits - Frontend API Client Connector (FastAPI Backend)
 // ==========================================================
 
+window.escapeHtml = function(unsafe) {
+  if (typeof unsafe !== 'string') return unsafe;
+  return unsafe
+       .replace(/&/g, "&amp;")
+       .replace(/</g, "&lt;")
+       .replace(/>/g, "&gt;")
+       .replace(/"/g, "&quot;")
+       .replace(/'/g, "&#039;");
+};
+
 const FreakFitsAPI = (function () {
   const BASE_URL = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
   const TOKEN_KEY = "freakfits_jwt_token";
+  
+  let consecutiveFailures = 0;
+  let offlineBanner = null;
+
+  function showOfflineBanner() {
+    if (offlineBanner || typeof document === 'undefined') return;
+    offlineBanner = document.createElement("div");
+    offlineBanner.className = "offline-banner";
+    offlineBanner.innerHTML = "We're having trouble connecting to our servers. Please check your internet connection and try again.";
+    document.body.appendChild(offlineBanner);
+  }
+
+  function hideOfflineBanner() {
+    if (offlineBanner && typeof document !== 'undefined') {
+      offlineBanner.remove();
+      offlineBanner = null;
+    }
+  }
 
   function getToken() {
     return localStorage.getItem(TOKEN_KEY);
@@ -39,16 +67,39 @@ const FreakFitsAPI = (function () {
     var controller = new AbortController();
     var timeoutId = setTimeout(function() { controller.abort(); }, 10000);
 
+    // Add credentials: "include" to send cookies
+    var fetchOptions = Object.assign({ credentials: "include" }, options, { headers: headers, signal: controller.signal });
+
     try {
-      var response = await fetch(url, Object.assign({}, options, { headers: headers, signal: controller.signal }));
+      var response = await fetch(url, fetchOptions);
       clearTimeout(timeoutId);
+      
+      consecutiveFailures = 0;
+      hideOfflineBanner();
+      
       var data = await response.json().catch(function() { return {}; });
+      if (response.status === 401) {
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem("freakfits_user");
+        if (typeof AuthStore !== "undefined" && AuthStore.logout) {
+          AuthStore.logout();
+        }
+        window.location.reload();
+      }
       if (!response.ok) {
         throw new Error(data.detail || data.message || ("HTTP " + response.status));
       }
       return data;
     } catch (err) {
       clearTimeout(timeoutId);
+      
+      if (err.name === 'TypeError' || err.name === 'AbortError') {
+        consecutiveFailures++;
+        if (consecutiveFailures >= 2) {
+          showOfflineBanner();
+        }
+      }
+      
       console.warn("[FreakFits API] Request to " + endpoint + " failed:", err.message);
       throw err;
     }
@@ -93,7 +144,10 @@ const FreakFitsAPI = (function () {
   }
 
   async function getMe() { return _fetch("/auth/me"); }
-  function logout() { setToken(null); }
+  async function logout() { 
+    try { await _fetch("/auth/logout", { method: "POST" }); } catch(e) {}
+    setToken(null); 
+  }
 
   // ============ PRODUCT ENDPOINTS ============
   async function getProducts(params) {
@@ -106,10 +160,44 @@ const FreakFitsAPI = (function () {
   }
   async function getProduct(id) { return _fetch("/products/" + id); }
 
-  // ============ ORDER ENDPOINTS ============
-  async function createOrder(orderData) {
-    return _fetch("/orders", { method: "POST", body: JSON.stringify(orderData) });
+  // ============ CART ENDPOINTS ============
+  async function getCart() {
+    return _fetch("/cart/");
   }
+
+  async function addCartItem(productId, size, quantity, customName, customNumber) {
+    return _fetch("/cart/", {
+      method: "POST",
+      body: JSON.stringify({
+        product_id: productId,
+        size: size,
+        quantity: quantity,
+        custom_name: customName || null,
+        custom_number: customNumber || null
+      })
+    });
+  }
+
+  async function updateCartItem(itemId, quantity, customName, customNumber) {
+    return _fetch("/cart/" + itemId, {
+      method: "PUT",
+      body: JSON.stringify({
+        quantity: quantity,
+        custom_name: customName !== undefined ? customName : null,
+        custom_number: customNumber !== undefined ? customNumber : null
+      })
+    });
+  }
+
+  async function removeCartItem(itemId) {
+    return _fetch("/cart/" + itemId, { method: "DELETE" });
+  }
+
+  async function clearCart() {
+    return _fetch("/cart/", { method: "DELETE" });
+  }
+
+  // ============ ORDER ENDPOINTS ============
   async function getMyOrders() { return _fetch("/orders/my-orders"); }
   async function getCustomerOrdersByEmail(email) {
     return _fetch("/customer/orders/" + encodeURIComponent(email.toLowerCase().trim()));
@@ -203,7 +291,7 @@ const FreakFitsAPI = (function () {
     updateProfile: updateProfile, changePassword: changePassword,
     forgotPassword: forgotPassword, resetPassword: resetPassword,
     getProducts: getProducts, getProduct: getProduct,
-    createOrder: createOrder, getMyOrders: getMyOrders, getCustomerOrdersByEmail: getCustomerOrdersByEmail, trackOrder: trackOrder, cancelOrder: cancelOrder,
+    getMyOrders: getMyOrders, getCustomerOrdersByEmail: getCustomerOrdersByEmail, trackOrder: trackOrder, cancelOrder: cancelOrder,
     createPayment: createPayment, verifyPayment: verifyPayment,
     validateCoupon: validateCoupon, checkHealth: checkHealth,
     submitReturnRequest: submitReturnRequest,
@@ -216,5 +304,10 @@ const FreakFitsAPI = (function () {
     addToWishlist: addToWishlist,
     removeFromWishlist: removeFromWishlist,
     subscribeNewsletter: subscribeNewsletter,
+    getCart: getCart,
+    addCartItem: addCartItem,
+    updateCartItem: updateCartItem,
+    removeCartItem: removeCartItem,
+    clearCart: clearCart
   };
 })();

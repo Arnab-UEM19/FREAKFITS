@@ -21,18 +21,12 @@ const AuthStore = (function () {
   function _cleanName(name, email) {
     if (name && name.trim()) {
       let str = name.trim();
-      if (/^arnabbindu/i.test(str)) {
-        return "Arnab Bindu";
-      }
       // Remove trailing digits
       str = str.replace(/[0-9]+$/g, "").trim();
       return str;
     }
 
     const handle = (email || "").split("@")[0].toLowerCase();
-    if (handle.includes("arnab") && handle.includes("bindu")) {
-      return "Arnab Bindu";
-    }
 
     // Strip trailing digits & symbols
     let stripped = handle.replace(/[0-9_.-]+$/g, "");
@@ -101,6 +95,12 @@ const AuthStore = (function () {
     users.push(newUser);
     _saveUsers(users);
     localStorage.setItem(SESSION_KEY, JSON.stringify(newUser));
+    
+    // Sync local cart to backend
+    if (typeof CartStore !== 'undefined' && typeof CartStore.syncLocalToBackend === 'function') {
+      CartStore.syncLocalToBackend().catch(err => console.error("Cart sync failed:", err));
+    }
+    
     updateHeaderUI();
     return { success: true, user: newUser };
   }
@@ -113,6 +113,9 @@ const AuthStore = (function () {
   function saveSession(user) {
     if (user) {
       localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+      if (typeof CartStore !== "undefined" && typeof CartStore.syncLocalToBackend === "function") {
+        CartStore.syncLocalToBackend();
+      }
     } else {
       localStorage.removeItem(SESSION_KEY);
     }
@@ -226,7 +229,7 @@ const AuthStore = (function () {
         accountLink.href = "profile.html";
         accountLink.innerHTML = `
           <svg viewBox="0 0 24 24" fill="none" width="18" height="18" style="stroke: currentColor; stroke-width: 2; stroke-linecap: round;"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
-          Profile (${user.name})
+          Profile (${escapeHtml(user.name)})
         `;
       } else {
         accountLink.href = "auth.html";

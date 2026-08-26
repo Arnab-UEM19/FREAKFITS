@@ -9,9 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/favicon.ico">
 </head>
 
 <body>
@@ -180,9 +181,9 @@
         </div>
 
         <div class="auth-form__field">
-          <label for="signupPassword">Create Password</label>
-          <div class="auth-form__pass-wrap">
-            <input type="password" id="signupPassword" placeholder="Minimum 6 characters" minlength="6" required autocomplete="new-password">
+            <label for="signupPassword">Create Password</label>
+            <div class="auth-form__pass-wrap">
+              <input type="password" id="signupPassword" placeholder="Min 8 chars, 1 letter, 1 number" minlength="8" required autocomplete="new-password">
             <button type="button" class="auth-form__toggle-pass" data-target="signupPassword" aria-label="Show password">👁</button>
           </div>
         </div>
@@ -234,8 +235,8 @@
         <div id="forgotResetPhase" style="display:none;">
           <div class="auth-form__field">
             <label for="newPassword">New Password</label>
-            <div class="auth-form__pass-wrap">
-              <input type="password" id="newPassword" placeholder="Minimum 6 characters">
+              <div class="auth-form__pass-wrap">
+                <input type="password" id="newPassword" placeholder="Min 8 chars, 1 letter, 1 number" minlength="8">
               <button type="button" class="auth-form__toggle-pass" data-target="newPassword" aria-label="Show password">👁</button>
             </div>
           </div>
@@ -292,16 +293,16 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
       <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
     </div>
   </footer>
 
   <div class="toast" id="toast"></div>
 
-  <script src="cart-store.js"></script>
-  <script src="api-client.js"></script>
-  <script src="auth-store.js"></script>
+  <script src="cart-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
   <script>
     // ========== Tab Switching ==========
     const tabLogin = document.getElementById("tabLoginBtn");
@@ -654,8 +655,8 @@
       const newPass = document.getElementById("newPassword").value;
       const confirmPass = document.getElementById("confirmNewPassword").value;
 
-      if (!newPass || newPass.length < 6) {
-        showToast("Password must be at least 6 characters.");
+      if (!newPass || newPass.length < 8 || !/[a-zA-Z]/.test(newPass) || !/[0-9]/.test(newPass)) {
+        showToast("Password must be at least 8 characters, including a letter and a number.");
         return;
       }
 
@@ -707,3 +708,4 @@
 </body>
 
 </html>
+

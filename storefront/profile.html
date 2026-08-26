@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -137,6 +137,7 @@
       }
     }
   </style>
+  <link rel="icon" href="assets/favicon.ico">
 </head>
 
 <body>
@@ -386,7 +387,7 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
       <span>Not affiliated with any club — fan merchandise demo.</span>
     </div>
   </footer>
@@ -394,7 +395,7 @@
   <div class="toast" id="toast"></div>
 
   <!-- Shared JS Utilities -->
-  <script src="cart-store.js"></script>
+  <script src="cart-store.js?v=2.0"></script>
   <script src="auth-store.js?v=2.0"></script>
   <script src="api-client.js?v=2.0"></script>
   <script>
@@ -536,6 +537,16 @@
       const addressIdInput = document.getElementById("addressId");
 
       async function loadAddresses() {
+        addressesList.innerHTML = Array.from({length: 2}).map(() => `
+          <div class="skeleton-row skeleton" style="border: 1px solid var(--border); background: transparent; display: block;">
+            <div class="details" style="padding: 8px;">
+              <div class="line-1" style="height: 20px; width: 40%; margin-bottom: 12px; border-radius: 4px;"></div>
+              <div class="line-2" style="height: 16px; width: 60%; margin-bottom: 8px; border-radius: 4px;"></div>
+              <div class="line-2" style="height: 16px; width: 50%; border-radius: 4px;"></div>
+            </div>
+          </div>
+        `).join("");
+
         try {
           const list = await FreakFitsAPI.getAddresses();
           if (list.length === 0) {
@@ -556,8 +567,8 @@
                 <p style="font-size: 0.9rem; color: var(--text-faint); line-height: 1.4; margin: 4px 0 0 0; font-family: 'JetBrains Mono', monospace;">📞 ${escapeHtml(addr.phone)}</p>
               </div>
               <div style="display: flex; gap: 8px;">
-                <button class="btn btn--ghost edit-addr-btn" data-id="${addr.id}" style="padding: 6px 12px; font-size: 0.8rem; border-color: var(--border); background: transparent;">Edit</button>
-                <button class="btn btn--ghost delete-addr-btn" data-id="${addr.id}" style="padding: 6px 12px; font-size: 0.8rem; border-color: rgba(255,62,122,0.3); color: var(--pink); background: transparent;">Delete</button>
+                <button class="btn btn--ghost edit-addr-btn" data-id="${escapeHtml(addr.id)}" style="padding: 6px 12px; font-size: 0.8rem; border-color: var(--border); background: transparent;">Edit</button>
+                <button class="btn btn--ghost delete-addr-btn" data-id="${escapeHtml(addr.id)}" style="padding: 6px 12px; font-size: 0.8rem; border-color: rgba(255,62,122,0.3); color: var(--pink); background: transparent;">Delete</button>
               </div>
             </div>
           `).join("");
@@ -647,7 +658,8 @@
       });
 
       function escapeHtml(str) {
-        if (!str) return "";
+        if (str === null || str === undefined) return "";
+        if (typeof str !== "string") str = String(str);
         return str.replace(/[&<>'"]/g, 
           tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
         );
@@ -670,3 +682,4 @@
 </body>
 
 </html>
+

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin-portal/
+
+Sitemap: https://freakfits.com/sitemap.xml

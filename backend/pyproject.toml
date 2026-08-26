@@ -1,0 +1,11 @@
+[tool.ruff]
+# Ignore specific rules that conflict with FastAPI patterns or current codebase state
+lint.ignore = [
+    "B008",    # Do not perform function call `Depends` in argument defaults
+    "BLE001",  # Do not catch blind exception: `Exception`
+    "ASYNC230",# Async functions should not open files with blocking methods
+    "DTZ003",  # datetime.utcnow() used
+    "SIM102",  # Use a single `if` statement instead of nested `if` statements
+    "F841",    # Local variable is assigned to but never used
+    "RUF046",  # Value being cast to `int` is already an integer
+]

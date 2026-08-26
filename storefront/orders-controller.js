@@ -3,13 +3,7 @@
 // ==========================================================
 
 (function () {
-  function escapeHtml(str) {
-    if (str === null || str === undefined) return "";
-    if (typeof str !== "string") str = String(str);
-    return str.replace(/[&<>'"]/g, 
-      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-    );
-  }
+  const escapeHtml = window.escapeHtml || (s => s);
   document.addEventListener("DOMContentLoaded", async () => {
     const user = AuthStore.getCurrentUser();
     if (!user) {
@@ -23,11 +17,23 @@
     const container = document.getElementById("ordersContainer");
     if (!container) return;
 
+    container.innerHTML = Array.from({length: 3}).map(() => `
+      <div class="skeleton-row skeleton" style="max-width: 800px; margin: 0 auto;">
+        <div class="img"></div>
+        <div class="details">
+          <div class="line-1"></div>
+          <div class="line-2"></div>
+        </div>
+      </div>
+    `).join("");
+
     try {
-      const orders = await FreakFitsAPI.getCustomerOrdersByEmail(user.email);
+      const responseData = await FreakFitsAPI.getCustomerOrdersByEmail(user.email);
+      const orders = responseData.items || responseData; // Handle both paginated and unpaginated
       renderOrders(orders, container);
       setupReviewModal(orders);
       setupCancelButtons(orders);
+      setupInvoiceButtons();
     } catch (err) {
       console.error("[Orders Controller] Error fetching orders:", err);
       // Fallback: render from localStorage if backend is offline/error
@@ -36,6 +42,7 @@
         renderOrders(localOrders, container);
         setupReviewModal(localOrders);
         setupCancelButtons(localOrders);
+        setupInvoiceButtons();
       } else {
         container.innerHTML = `
           <div class="orders-empty">
@@ -44,7 +51,7 @@
               <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
             <h2>Unable to load orders</h2>
-            <p>${err.message || "Failed to establish database connection."}</p>
+            <p>${escapeHtml(err.message || "Failed to establish database connection.")}</p>
             <button onclick="window.location.reload();" class="btn btn--solid">Try Again</button>
           </div>
         `;
@@ -103,8 +110,8 @@
         badgeClass = "status-badge--delivered";
       }
 
-      const methodLabel = order.payment_method === "razorpay" ? "💳 Razorpay Online" : "🚚 Cash on Delivery";
-      const paymentStatusText = order.payment_status === "PAID" ? "Paid" : (order.payment_status === "COD" ? "To Pay on Delivery" : order.payment_status);
+      const methodLabel = order.payment_method === "razorpay" ? "💳 Razorpay Online" : "💳 Online Payment";
+      const paymentStatusText = order.payment_status === "PAID" ? "Paid" : order.payment_status;
 
       return `
         <article class="order-card">
@@ -113,7 +120,7 @@
               <span class="order-card__code">${escapeHtml(order.order_code)}</span>
               <span class="order-card__date">Placed on ${dateStr}</span>
             </div>
-            <span class="order-card__badge ${badgeClass}">${order.order_status || "Pending"}</span>
+            <span class="order-card__badge ${badgeClass}">${escapeHtml(order.order_status || "Pending")}</span>
           </div>
 
           <div class="order-card__items">
@@ -168,7 +175,7 @@
               </div>
               
               <div class="order-card__actions" style="display: flex; gap: 8px; flex-wrap: wrap;">
-                 <a href="${FreakFitsAPI.BASE_URL}/orders/${escapeHtml(order.order_code)}/invoice?token=${encodeURIComponent(FreakFitsAPI.getToken() || '')}" target="_blank" class="btn btn--ghost btn--invoice" style="padding: 10px 18px; font-size:0.85rem; border-color: var(--line); color: var(--text-dim);">Invoice 📄</a>
+                 <button class="btn btn--ghost btn--invoice" data-order-code="${escapeHtml(order.order_code)}" style="padding: 10px 18px; font-size:0.85rem; border-color: var(--line); color: var(--text-dim);">Invoice 📄</button>
                 <a href="contact.html?reason=shipping&order=${escapeHtml(order.order_code)}" class="btn btn--dark" style="padding: 10px 18px; border: 1px solid var(--border); background:#141712; font-size:0.85rem;">Need Help?</a>
                 ${(orderStatus === "pending" || orderStatus === "confirmed") 
                   ? `<button class="btn btn--outline btn--cancel-order" style="padding: 10px 18px; font-size:0.85rem; border-color:var(--pink); color:var(--pink);" data-order-code="${escapeHtml(order.order_code)}">Cancel Order</button>` 
@@ -221,6 +228,40 @@
     });
   }
 
+  function setupInvoiceButtons() {
+    const invoiceBtns = document.querySelectorAll(".btn--invoice");
+    invoiceBtns.forEach(btn => {
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const orderCode = btn.dataset.orderCode;
+        btn.disabled = true;
+        btn.textContent = "Loading...";
+        try {
+          const token = FreakFitsAPI.getToken();
+          const res = await fetch(`${FreakFitsAPI.BASE_URL}/orders/${orderCode}/invoice`, {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          });
+          if (!res.ok) throw new Error("Failed to load invoice");
+          const html = await res.text();
+          const newWindow = window.open("", "_blank");
+          if (newWindow) {
+            newWindow.document.write(html);
+            newWindow.document.close();
+          } else {
+            showToast("Popup blocked! Please allow popups for this site.");
+          }
+        } catch (err) {
+          showToast("Error loading invoice: " + err.message);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Invoice 📄";
+        }
+      });
+    });
+  }
+
   function setupReviewModal(ordersList) {
     console.log("[FreakFits Reviews] setupReviewModal initialized. Orders list:", ordersList);
     const rateBtns = document.querySelectorAll(".btn--rate-review");
@@ -264,8 +305,7 @@
         // Populate select items
         const select = document.getElementById("reviewItemSelect");
         if (select) {
-          select.innerHTML = order.items.map(it => 
-            `<option value="${it.product_id}">${it.product_name} (${it.size})</option>`
+          select.innerHTML = order.items.map(it =>              `<option value="${escapeHtml(it.product_id)}">${escapeHtml(it.product_name)} (${escapeHtml(it.size)})</option>`
           ).join("");
         }
 
@@ -363,8 +403,15 @@
 
         try {
           const apiBase = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
+          const token = FreakFitsAPI.getToken();
+          const headers = {};
+          if (token) {
+            headers["Authorization"] = `Bearer ${token}`;
+          }
+          
           const res = await fetch(`${apiBase}/products/reviews`, {
             method: "POST",
+            headers: headers,
             body: formData
           });
 

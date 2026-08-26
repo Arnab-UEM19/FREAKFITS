@@ -1,0 +1,1505 @@
+2026-08-24 19:06:34,538 - uvicorn.error - INFO - Started server process [13212]
+2026-08-24 19:06:34,543 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:06:34,544 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:06:47,975 - uvicorn.error - INFO - Started server process [22480]
+2026-08-24 19:06:47,975 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:06:47,975 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:22:10,506 - uvicorn.error - INFO - Started server process [11848]
+2026-08-24 19:22:10,506 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:22:10,507 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:22:22,950 - uvicorn.error - INFO - Started server process [23572]
+2026-08-24 19:22:22,950 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:22:22,951 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:30:38,836 - uvicorn.error - INFO - Started server process [2784]
+2026-08-24 19:30:38,837 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:30:38,837 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:30:51,057 - uvicorn.error - INFO - Started server process [23240]
+2026-08-24 19:30:51,058 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:30:51,059 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:31:03,229 - uvicorn.error - INFO - Started server process [16064]
+2026-08-24 19:31:03,230 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:31:03,230 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:31:15,391 - uvicorn.error - INFO - Started server process [7024]
+2026-08-24 19:31:15,393 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:31:15,393 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:31:27,512 - uvicorn.error - INFO - Started server process [5156]
+2026-08-24 19:31:27,513 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:31:27,514 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:35:40,695 - uvicorn.error - INFO - Started server process [22076]
+2026-08-24 19:35:40,697 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:35:40,697 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:35:52,713 - uvicorn.error - INFO - Started server process [18804]
+2026-08-24 19:35:52,714 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:35:52,715 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:36:05,290 - uvicorn.error - INFO - Started server process [16928]
+2026-08-24 19:36:05,291 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:36:05,292 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:36:18,981 - uvicorn.error - INFO - Started server process [10572]
+2026-08-24 19:36:18,983 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:36:18,983 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:36:43,086 - uvicorn.error - INFO - Started server process [19896]
+2026-08-24 19:36:43,087 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:36:43,087 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:36:55,857 - uvicorn.error - INFO - Started server process [25444]
+2026-08-24 19:36:55,858 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:36:55,859 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:36:55,935 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:38:04,376 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:38:28,263 - uvicorn.error - INFO - Started server process [4936]
+2026-08-24 19:38:28,264 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:38:28,265 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:38:41,376 - uvicorn.error - INFO - Started server process [3444]
+2026-08-24 19:38:41,378 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:38:41,380 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:38:54,386 - uvicorn.error - INFO - Started server process [9764]
+2026-08-24 19:38:54,388 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:38:54,389 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:03,664 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:03,666 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:03,997 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:03,998 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:04,362 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:04,362 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:04,662 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:04,662 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:04,934 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:04,934 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:04,953 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:04,953 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:05,231 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:05,231 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:07,150 - uvicorn.error - INFO - Started server process [12932]
+2026-08-24 19:39:07,151 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:39:07,152 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:19,867 - uvicorn.error - INFO - Started server process [6484]
+2026-08-24 19:39:19,867 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:39:19,868 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:32,910 - uvicorn.error - INFO - Started server process [12556]
+2026-08-24 19:39:32,911 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:39:32,912 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:46,145 - uvicorn.error - INFO - Started server process [15892]
+2026-08-24 19:39:46,146 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:39:46,147 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:55,896 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:55,897 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:55,964 - uvicorn - ERROR - Unhandled exception: (sqlite3.OperationalError) no such table: users
+[SQL: SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.mobile_number AS users_mobile_number, users.hashed_password AS users_hashed_password, users.is_verified AS users_is_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.email = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('newuser@example.com', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: users
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\app\main.py", line 100, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\app\routers\auth.py", line 176, in register
+    existing_user = db.query(User).filter(User.email == email).first()
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: users
+[SQL: SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.mobile_number AS users_mobile_number, users.hashed_password AS users_hashed_password, users.is_verified AS users_is_verified, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.email = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('newuser@example.com', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+2026-08-24 19:39:57,008 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:57,008 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:57,235 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:57,236 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:57,734 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:57,734 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:58,165 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:58,166 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:58,181 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:58,181 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:58,643 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:39:58,643 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:39:59,059 - uvicorn.error - INFO - Started server process [6700]
+2026-08-24 19:39:59,060 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:39:59,061 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:40:11,686 - uvicorn.error - INFO - Started server process [23392]
+2026-08-24 19:40:11,687 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:40:11,688 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:40:24,088 - uvicorn.error - INFO - Started server process [16144]
+2026-08-24 19:40:24,089 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:40:24,090 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:40:38,227 - uvicorn.error - INFO - Started server process [12228]
+2026-08-24 19:40:38,228 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:40:38,229 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:40:54,791 - uvicorn.error - INFO - Started server process [6256]
+2026-08-24 19:40:54,793 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:40:54,794 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:41:07,645 - uvicorn.error - INFO - Started server process [20852]
+2026-08-24 19:41:07,646 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:41:07,647 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:41:17,120 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:41:17,122 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:41:19,901 - uvicorn.error - INFO - Started server process [6488]
+2026-08-24 19:41:19,903 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:41:19,903 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:41:35,979 - uvicorn.error - INFO - Started server process [19744]
+2026-08-24 19:41:35,980 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:41:35,981 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:41:48,718 - uvicorn.error - INFO - Started server process [22876]
+2026-08-24 19:41:48,719 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:41:48,720 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:00,638 - uvicorn.error - INFO - Started server process [13504]
+2026-08-24 19:42:00,639 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:42:00,639 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:05,075 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:05,077 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:05,555 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:05,555 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:05,784 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:05,784 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:06,202 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:06,203 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:06,617 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:06,617 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:06,631 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:06,632 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:06,900 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:06,901 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:12,864 - uvicorn.error - INFO - Started server process [21088]
+2026-08-24 19:42:12,865 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:42:12,866 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:44,681 - uvicorn.error - INFO - Started server process [10600]
+2026-08-24 19:42:44,682 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:42:44,683 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:53,874 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:53,875 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:54,317 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:54,317 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:54,538 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:54,539 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:54,940 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:54,941 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:55,340 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:55,340 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:55,353 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:55,353 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:55,765 - uvicorn - ERROR - Unhandled exception: (sqlite3.OperationalError) no such table: cart_items
+[SQL: SELECT cart_items.id, cart_items.user_id, cart_items.product_id, cart_items.size, cart_items.quantity, cart_items.custom_name, cart_items.custom_number, cart_items.created_at, cart_items.updated_at 
+FROM cart_items 
+WHERE cart_items.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: cart_items
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\app\main.py", line 100, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\app\routers\cart.py", line 61, in add_to_cart
+    db.refresh(new_item)
+    ~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 3176, in refresh
+    loading.load_on_ident(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<10 lines>...
+        is_user_refresh=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\loading.py", line 510, in load_on_ident
+    return load_on_pk_identity(
+        session,
+    ...<11 lines>...
+        is_user_refresh=is_user_refresh,
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\loading.py", line 695, in load_on_pk_identity
+    session.execute(
+    ~~~~~~~~~~~~~~~^
+        q,
+        ^^
+    ...<2 lines>...
+        bind_arguments=bind_arguments,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: cart_items
+[SQL: SELECT cart_items.id, cart_items.user_id, cart_items.product_id, cart_items.size, cart_items.quantity, cart_items.custom_name, cart_items.custom_number, cart_items.created_at, cart_items.updated_at 
+FROM cart_items 
+WHERE cart_items.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+2026-08-24 19:42:56,369 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:56,370 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:42:56,682 - uvicorn.error - INFO - Started server process [21460]
+2026-08-24 19:42:56,683 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:42:56,683 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:42:56,798 - uvicorn - ERROR - Unhandled exception: (sqlite3.OperationalError) no such table: cart_items
+[SQL: SELECT cart_items.id, cart_items.user_id, cart_items.product_id, cart_items.size, cart_items.quantity, cart_items.custom_name, cart_items.custom_number, cart_items.created_at, cart_items.updated_at 
+FROM cart_items 
+WHERE cart_items.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: cart_items
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\app\main.py", line 100, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\app\routers\cart.py", line 61, in add_to_cart
+    db.refresh(new_item)
+    ~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 3176, in refresh
+    loading.load_on_ident(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<10 lines>...
+        is_user_refresh=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\loading.py", line 510, in load_on_ident
+    return load_on_pk_identity(
+        session,
+    ...<11 lines>...
+        is_user_refresh=is_user_refresh,
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\loading.py", line 695, in load_on_pk_identity
+    session.execute(
+    ~~~~~~~~~~~~~~~^
+        q,
+        ^^
+    ...<2 lines>...
+        bind_arguments=bind_arguments,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\arnab.ARNAB\OneDrive\Documents\Personal Projects\FreakFits\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: cart_items
+[SQL: SELECT cart_items.id, cart_items.user_id, cart_items.product_id, cart_items.size, cart_items.quantity, cart_items.custom_name, cart_items.custom_number, cart_items.created_at, cart_items.updated_at 
+FROM cart_items 
+WHERE cart_items.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+2026-08-24 19:43:09,041 - uvicorn.error - INFO - Started server process [11032]
+2026-08-24 19:43:09,042 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:43:09,042 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:18,676 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:18,678 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:43:36,427 - uvicorn.error - INFO - Started server process [21948]
+2026-08-24 19:43:36,428 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:43:36,428 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:49,068 - uvicorn.error - INFO - Started server process [3068]
+2026-08-24 19:43:49,069 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:43:49,070 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:51,011 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:51,012 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:43:51,465 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:51,465 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:43:51,707 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:51,707 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:43:52,166 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:52,166 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:43:52,578 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:52,579 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:43:52,595 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:52,595 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:43:53,019 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:43:53,019 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:44:39,184 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:44:39,186 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:45:01,174 - uvicorn.error - INFO - Started server process [3548]
+2026-08-24 19:45:01,176 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:45:01,176 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:09,857 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:09,858 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:45:13,317 - uvicorn.error - INFO - Started server process [484]
+2026-08-24 19:45:13,318 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:45:13,319 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:45,343 - uvicorn.error - INFO - Started server process [2784]
+2026-08-24 19:45:45,344 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:45:45,345 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:53,411 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:53,412 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:45:53,674 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:53,674 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:45:53,889 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:53,890 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:45:54,306 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:54,307 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:45:54,719 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:54,719 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:45:54,732 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:54,733 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:45:55,146 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:45:55,146 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-24 19:45:57,519 - uvicorn.error - INFO - Started server process [20596]
+2026-08-24 19:45:57,520 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:45:57,521 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:52:40,991 - uvicorn.error - INFO - Started server process [11812]
+2026-08-24 19:52:40,992 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:52:40,993 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:52:52,753 - uvicorn.error - INFO - Started server process [18672]
+2026-08-24 19:52:52,754 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:52:52,755 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:54:29,950 - uvicorn.error - INFO - Started server process [25240]
+2026-08-24 19:54:29,951 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:54:29,952 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 19:55:39,275 - uvicorn.error - INFO - Started server process [18904]
+2026-08-24 19:55:39,276 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 19:55:39,276 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 20:13:28,297 - uvicorn.error - INFO - Started server process [22988]
+2026-08-24 20:13:28,298 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 20:13:28,299 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 20:13:41,163 - uvicorn.error - INFO - Started server process [20008]
+2026-08-24 20:13:41,164 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 20:13:41,164 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 20:13:53,661 - uvicorn.error - INFO - Started server process [12892]
+2026-08-24 20:13:53,662 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 20:13:53,663 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 20:14:06,874 - uvicorn.error - INFO - Started server process [9024]
+2026-08-24 20:14:06,875 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 20:14:06,876 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 20:36:09,497 - uvicorn.error - INFO - Started server process [18960]
+2026-08-24 20:36:09,498 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 20:36:09,499 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 20:36:25,981 - uvicorn.error - INFO - Started server process [21440]
+2026-08-24 20:36:25,982 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 20:36:25,996 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 20:51:50,547 - uvicorn.error - INFO - Started server process [15208]
+2026-08-24 20:51:50,548 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 20:51:50,548 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 20:52:03,493 - uvicorn.error - INFO - Started server process [12932]
+2026-08-24 20:52:03,494 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 20:52:03,495 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:02:07,872 - uvicorn.error - INFO - Started server process [11152]
+2026-08-24 21:02:07,873 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:02:07,874 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:02:21,326 - uvicorn.error - INFO - Started server process [5220]
+2026-08-24 21:02:21,328 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:02:21,329 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:13:06,861 - uvicorn.error - INFO - Started server process [15344]
+2026-08-24 21:13:06,862 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:13:06,863 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:13:19,507 - uvicorn.error - INFO - Started server process [4140]
+2026-08-24 21:13:19,508 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:13:19,508 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:21:54,828 - uvicorn.error - INFO - Started server process [9856]
+2026-08-24 21:21:54,829 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:21:54,830 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:22:07,536 - uvicorn.error - INFO - Started server process [26592]
+2026-08-24 21:22:07,537 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:22:07,538 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:22:21,730 - uvicorn.error - INFO - Started server process [23872]
+2026-08-24 21:22:21,731 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:22:21,732 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:22:34,399 - uvicorn.error - INFO - Started server process [18532]
+2026-08-24 21:22:34,400 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:22:34,400 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:22:47,163 - uvicorn.error - INFO - Started server process [3876]
+2026-08-24 21:22:47,164 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:22:47,165 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:23:00,256 - uvicorn.error - INFO - Started server process [9184]
+2026-08-24 21:23:00,257 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:23:00,258 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:23:13,773 - uvicorn.error - INFO - Started server process [3656]
+2026-08-24 21:23:13,774 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:23:13,774 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:26:40,708 - uvicorn.error - INFO - Started server process [13044]
+2026-08-24 21:26:40,709 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:26:40,710 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:30:17,995 - uvicorn.error - INFO - Started server process [18212]
+2026-08-24 21:30:17,996 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:30:17,996 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:30:31,101 - uvicorn.error - INFO - Started server process [18524]
+2026-08-24 21:30:31,102 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:30:31,103 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:30:44,603 - uvicorn.error - INFO - Started server process [11312]
+2026-08-24 21:30:44,604 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:30:44,605 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:30:57,850 - uvicorn.error - INFO - Started server process [6440]
+2026-08-24 21:30:57,852 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:30:57,852 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:31:38,147 - uvicorn.error - INFO - Started server process [12124]
+2026-08-24 21:31:38,148 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:31:38,148 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:31:53,078 - uvicorn.error - INFO - Started server process [9772]
+2026-08-24 21:31:53,079 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:31:53,080 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:35:35,755 - uvicorn.error - INFO - Started server process [26516]
+2026-08-24 21:35:35,756 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:35:35,757 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:35:49,049 - uvicorn.error - INFO - Started server process [25728]
+2026-08-24 21:35:49,051 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:35:49,051 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:43:04,786 - uvicorn.error - INFO - Started server process [25760]
+2026-08-24 21:43:04,787 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:43:04,787 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:48:35,394 - uvicorn.error - INFO - Started server process [17820]
+2026-08-24 21:48:35,395 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:48:35,396 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:48:47,823 - uvicorn.error - INFO - Started server process [15232]
+2026-08-24 21:48:47,824 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:48:47,825 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 21:49:00,631 - uvicorn.error - INFO - Started server process [13940]
+2026-08-24 21:49:00,632 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 21:49:00,633 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 22:35:00,657 - uvicorn.error - INFO - Started server process [26500]
+2026-08-24 22:35:00,658 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 22:35:00,659 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-24 22:35:15,703 - uvicorn.error - INFO - Started server process [13040]
+2026-08-24 22:35:15,704 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-24 22:35:15,704 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 20:13:28,475 - uvicorn.error - INFO - Started server process [20616]
+2026-08-25 20:13:28,478 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 20:13:28,480 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 21:13:39,946 - uvicorn.error - INFO - Started server process [13796]
+2026-08-25 21:13:39,947 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 21:13:39,948 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:07:32,442 - uvicorn.error - INFO - Started server process [26184]
+2026-08-25 22:07:32,443 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:07:32,443 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:07:46,485 - uvicorn.error - INFO - Started server process [15344]
+2026-08-25 22:07:46,486 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:07:46,486 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:08:29,680 - uvicorn.error - INFO - Started server process [17416]
+2026-08-25 22:08:29,682 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:08:29,682 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:08:42,784 - uvicorn.error - INFO - Started server process [3632]
+2026-08-25 22:08:42,785 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:08:42,786 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:08:57,312 - uvicorn.error - INFO - Started server process [10644]
+2026-08-25 22:08:57,313 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:08:57,314 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:09:14,295 - uvicorn.error - INFO - Started server process [17952]
+2026-08-25 22:09:14,296 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:09:14,297 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:12:46,640 - uvicorn.error - INFO - Started server process [3928]
+2026-08-25 22:12:46,641 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:12:46,642 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:13:01,617 - uvicorn.error - INFO - Started server process [27356]
+2026-08-25 22:13:01,619 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:13:01,620 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:13:18,478 - uvicorn.error - INFO - Started server process [26896]
+2026-08-25 22:13:18,479 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:13:18,479 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:13:32,055 - uvicorn.error - INFO - Started server process [11276]
+2026-08-25 22:13:32,056 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:13:32,057 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:21:54,305 - uvicorn.error - INFO - Started server process [7208]
+2026-08-25 22:21:54,306 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:21:54,307 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:22:07,548 - uvicorn.error - INFO - Started server process [21724]
+2026-08-25 22:22:07,550 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:22:07,550 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:22:23,277 - uvicorn.error - INFO - Started server process [17444]
+2026-08-25 22:22:23,278 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:22:23,278 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:22:36,723 - uvicorn.error - INFO - Started server process [16548]
+2026-08-25 22:22:36,724 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:22:36,725 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:23:26,378 - uvicorn.error - INFO - Started server process [13344]
+2026-08-25 22:23:26,379 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:23:26,380 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 22:23:40,158 - uvicorn.error - INFO - Started server process [23360]
+2026-08-25 22:23:40,159 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 22:23:40,160 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:31:51,194 - uvicorn.error - INFO - Started server process [12936]
+2026-08-25 23:31:51,195 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:31:51,196 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:32:04,717 - uvicorn.error - INFO - Started server process [14424]
+2026-08-25 23:32:04,719 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:32:04,719 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:51:07,992 - uvicorn.error - INFO - Started server process [10560]
+2026-08-25 23:51:07,995 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:51:07,996 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:51:24,206 - uvicorn.error - INFO - Started server process [19836]
+2026-08-25 23:51:24,207 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:51:24,208 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:51:37,937 - uvicorn.error - INFO - Started server process [27420]
+2026-08-25 23:51:37,938 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:51:37,939 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:51:52,714 - uvicorn.error - INFO - Started server process [26048]
+2026-08-25 23:51:52,716 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:51:52,717 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:52:25,666 - uvicorn.error - INFO - Started server process [20548]
+2026-08-25 23:52:25,666 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:52:25,667 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:52:39,414 - uvicorn.error - INFO - Started server process [13984]
+2026-08-25 23:52:39,415 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:52:39,416 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:54:14,597 - uvicorn.error - INFO - Started server process [23008]
+2026-08-25 23:54:14,598 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:54:14,598 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:54:28,121 - uvicorn.error - INFO - Started server process [23924]
+2026-08-25 23:54:28,122 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:54:28,123 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:54:44,557 - uvicorn.error - INFO - Started server process [4024]
+2026-08-25 23:54:44,558 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:54:44,558 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:54:58,224 - uvicorn.error - INFO - Started server process [22864]
+2026-08-25 23:54:58,225 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:54:58,226 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:55:18,818 - uvicorn.error - INFO - Started server process [14352]
+2026-08-25 23:55:18,819 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:55:18,820 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:55:33,778 - uvicorn.error - INFO - Started server process [22364]
+2026-08-25 23:55:33,779 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:55:33,779 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:55:47,770 - uvicorn.error - INFO - Started server process [3904]
+2026-08-25 23:55:47,771 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:55:47,772 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:56:02,091 - uvicorn.error - INFO - Started server process [16640]
+2026-08-25 23:56:02,093 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:56:02,093 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:56:16,578 - uvicorn.error - INFO - Started server process [27096]
+2026-08-25 23:56:16,580 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:56:16,580 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:56:30,029 - uvicorn.error - INFO - Started server process [16932]
+2026-08-25 23:56:30,030 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:56:30,030 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:56:57,296 - uvicorn.error - INFO - Started server process [21096]
+2026-08-25 23:56:57,297 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:56:57,298 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:57:11,179 - uvicorn.error - INFO - Started server process [17384]
+2026-08-25 23:57:11,180 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:57:11,181 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:57:51,759 - uvicorn.error - INFO - Started server process [4888]
+2026-08-25 23:57:51,760 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:57:51,761 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:58:05,255 - uvicorn.error - INFO - Started server process [22068]
+2026-08-25 23:58:05,257 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:58:05,257 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:58:24,947 - uvicorn.error - INFO - Started server process [19100]
+2026-08-25 23:58:24,948 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:58:24,948 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:58:39,208 - uvicorn.error - INFO - Started server process [18544]
+2026-08-25 23:58:39,209 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:58:39,210 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:59:14,381 - uvicorn.error - INFO - Started server process [7988]
+2026-08-25 23:59:14,382 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:59:14,383 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-25 23:59:28,702 - uvicorn.error - INFO - Started server process [16528]
+2026-08-25 23:59:28,703 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-25 23:59:28,704 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:04:41,234 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:04:41,235 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:04:41,503 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:04:41,503 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:04:41,727 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:04:41,727 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:04:42,135 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:04:42,135 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:04:42,544 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:04:42,544 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:04:42,559 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:04:42,560 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:04:42,982 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:04:42,983 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:17:50,584 - uvicorn.error - INFO - Started server process [18576]
+2026-08-26 00:17:50,585 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 00:17:50,586 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:03,863 - uvicorn.error - INFO - Started server process [6620]
+2026-08-26 00:18:03,864 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 00:18:03,865 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:06,892 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:06,893 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:18:07,154 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:07,155 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:18:07,368 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:07,369 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:18:07,784 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:07,784 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:18:08,247 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:08,247 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:18:08,274 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:08,275 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:18:08,775 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:08,775 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 00:18:18,648 - uvicorn.error - INFO - Started server process [19296]
+2026-08-26 00:18:18,650 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 00:18:18,651 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 00:18:32,998 - uvicorn.error - INFO - Started server process [27036]
+2026-08-26 00:18:32,999 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 00:18:33,000 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:35:32,915 - uvicorn.error - INFO - Started server process [14192]
+2026-08-26 08:35:32,916 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:35:32,918 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:52:14,009 - uvicorn.error - INFO - Started server process [17720]
+2026-08-26 08:52:14,010 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:52:14,011 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:52:51,978 - uvicorn.error - INFO - Started server process [23988]
+2026-08-26 08:52:51,979 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:52:51,980 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:53:05,317 - uvicorn.error - INFO - Started server process [20124]
+2026-08-26 08:53:05,320 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:53:05,321 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:53:18,127 - uvicorn.error - INFO - Started server process [10064]
+2026-08-26 08:53:18,129 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:53:18,129 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:53:31,713 - uvicorn.error - INFO - Started server process [16036]
+2026-08-26 08:53:31,714 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:53:31,715 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:53:45,843 - uvicorn.error - INFO - Started server process [11132]
+2026-08-26 08:53:45,845 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:53:45,846 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:53:58,590 - uvicorn.error - INFO - Started server process [7228]
+2026-08-26 08:53:58,591 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:53:58,592 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:55:18,469 - uvicorn.error - INFO - Started server process [19520]
+2026-08-26 08:55:18,471 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:55:18,472 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 08:55:31,918 - uvicorn.error - INFO - Started server process [12340]
+2026-08-26 08:55:31,919 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 08:55:31,920 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:01:57,599 - uvicorn.error - INFO - Started server process [25932]
+2026-08-26 09:01:57,601 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:01:57,601 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:02:03,886 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:02:03,887 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 09:02:04,149 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:02:04,150 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 09:02:04,361 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:02:04,361 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 09:02:04,775 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:02:04,776 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 09:02:05,188 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:02:05,189 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 09:02:05,203 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:02:05,203 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 09:02:05,621 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:02:05,621 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 09:02:11,549 - uvicorn.error - INFO - Started server process [7064]
+2026-08-26 09:02:11,550 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:02:11,551 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:03:05,597 - uvicorn.error - INFO - Started server process [9016]
+2026-08-26 09:03:05,600 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:03:05,600 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:03:19,578 - uvicorn.error - INFO - Started server process [23924]
+2026-08-26 09:03:19,580 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:03:19,580 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:08:20,111 - uvicorn.error - INFO - Started server process [10100]
+2026-08-26 09:08:20,113 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:08:20,114 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:09:57,515 - uvicorn.error - INFO - Started server process [20780]
+2026-08-26 09:09:57,516 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:09:57,517 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:10:11,708 - uvicorn.error - INFO - Started server process [25772]
+2026-08-26 09:10:11,709 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:10:11,710 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:25:49,198 - uvicorn.error - INFO - Started server process [19204]
+2026-08-26 09:25:49,200 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:25:49,200 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:26:02,777 - uvicorn.error - INFO - Started server process [4396]
+2026-08-26 09:26:02,778 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:26:02,779 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:30:02,663 - uvicorn.error - INFO - Started server process [25276]
+2026-08-26 09:30:02,665 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:30:02,666 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:30:16,976 - uvicorn.error - INFO - Started server process [20068]
+2026-08-26 09:30:16,977 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:30:16,978 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:35:21,971 - uvicorn.error - INFO - Started server process [13716]
+2026-08-26 09:35:21,972 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:35:21,973 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:35:36,524 - uvicorn.error - INFO - Started server process [25088]
+2026-08-26 09:35:36,525 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:35:36,526 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:43:01,241 - uvicorn.error - INFO - Started server process [24252]
+2026-08-26 09:43:01,243 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:43:01,244 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:43:15,451 - uvicorn.error - INFO - Started server process [3888]
+2026-08-26 09:43:15,452 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:43:15,453 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:53:29,274 - uvicorn.error - INFO - Started server process [2928]
+2026-08-26 09:53:29,275 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:53:29,276 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:53:42,993 - uvicorn.error - INFO - Started server process [18060]
+2026-08-26 09:53:42,994 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:53:42,995 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:53:55,880 - uvicorn.error - INFO - Started server process [20560]
+2026-08-26 09:53:55,881 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:53:55,882 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:54:09,338 - uvicorn.error - INFO - Started server process [16800]
+2026-08-26 09:54:09,339 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:54:09,340 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:54:51,725 - uvicorn.error - INFO - Started server process [15384]
+2026-08-26 09:54:51,726 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:54:51,727 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:55:05,763 - uvicorn.error - INFO - Started server process [23832]
+2026-08-26 09:55:05,765 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:55:05,766 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:55:35,530 - uvicorn.error - INFO - Started server process [6316]
+2026-08-26 09:55:35,531 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:55:35,532 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:55:49,317 - uvicorn.error - INFO - Started server process [22948]
+2026-08-26 09:55:49,318 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:55:49,319 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:56:19,609 - uvicorn.error - INFO - Started server process [2612]
+2026-08-26 09:56:19,610 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:56:19,611 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 09:56:36,394 - uvicorn.error - INFO - Started server process [19568]
+2026-08-26 09:56:36,396 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 09:56:36,396 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:02:06,211 - uvicorn.error - INFO - Started server process [12600]
+2026-08-26 10:02:06,212 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:02:06,213 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:06:59,458 - uvicorn.error - INFO - Started server process [7036]
+2026-08-26 10:06:59,459 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:06:59,460 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:07:20,517 - uvicorn.error - INFO - Started server process [22900]
+2026-08-26 10:07:20,519 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:07:20,520 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:07:39,013 - uvicorn.error - INFO - Started server process [22672]
+2026-08-26 10:07:39,014 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:07:39,014 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:07:54,391 - uvicorn.error - INFO - Started server process [22500]
+2026-08-26 10:07:54,393 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:07:54,394 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:08:38,091 - uvicorn.error - INFO - Started server process [18104]
+2026-08-26 10:08:38,092 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:08:38,093 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:09:10,135 - uvicorn.error - INFO - Started server process [26552]
+2026-08-26 10:09:10,137 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:09:10,137 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:10:19,023 - uvicorn.error - INFO - Started server process [21928]
+2026-08-26 10:10:19,024 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:10:19,025 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:10:42,993 - uvicorn.error - INFO - Started server process [20300]
+2026-08-26 10:10:42,994 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:10:42,994 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:14:06,164 - uvicorn.error - INFO - Started server process [23808]
+2026-08-26 10:14:06,166 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:14:06,166 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:14:20,837 - uvicorn.error - INFO - Started server process [9192]
+2026-08-26 10:14:20,838 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:14:20,839 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:18:21,541 - uvicorn.error - INFO - Started server process [2768]
+2026-08-26 10:18:21,542 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:18:21,542 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:18:34,829 - uvicorn.error - INFO - Started server process [3492]
+2026-08-26 10:18:34,831 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:18:34,832 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:19:00,765 - uvicorn.error - INFO - Started server process [26428]
+2026-08-26 10:19:00,766 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:19:00,766 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:19:17,212 - uvicorn.error - INFO - Started server process [25280]
+2026-08-26 10:19:17,213 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:19:17,214 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:48:54,237 - uvicorn.error - INFO - Started server process [27432]
+2026-08-26 10:48:54,238 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:48:54,239 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:49:09,221 - uvicorn.error - INFO - Started server process [11312]
+2026-08-26 10:49:09,222 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:49:09,222 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:49:24,023 - uvicorn.error - INFO - Started server process [26424]
+2026-08-26 10:49:24,024 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:49:24,025 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:49:39,573 - uvicorn.error - INFO - Started server process [23828]
+2026-08-26 10:49:39,575 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:49:39,575 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:50:18,494 - uvicorn.error - INFO - Started server process [20312]
+2026-08-26 10:50:18,495 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:50:18,496 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:50:33,147 - uvicorn.error - INFO - Started server process [22140]
+2026-08-26 10:50:33,148 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:50:33,149 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:51:32,125 - uvicorn.error - INFO - Started server process [13540]
+2026-08-26 10:51:32,126 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:51:32,127 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:51:56,361 - uvicorn.error - INFO - Started server process [24248]
+2026-08-26 10:51:56,363 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:51:56,363 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:52:14,034 - uvicorn.error - INFO - Started server process [19612]
+2026-08-26 10:52:14,035 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:52:14,036 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:52:29,259 - uvicorn.error - INFO - Started server process [23184]
+2026-08-26 10:52:29,261 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:52:29,262 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:54:09,015 - uvicorn.error - INFO - Started server process [1572]
+2026-08-26 10:54:09,016 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:54:09,017 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:54:31,633 - uvicorn.error - INFO - Started server process [10100]
+2026-08-26 10:54:31,634 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:54:31,635 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:55:15,109 - uvicorn.error - INFO - Started server process [25864]
+2026-08-26 10:55:15,111 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:55:15,112 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:55:32,478 - uvicorn.error - INFO - Started server process [11736]
+2026-08-26 10:55:32,479 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:55:32,480 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:55:51,665 - uvicorn.error - INFO - Started server process [23116]
+2026-08-26 10:55:51,666 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:55:51,667 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:56:06,322 - uvicorn.error - INFO - Started server process [14580]
+2026-08-26 10:56:06,324 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:56:06,324 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:56:25,752 - uvicorn.error - INFO - Started server process [13128]
+2026-08-26 10:56:25,753 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:56:25,754 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:56:41,191 - uvicorn.error - INFO - Started server process [7660]
+2026-08-26 10:56:41,193 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:56:41,193 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:56:59,512 - uvicorn.error - INFO - Started server process [17860]
+2026-08-26 10:56:59,513 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:56:59,514 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:57:21,199 - uvicorn.error - INFO - Started server process [1608]
+2026-08-26 10:57:21,201 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:57:21,201 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:57:48,292 - uvicorn.error - INFO - Started server process [10128]
+2026-08-26 10:57:48,294 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:57:48,295 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:58:01,701 - uvicorn.error - INFO - Started server process [20060]
+2026-08-26 10:58:01,702 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:58:01,703 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:58:47,380 - uvicorn.error - INFO - Started server process [21668]
+2026-08-26 10:58:47,382 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:58:47,383 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 10:59:01,044 - uvicorn.error - INFO - Started server process [25352]
+2026-08-26 10:59:01,045 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 10:59:01,046 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:01:34,131 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:01:34,134 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:01:34,403 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:01:34,404 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:01:34,615 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:01:34,615 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:01:35,026 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:01:35,026 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:01:35,439 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:01:35,439 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:01:35,455 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:01:35,455 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:01:35,876 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:01:35,877 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:13:26,067 - uvicorn.error - INFO - Started server process [7820]
+2026-08-26 11:13:26,069 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 11:13:26,069 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:40,706 - uvicorn.error - INFO - Started server process [952]
+2026-08-26 11:13:40,707 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 11:13:40,708 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:55,765 - uvicorn.error - INFO - Started server process [23196]
+2026-08-26 11:13:55,766 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 11:13:55,767 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:57,478 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:57,479 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:13:57,759 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:57,759 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:13:57,983 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:57,984 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:13:58,385 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:58,386 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:13:58,818 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:58,819 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:13:58,833 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:58,833 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:13:59,251 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 11:13:59,252 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 11:14:10,467 - uvicorn.error - INFO - Started server process [6524]
+2026-08-26 11:14:10,469 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 11:14:10,470 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:02:58,469 - uvicorn.error - INFO - Started server process [4060]
+2026-08-26 18:02:58,473 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:02:58,475 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:14:03,950 - uvicorn.error - INFO - Started server process [16732]
+2026-08-26 18:14:03,952 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:14:03,952 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:14:17,567 - uvicorn.error - INFO - Started server process [27012]
+2026-08-26 18:14:17,568 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:14:17,569 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:14:31,234 - uvicorn.error - INFO - Started server process [27400]
+2026-08-26 18:14:31,235 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:14:31,236 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:14:44,510 - uvicorn.error - INFO - Started server process [18916]
+2026-08-26 18:14:44,511 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:14:44,512 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:14:58,674 - uvicorn.error - INFO - Started server process [25824]
+2026-08-26 18:14:58,676 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:14:58,676 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:15:13,614 - uvicorn.error - INFO - Started server process [13332]
+2026-08-26 18:15:13,615 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:15:13,616 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:15:28,527 - uvicorn.error - INFO - Started server process [6692]
+2026-08-26 18:15:28,528 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:15:28,528 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:15:42,057 - uvicorn.error - INFO - Started server process [7608]
+2026-08-26 18:15:42,059 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:15:42,060 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:16:00,757 - uvicorn.error - INFO - Started server process [19900]
+2026-08-26 18:16:00,758 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:16:00,759 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:16:14,238 - uvicorn.error - INFO - Started server process [19428]
+2026-08-26 18:16:14,240 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:16:14,240 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:16:28,529 - uvicorn.error - INFO - Started server process [13028]
+2026-08-26 18:16:28,530 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:16:28,531 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:16:42,023 - uvicorn.error - INFO - Started server process [4580]
+2026-08-26 18:16:42,024 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:16:42,025 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:17:37,133 - uvicorn.error - INFO - Started server process [26656]
+2026-08-26 18:17:37,134 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:17:37,152 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:17:50,123 - uvicorn.error - INFO - Started server process [25832]
+2026-08-26 18:17:50,123 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:17:50,124 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:18:09,496 - uvicorn.error - INFO - Started server process [22736]
+2026-08-26 18:18:09,498 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:18:09,498 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:18:22,881 - uvicorn.error - INFO - Started server process [17436]
+2026-08-26 18:18:22,882 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:18:22,883 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:20:03,395 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:20:03,396 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 18:20:03,660 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:20:03,660 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 18:20:03,873 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:20:03,873 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 18:20:04,278 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:20:04,278 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 18:20:04,683 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:20:04,683 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 18:20:04,713 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:20:04,713 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 18:20:05,128 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:20:05,128 - uvicorn - INFO - Skipping database seeding in testing environment.
+2026-08-26 18:39:21,209 - uvicorn.error - INFO - Started server process [6536]
+2026-08-26 18:39:21,211 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:39:21,212 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:39:34,389 - uvicorn.error - INFO - Started server process [19648]
+2026-08-26 18:39:34,391 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:39:34,391 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:41:06,516 - uvicorn.error - INFO - Started server process [15280]
+2026-08-26 18:41:06,518 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:41:06,519 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:41:20,082 - uvicorn.error - INFO - Started server process [22548]
+2026-08-26 18:41:20,083 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:41:20,084 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:41:33,313 - uvicorn.error - INFO - Started server process [18280]
+2026-08-26 18:41:33,315 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:41:33,315 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:41:46,646 - uvicorn.error - INFO - Started server process [18032]
+2026-08-26 18:41:46,647 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:41:46,648 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:41:59,799 - uvicorn.error - INFO - Started server process [14972]
+2026-08-26 18:41:59,801 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:41:59,802 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:42:12,871 - uvicorn.error - INFO - Started server process [20736]
+2026-08-26 18:42:12,872 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:42:12,873 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:42:26,384 - uvicorn.error - INFO - Started server process [17532]
+2026-08-26 18:42:26,386 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:42:26,386 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:42:39,581 - uvicorn.error - INFO - Started server process [9928]
+2026-08-26 18:42:39,582 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:42:39,583 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:42:52,841 - uvicorn.error - INFO - Started server process [19620]
+2026-08-26 18:42:52,842 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:42:52,843 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:56:36,952 - uvicorn.error - INFO - Started server process [25900]
+2026-08-26 18:56:36,953 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:56:36,954 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:56:51,193 - uvicorn.error - INFO - Started server process [10492]
+2026-08-26 18:56:51,195 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:56:51,196 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:57:05,182 - uvicorn.error - INFO - Started server process [21356]
+2026-08-26 18:57:05,183 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:57:05,184 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:57:18,245 - uvicorn.error - INFO - Started server process [12456]
+2026-08-26 18:57:18,247 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:57:18,247 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:57:31,821 - uvicorn.error - INFO - Started server process [21456]
+2026-08-26 18:57:31,823 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:57:31,823 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:57:45,717 - uvicorn.error - INFO - Started server process [14536]
+2026-08-26 18:57:45,718 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:57:45,719 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:58:00,870 - uvicorn.error - INFO - Started server process [26736]
+2026-08-26 18:58:00,872 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:58:00,872 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:58:15,050 - uvicorn.error - INFO - Started server process [18788]
+2026-08-26 18:58:15,051 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:58:15,052 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:58:49,093 - uvicorn.error - INFO - Started server process [22148]
+2026-08-26 18:58:49,095 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:58:49,095 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 18:59:02,033 - uvicorn.error - INFO - Started server process [11976]
+2026-08-26 18:59:02,035 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 18:59:02,035 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 19:08:20,767 - uvicorn.error - INFO - Started server process [17860]
+2026-08-26 19:08:20,768 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 19:08:20,771 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 19:16:28,834 - uvicorn.error - INFO - Started server process [26068]
+2026-08-26 19:16:28,835 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 19:16:28,836 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 19:16:43,460 - uvicorn.error - INFO - Started server process [5452]
+2026-08-26 19:16:43,461 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 19:16:43,461 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 21:12:58,884 - uvicorn.error - INFO - Started server process [24612]
+2026-08-26 21:12:58,885 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 21:12:58,885 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 21:13:12,687 - uvicorn.error - INFO - Started server process [10468]
+2026-08-26 21:13:12,688 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 21:13:12,689 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 21:13:40,152 - uvicorn.error - INFO - Started server process [3528]
+2026-08-26 21:13:40,154 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 21:13:40,154 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 21:15:49,858 - uvicorn.error - INFO - Started server process [26756]
+2026-08-26 21:15:49,859 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 21:15:49,860 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 21:16:03,874 - uvicorn.error - INFO - Started server process [20692]
+2026-08-26 21:16:03,875 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 21:16:03,875 - uvicorn - INFO - Starting FreakFits FastAPI backend...

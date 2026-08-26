@@ -12,6 +12,7 @@
     href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="admin.css">
+  <link rel="icon" href="../storefront/assets/favicon.ico">
 </head>
 
 <body>
@@ -23,7 +24,7 @@
     <div class="login-card">
       <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
         alt="FreakFits Emblem" class="login-logo">
-      <h1 class="login-title">Admin <em>Control</em></h1>
+      <h2 class="login-title">Admin <em>Control</em></h2>
       <p class="login-sub">Secure authentication for FreakFits operations</p>
 
       <form id="loginForm">
@@ -79,11 +80,20 @@
 
     <!-- Left Navigation Sidebar -->
     <aside class="admin-sidebar">
-      <div class="sidebar-header">
-        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
-          alt="FreakFits" class="sidebar-logo">
-        <span class="sidebar-brand-name">Freak<em>Fits</em></span>
-        <span class="sidebar-badge">HQ</span>
+      <div class="sidebar-header" style="justify-content: space-between; padding-right: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;" class="sidebar-brand-wrap">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="sidebar-logo">
+          <span class="sidebar-brand-name">Freak<em>Fits</em></span>
+          <span class="sidebar-badge">HQ</span>
+        </div>
+        <button id="sidebarToggleBtn" style="background:none; border:none; color:var(--admin-text-dim); cursor:pointer; padding:4px;" title="Toggle Sidebar">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
 
       <nav class="sidebar-nav">
@@ -185,24 +195,29 @@
           </svg>
           Access Requests
         </a>
+
+        <!-- 11. API Docs Access Tab (Super Admin Only) -->
+        <a href="#api-access" class="nav-link" data-tab="api-access" id="nav-api-access" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+          API Access
+        </a>
+        <!-- 12. Failed Payments Tab -->
+        <a href="#failed-payments" class="nav-link" data-tab="failed-payments" id="nav-failed-payments" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          Failed Payments
+        </a>
+
+        <!-- Audit logs moved to topbar -->
       </nav>
 
-      <div class="sidebar-footer" style="display:flex; flex-direction:column; gap:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-          <div class="admin-user-info">
-            <span class="admin-user-name" id="currentAdminName">Super Admin</span>
-            <span class="admin-user-role" id="currentAdminRole">Super Admin</span>
-          </div>
-          <button class="btn-logout" id="logoutBtn" title="Log Out" aria-label="Log Out">
-            <svg viewBox="0 0 24 24" fill="none" width="18" height="18" stroke="currentColor" stroke-width="2">
-              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
-            </svg>
-          </button>
-        </div>
-        <button type="button" id="btnChangePasswordModal" style="background:none; border:1px solid var(--admin-line); border-radius:6px; color:var(--admin-text-dim); padding:6px 12px; font-size:11px; font-weight:600; text-transform:uppercase; cursor:pointer; width:100%; text-align:center; transition:all 0.2s;" onmouseover="this.style.borderColor='var(--admin-green)'; this.style.color='var(--admin-text)'" onmouseout="this.style.borderColor='var(--admin-line)'; this.style.color='var(--admin-text-dim)'">
-          🔒 Change Password
-        </button>
-      </div>
+
     </aside>
 
     <!-- Main Workspace Container -->
@@ -210,16 +225,49 @@
       
       <!-- Top Navigation Bar -->
       <header class="admin-topbar">
-        <div class="topbar-title-wrap">
+        <div class="topbar-title-wrap" style="display: flex; align-items: center; gap: 12px;">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png" alt="FreakFits Logo" class="topbar-minimized-logo">
           <h1 id="topbarTitle">System Overview</h1>
         </div>
-        <div class="topbar-actions">
+        <div class="topbar-actions" style="display: flex; align-items: center; gap: 24px;">
+          <a href="#audit-logs" id="top-audit-logs" class="storefront-link" style="display: none;" onclick="window.FreakFitsAdmin.switchTab('audit-logs'); return false;">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            Audit Logs
+          </a>
+
           <a href="../storefront/index.html" target="_blank" class="storefront-link">
             <svg viewBox="0 0 24 24" fill="none" width="16" height="16" stroke="currentColor" stroke-width="2">
               <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
             </svg>
             View Live Storefront
           </a>
+          
+          <div style="width: 1px; height: 24px; background: var(--admin-line);"></div>
+          
+          <div class="topbar-user-section" style="display: flex; align-items: center; gap: 16px;">
+            <div class="admin-user-info" style="display:flex; flex-direction:column; gap:2px; text-align: right;">
+              <span class="admin-user-name" id="currentAdminName" style="font-weight:700; color:var(--admin-text); font-size:13px;">Super Admin</span>
+              <span class="admin-user-role" id="currentAdminRole" style="font-size:10.5px; color:var(--admin-green); font-family:var(--font-mono);">Super Admin</span>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button type="button" id="btnChangePasswordModal" title="Change Password" style="background:rgba(255,255,255,0.03); border:1px solid var(--admin-line); border-radius:6px; color:var(--admin-text-dim); padding:6px; cursor:pointer; display:flex; justify-content:center; align-items:center; transition:all 0.2s;" onmouseover="this.style.borderColor='var(--admin-green)'; this.style.color='var(--admin-text)'" onmouseout="this.style.borderColor='var(--admin-line)'; this.style.color='var(--admin-text-dim)'">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+              </button>
+              
+              <button class="btn-logout" id="logoutBtn" title="Log Out" aria-label="Log Out" style="background:rgba(255,62,122,0.05); border:1px solid rgba(255,62,122,0.2); border-radius:6px; color:var(--admin-pink); padding:6px; cursor:pointer; display:flex; justify-content:center; align-items:center; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,62,122,0.1)'; this.style.borderColor='rgba(255,62,122,0.4)'" onmouseout="this.style.background='rgba(255,62,122,0.05)'; this.style.borderColor='rgba(255,62,122,0.2)'">
+                <svg viewBox="0 0 24 24" fill="none" width="16" height="16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -314,6 +362,9 @@
                 </a>
                 <button class="btn-secondary" onclick="window.FreakFitsAdmin.switchTab('returns')" style="justify-content:center;">
                   🔄 Returns & Claims Desk
+                </button>
+                <button class="btn-secondary" id="btnQuickAccessGiven" onclick="window.FreakFitsAdmin.switchTab('access-given')" style="justify-content:center; display:none; background:rgba(140,255,59,0.1); color:var(--admin-green); border-color:rgba(140,255,59,0.3);">
+                  🔑 Access Given
                 </button>
               </div>
             </div>
@@ -778,6 +829,141 @@
 
         </section>
 
+        <!-- ========================================== -->
+        <!-- VIEW 11: API DOCS ACCESS                    -->
+        <!-- ========================================== -->
+        <section class="view-section" id="view-api-access" style="display: none;">
+          <div class="table-card" style="margin-bottom: 24px;">
+            <div class="table-toolbar" style="padding:20px;">
+              <h2 style="font-family:'Anton', sans-serif; font-size:1.6rem; text-transform:uppercase; color:var(--admin-text); margin:0;">Master API Credentials</h2>
+            </div>
+            <div style="padding: 20px;">
+              <form id="masterApiDocsForm" style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+                <div class="form-group">
+                  <label for="masterApiUsername">Master Username</label>
+                  <input type="text" id="masterApiUsername" class="input-field" required>
+                </div>
+                <div class="form-group">
+                  <label for="masterApiPassword">New Master Password</label>
+                  <input type="password" id="masterApiPassword" class="input-field" placeholder="Leave blank to keep current">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 150px;">Save Master</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-toolbar" style="padding:20px;">
+              <h2 style="font-family:'Anton', sans-serif; font-size:1.6rem; text-transform:uppercase; color:var(--admin-text); margin:0;">Third-Party Developers</h2>
+              <button class="btn-primary" id="btnGrantDevAccess">
+                <svg viewBox="0 0 24 24" fill="none" width="16" height="16" stroke="currentColor" stroke-width="2" style="margin-right:8px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Grant Access
+              </button>
+            </div>
+            
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Developer Email</th>
+                    <th>Bound IP Address</th>
+                    <th>Created At</th>
+                    <th style="width:200px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="devAccessTableBody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             12. Failed Payments (Recovery Dashboard)
+             ============================================== -->
+        <section id="view-failed-payments" class="view-section" style="display:none;">
+          <div class="section-header">
+            <h2>Failed Payments Recovery</h2>
+            <p>Manage and resolve payments that succeeded but failed to create an order.</p>
+          </div>
+
+          <div class="table-card">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Razorpay Order ID</th>
+                  <th>Payment ID</th>
+                  <th>Customer Info</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="failedPaymentsTableBody">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             14. Access Given (Super Admin Only)
+             ============================================== -->
+        <section id="view-access-given" class="view-section" style="display:none;">
+          <div class="section-header">
+            <h2>Access Given</h2>
+            <p>List of all approved personnel who have access to this portal.</p>
+          </div>
+          <div class="panel">
+            <div style="overflow-x:auto;">
+              <table class="data-table" id="accessGivenTable">
+                <thead>
+                  <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Granted On</th>
+                    <th style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="accessGivenTableBody">
+                  <!-- JS populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             13. Audit Logs (Super Admin Only)
+             ============================================== -->
+        <section id="view-audit-logs" class="view-section" style="display:none;">
+          <div class="section-header">
+            <h2>System Audit Logs</h2>
+            <p>Read-only trail of all administrative actions performed across the system.</p>
+          </div>
+
+          <div class="table-card" style="max-height: 800px; overflow-y: auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Admin</th>
+                  <th>Action</th>
+                  <th>Target Type</th>
+                  <th>Target ID</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="auditLogsTableBody">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
       </div>
 
     </main>
@@ -947,6 +1133,49 @@
         <button type="submit" class="btn-primary" style="margin-top:10px;">
           Confirm Access & Send Credentials
         </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: Super Admin Profile Update          -->
+  <!-- ========================================== -->
+  <div class="login-screen" id="superAdminProfileModal" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);">
+    <div class="login-card" style="box-shadow: 0 10px 40px rgba(140, 255, 59, 0.1);">
+      <h2 class="login-title">Personalize <em>Profile</em></h2>
+      <p class="login-sub">Welcome! Please enter your name to personalize your Super Admin account (you can only do this once):</p>
+      
+      <form id="superAdminProfileForm">
+        <div class="form-group">
+          <label for="newSuperAdminName">Your Full Name</label>
+          <div class="input-wrapper">
+            <input type="text" id="newSuperAdminName" class="input-field" placeholder="e.g. John Doe" required minlength="2">
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="superAdminProfileSubmitBtn">
+          Save Profile
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Grant Dev Access Modal -->
+  <div class="admin-modal" id="grantDevAccessModal" style="display:none;">
+    <div class="admin-modal__card" style="max-width: 450px;">
+      <button class="admin-modal__close" id="closeGrantDevModalBtn" aria-label="Close modal">&times;</button>
+      <h2 class="admin-modal__title">Grant Developer Access</h2>
+      
+      <form id="grantDevAccessForm" class="admin-modal__body" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="form-group">
+          <label for="devAccessEmail">Developer Email</label>
+          <input type="email" id="devAccessEmail" class="input-field" placeholder="dev@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="devAccessPassword">Generated Password (Copy This!)</label>
+          <input type="text" id="devAccessPassword" class="input-field" style="font-family: var(--font-mono); color: var(--admin-pink);" required readonly>
+          <small style="color: var(--admin-text-dim); margin-top: 4px; display: block;">This will only be shown once. Share this password with the developer.</small>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top: 10px;">Grant & Save</button>
       </form>
     </div>
   </div>

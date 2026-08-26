@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -348,6 +348,7 @@
       }
     }
   </style>
+  <link rel="icon" href="assets/favicon.ico">
 </head>
 
 <body>
@@ -565,7 +566,7 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© 2026 FreakFits. All rights reserved. Developed By Arnab Bindu Chakraborty</span>
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
       <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
     </div>
   </footer>
@@ -573,8 +574,8 @@
   <div class="toast" id="toast"></div>
 
   <!-- Script tags -->
-  <script src="api-client.js"></script>
-  <script src="auth-store.js"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
   <script>
   function escapeHtml(str) {
     if (str === null || str === undefined) return "";
@@ -649,7 +650,7 @@
       }).join("");
 
       // Render summary info
-      document.getElementById("resPaymentMethod").textContent = order.payment_method === "razorpay" ? "💳 Razorpay Online" : "🚚 Cash on Delivery";
+      document.getElementById("resPaymentMethod").textContent = order.payment_method === "razorpay" ? "💳 Razorpay Online" : "💳 Online Payment";
       document.getElementById("resPaymentStatus").textContent = order.payment_status === "PAID" ? "Paid" : "Pending";
       document.getElementById("resGrandTotal").textContent = `₹${Math.round(order.total).toLocaleString("en-IN")}`;
 
@@ -780,3 +781,4 @@
 </body>
 
 </html>
+

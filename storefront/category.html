@@ -10,9 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/favicon.ico">
 </head>
 
 <body>
@@ -129,6 +130,9 @@
   <!-- ============ PRODUCT GRID ============ -->
   <section class="trending cat-grid-section">
     <div class="product-grid product-grid--4" id="productGrid"></div>
+    <div id="viewMoreContainer" style="text-align:center; margin-top: 3rem; display:none;">
+      <button id="viewMoreBtn" class="hero__btn" style="padding: 0.8rem 2rem; font-size: 1rem; cursor: pointer;">View More Products</button>
+    </div>
   </section>
 
   <!-- ============ FOOTER ============ -->
@@ -168,17 +172,17 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© 2026 FreakFits. All rights reserved.</span>
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
       <span>Not affiliated with any club — fan-made merchandise for demonstration.</span>
     </div>
   </footer>
 
   <div class="toast" id="toast"></div>
 
-  <script src="products.js"></script>
-  <script src="cart-store.js"></script>
-  <script src="api-client.js"></script>
-  <script src="auth-store.js"></script>
+  <script src="products.js?v=2.0"></script>
+  <script src="cart-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
   <script>
     // ========== Category Page Logic ==========
     const CAT_META = {
@@ -215,42 +219,58 @@
 
     // Render products
     let products = hasSearch ? getProductsBySearch(searchQuery) : getProductsByCategory(currentCat);
+    let visibleCount = 20;
 
     function renderGrid(list) {
       const grid = document.getElementById("productGrid");
       document.getElementById("resultCount").textContent = `${list.length} product${list.length !== 1 ? "s" : ""}`;
 
-      grid.innerHTML = list.map(p => `
-        <article class="product-card" style="--card-accent:${p.color}">
-          <a href="product.html?id=${p.id}" class="product-card__link">
+      const visibleList = list.slice(0, visibleCount);
+
+      grid.innerHTML = visibleList.map(p => `
+        <article class="product-card" style="--card-accent:${escapeHtml(p.color)}">
+          <a href="product.html?id=${escapeHtml(p.id)}" class="product-card__link">
             <div class="product-card__media">
-              ${p.badge ? `<span class="product-card__badge" style="--badge-bg:${p.badgeBg || p.color}">${p.badge}</span>` : ""}
-              <img src="${p.images[0]}" alt="${p.name}" class="product-card__img" loading="lazy">
+              ${p.badge ? `<span class="product-card__badge" style="--badge-bg:${escapeHtml(p.badgeBg || p.color)}">${escapeHtml(p.badge)}</span>` : ""}
+              <img src="${escapeHtml(p.images[0])}" alt="${escapeHtml(p.name)}" class="product-card__img" loading="lazy">
             </div>
           </a>
           <div class="product-card__body">
-            <span class="product-card__club">${p.club}</span>
-            <a href="product.html?id=${p.id}" class="product-card__name">${p.name}</a>
+            <span class="product-card__club">${escapeHtml(p.club)}</span>
+            <a href="product.html?id=${escapeHtml(p.id)}" class="product-card__name">${escapeHtml(p.name)}</a>
             <span class="product-card__stars">${starString(p.rating)} <span>(${p.reviews})</span></span>
             <div class="product-card__price">
-              <span class="now">₹${p.price.toLocaleString("en-IN")}</span>
-              ${p.was ? `<span class="was">₹${p.was.toLocaleString("en-IN")}</span>` : ""}
+              <span class="now">₹${getSizePrice(p).toLocaleString("en-IN")}</span>
+              <span class="was">₹${getSizeWasPrice(p).toLocaleString("en-IN")}</span>
             </div>
-            <button class="product-card__add" data-add="${p.id}">Add to Cart</button>
+            <button class="product-card__add" data-add="${escapeHtml(p.id)}">Add to Cart</button>
           </div>
         </article>
       `).join("");
 
       // Add to cart handlers
-      grid.querySelectorAll("[data-add]").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          e.preventDefault();
-          const prod = getProductById(btn.dataset.add);
-          CartStore.addItem({ id: prod.id, name: prod.name, club: prod.club, price: prod.price, was: prod.was, color: prod.color, image: prod.images[0], category: prod.category });
-          showToast(`Added — ${prod.name}`);
+        grid.querySelectorAll("[data-add]").forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const prod = getProductById(btn.dataset.add);
+            await CartStore.addItem({ id: prod.id, name: prod.name, club: prod.club, price: prod.price, was: prod.was, color: prod.color, image: prod.images[0], category: prod.category });
+            showToast(`Added — ${prod.name}`);
+          });
         });
-      });
+
+      // View More Button visibility
+      const vmContainer = document.getElementById("viewMoreContainer");
+      if (visibleCount >= list.length) {
+         vmContainer.style.display = "none";
+      } else {
+         vmContainer.style.display = "block";
+      }
     }
+
+    document.getElementById("viewMoreBtn").addEventListener("click", () => {
+      visibleCount += 20;
+      renderGrid(products);
+    });
 
     function sortCompare(a, b, comparator) {
       const aNew = a.badge === "NEW DROP";
@@ -261,35 +281,30 @@
     }
 
     // Sort logic
-    function applySortAndRender() {
-      const sorted = [...products];
-      const sortVal = document.getElementById("sortSelect").value;
-      switch (sortVal) {
-        case "price-low": 
-          sorted.sort((a, b) => sortCompare(a, b, (x, y) => x.price - y.price)); 
-          break;
-        case "price-high": 
-          sorted.sort((a, b) => sortCompare(a, b, (x, y) => y.price - x.price)); 
-          break;
-        case "rating": 
-          sorted.sort((a, b) => sortCompare(a, b, (x, y) => y.rating - x.rating)); 
-          break;
-        default:
-          sorted.sort((a, b) => sortCompare(a, b, (x, y) => y.id - x.id));
-          break;
+    document.getElementById("sortSelect").addEventListener("change", (e) => {
+      const val = e.target.value;
+      if (val === "price-low") {
+        products.sort((a, b) => sortCompare(a, b, (a, b) => getSizePrice(a) - getSizePrice(b)));
+      } else if (val === "price-high") {
+        products.sort((a, b) => sortCompare(a, b, (a, b) => getSizePrice(b) - getSizePrice(a)));
+      } else if (val === "rating") {
+        products.sort((a, b) => sortCompare(a, b, (a, b) => b.rating - a.rating));
+      } else {
+        // default/featured
+        products.sort((a, b) => sortCompare(a, b, (a, b) => b.id - a.id));
       }
-      renderGrid(sorted);
-    }
-
-    document.getElementById("sortSelect").addEventListener("change", applySortAndRender);
+      visibleCount = 20; // reset on sort
+      renderGrid(products);
+    });
 
     // Initial render
-    applySortAndRender();
+    renderGrid(products);
 
     // Re-render when backend products sync from MySQL database
     window.addEventListener("freakfits:products-synced", () => {
       products = hasSearch ? getProductsBySearch(searchQuery) : getProductsByCategory(currentCat);
-      applySortAndRender();
+      visibleCount = 20; // reset on sync
+      renderGrid(products);
     });
 
     // Toast
