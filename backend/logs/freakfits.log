@@ -1506,3 +1506,6 @@ WHERE cart_items.id = ?]
 2026-08-26 21:26:41,220 - uvicorn.error - INFO - Started server process [17420]
 2026-08-26 21:26:41,221 - uvicorn.error - INFO - Waiting for application startup.
 2026-08-26 21:26:41,222 - uvicorn - INFO - Starting FreakFits FastAPI backend...
+2026-08-26 22:20:31,055 - uvicorn.error - INFO - Started server process [17508]
+2026-08-26 22:20:31,056 - uvicorn.error - INFO - Waiting for application startup.
+2026-08-26 22:20:31,056 - uvicorn - INFO - Starting FreakFits FastAPI backend...
