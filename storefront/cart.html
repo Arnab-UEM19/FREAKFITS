@@ -20,6 +20,7 @@
       background: rgba(140, 255, 59, 0.04) !important;
       box-shadow: 0 0 10px rgba(140, 255, 59, 0.15);
     }
+
     .checkout-addr-card.is-selected .selected-check {
       border-color: var(--green) !important;
       background: var(--green) !important;
@@ -92,7 +93,9 @@
         </a>
         <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
         <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
@@ -122,7 +125,7 @@
         </nav>
         <h1 class="cart-page__title">Your Cart</h1>
         <p class="cart-page__sub" style="color:var(--text-dim); font-size:14px; margin-top:6px; font-weight:500;">
-          🚚 Shipping charge ₹99 on orders below ₹500 • <strong>Free Delivery</strong> on orders of ₹500+
+          🚚 Shipping charge ₹99 on orders below ₹1000
         </p>
       </div>
 
@@ -134,31 +137,6 @@
 
         <!-- Sidebar -->
         <aside class="cart-page__sidebar">
-
-          <!-- Customize Section -->
-          <div class="cart-sidebar__section" id="customizeSection">
-            <h3 class="cart-sidebar__heading">
-              <svg viewBox="0 0 24 24" fill="none"
-                style="width:20px;height:20px;vertical-align:middle;margin-right:6px">
-                <path d="M12 20h9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              Customize Your Kit
-            </h3>
-            <p class="cart-sidebar__sub">Add your name & number to all items</p>
-            <div class="cart-sidebar__field">
-              <label for="customName">Name on Back</label>
-              <input type="text" id="customName" maxlength="12" placeholder="YOUR NAME" autocomplete="off">
-            </div>
-            <div class="cart-sidebar__field">
-              <label for="customNumber">Number</label>
-              <input type="text" id="customNumber" maxlength="2" placeholder="07" inputmode="numeric"
-                autocomplete="off">
-            </div>
-            <button class="btn btn--ghost cart-sidebar__apply-custom" id="applyCustomBtn">Apply Customization</button>
-          </div>
-
           <!-- Coupon Section -->
           <div class="cart-sidebar__section">
             <h3 class="cart-sidebar__heading">
@@ -199,63 +177,84 @@
             </div>
             <button class="btn btn--solid btn--wide cart-sidebar__checkout" id="proceedPayBtn">Proceed for
               Payment</button>
-            <p style="font-size: 0.75rem; color: var(--text-faint); margin-top: 12px; text-align: center;">Note: Your cart is stored locally on this device only.</p>
+            <p style="font-size: 0.75rem; color: var(--text-faint); margin-top: 12px; text-align: center;">Note: Your
+              cart is stored locally on this device only.</p>
           </div>
         </aside>
       </div>
 
       <!-- ============ PAYMENT SECTION ============ -->
       <section class="payment-section" id="paymentSection" style="display:none;">
-        
+
         <!-- Select Shipping Address Sub-Section -->
-        <div id="checkoutAddressSection" style="margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 30px;">
+        <div id="checkoutAddressSection"
+          style="margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 30px;">
           <h2 class="payment-section__title" style="margin-bottom: 20px;">
             <span style="font-size:24px; vertical-align:middle; margin-right:8px;">📍</span>
             Select Delivery Address
           </h2>
-          
-          <div id="checkoutAddressesList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+
+          <div id="checkoutAddressesList"
+            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
             <!-- JS populated addresses to select from -->
           </div>
-          
-          <button class="btn btn--outline" id="btnCheckoutAddNewAddress" style="margin-top: 16px; padding: 10px 18px; border-color: var(--border); background: transparent;">+ Add New Address</button>
-          
+
+          <button class="btn btn--outline" id="btnCheckoutAddNewAddress"
+            style="margin-top: 16px; padding: 10px 18px; border-color: var(--border); background: transparent;">+ Add
+            New Address</button>
+
           <!-- Checkout Add Address Inline Form -->
-          <div id="checkoutAddressFormWrapper" style="display: none; border: 1px dashed var(--border); border-radius: var(--radius-md); padding: 20px; margin-top: 20px; background: rgba(255,255,255,0.01);">
-            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 12px; color: var(--green);">Add Address for Delivery</h3>
+          <div id="checkoutAddressFormWrapper"
+            style="display: none; border: 1px dashed var(--border); border-radius: var(--radius-md); padding: 20px; margin-top: 20px; background: rgba(255,255,255,0.01);">
+            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 12px; color: var(--green);">Add Address for
+              Delivery</h3>
             <form id="checkoutAddressForm" style="display: flex; flex-direction: column; gap: 12px;">
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                 <div class="cart-sidebar__field">
-                  <label for="cAddrFullName" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Full Name</label>
-                  <input type="text" id="cAddrFullName" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                  <label for="cAddrFullName"
+                    style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Full Name</label>
+                  <input type="text" id="cAddrFullName" required
+                    style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
                 </div>
                 <div class="cart-sidebar__field">
-                  <label for="cAddrPhone" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Phone Number</label>
-                  <input type="text" id="cAddrPhone" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                  <label for="cAddrPhone" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Phone
+                    Number</label>
+                  <input type="text" id="cAddrPhone" required
+                    style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
                 </div>
               </div>
               <div class="cart-sidebar__field">
-                <label for="cAddrStreet" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Street Address</label>
-                <textarea id="cAddrStreet" required rows="2" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit; resize: none;"></textarea>
+                <label for="cAddrStreet" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Street
+                  Address</label>
+                <textarea id="cAddrStreet" required rows="2"
+                  style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit; resize: none;"></textarea>
               </div>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                 <div class="cart-sidebar__field">
-                  <label for="cAddrCity" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">City</label>
-                  <input type="text" id="cAddrCity" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                  <label for="cAddrCity"
+                    style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">City</label>
+                  <input type="text" id="cAddrCity" required
+                    style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
                 </div>
                 <div class="cart-sidebar__field">
-                  <label for="cAddrState" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">State</label>
-                  <input type="text" id="cAddrState" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                  <label for="cAddrState"
+                    style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">State</label>
+                  <input type="text" id="cAddrState" required
+                    style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
                 </div>
               </div>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                 <div class="cart-sidebar__field">
-                  <label for="cAddrZip" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Postal Code / ZIP</label>
-                  <input type="text" id="cAddrZip" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+                  <label for="cAddrZip" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Postal
+                    Code / ZIP</label>
+                  <input type="text" id="cAddrZip" required
+                    style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
                 </div>
                 <div class="cart-sidebar__field">
-                  <label for="cAddrType" style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Address Type</label>
-                  <select id="cAddrType" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit; width: 100%;">
+                  <label for="cAddrType"
+                    style="font-size:11px; text-transform:uppercase; color:var(--text-dim);">Address Type</label>
+                  <select id="cAddrType"
+                    style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit; width: 100%;">
                     <option value="Home">Home 🏠</option>
                     <option value="Office">Office 🏢</option>
                     <option value="Other">Other 📍</option>
@@ -264,7 +263,8 @@
               </div>
               <div style="display: flex; gap: 12px; margin-top: 10px;">
                 <button type="submit" class="btn btn--solid" style="padding: 10px 20px;">Save & Use Address</button>
-                <button type="button" class="btn btn--outline" id="btnCancelCheckoutAddress" style="padding: 10px 20px; border-color: var(--border); background: transparent;">Cancel</button>
+                <button type="button" class="btn btn--outline" id="btnCancelCheckoutAddress"
+                  style="padding: 10px 20px; border-color: var(--border); background: transparent;">Cancel</button>
               </div>
             </form>
           </div>
@@ -426,7 +426,7 @@
       const e = window.escapeHtml || (s => s);
 
       if (cart.length > 0 && PRODUCTS.length === 0) {
-        itemsEl.innerHTML = Array.from({length: cart.length}).map(() => `
+        itemsEl.innerHTML = Array.from({ length: cart.length }).map(() => `
           <div class="skeleton-row skeleton">
             <div class="img"></div>
             <div class="details">
@@ -661,7 +661,7 @@
       const listEl = document.getElementById("checkoutAddressesList");
       if (!listEl) return;
       listEl.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--text-dim);">Loading saved addresses...</p>`;
-      
+
       try {
         checkoutAddresses = await FreakFitsAPI.getAddresses();
         if (checkoutAddresses.length === 0) {
@@ -669,7 +669,7 @@
           selectedAddressId = null;
           return;
         }
-        
+
         listEl.innerHTML = checkoutAddresses.map(addr => `
           <div class="checkout-addr-card" data-id="${escapeHtml(addr.id)}" style="border: 2px solid var(--border); border-radius: var(--radius-md); padding: 16px; background: rgba(255,255,255,0.01); cursor: pointer; text-align: left; position: relative; transition: all 0.2s;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
@@ -685,7 +685,7 @@
             <div class="selected-check" style="position: absolute; top: 12px; right: 12px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; font-weight: 900;">✓</div>
           </div>
         `).join("");
-        
+
         // Setup click selection
         const cards = listEl.querySelectorAll(".checkout-addr-card");
         cards.forEach(card => {
@@ -695,7 +695,7 @@
             selectedAddressId = parseInt(card.dataset.id);
           });
         });
-        
+
         // Select first address by default
         if (checkoutAddresses.length > 0) {
           let targetCard = cards[0];
@@ -706,7 +706,7 @@
           targetCard.classList.add("is-selected");
           selectedAddressId = parseInt(targetCard.dataset.id);
         }
-        
+
       } catch (err) {
         listEl.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--pink);">Error loading addresses.</p>`;
       }
@@ -757,7 +757,7 @@
     function escapeHtml(str) {
       if (str === null || str === undefined) return "";
       if (typeof str !== "string") str = String(str);
-      return str.replace(/[&<>'"]/g, 
+      return str.replace(/[&<>'"]/g,
         tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
       );
     }
