@@ -11,7 +11,7 @@
   --admin-surface-light: #20261D;
   --admin-line: #272F22;
   --admin-line-focus: #3D4834;
-  
+
   --admin-green: #8CFF3B;
   --admin-green-glow: rgba(140, 255, 59, 0.15);
   --admin-blue: #29C5F6;
@@ -20,15 +20,15 @@
   --admin-pink-glow: rgba(255, 62, 122, 0.15);
   --admin-amber: #D4A054;
   --admin-amber-glow: rgba(212, 160, 84, 0.15);
-  
+
   --admin-text: #F4F6F0;
   --admin-text-dim: #949D8C;
   --admin-text-faint: #5D6656;
-  
+
   --font-display: 'Anton', sans-serif;
   --font-body: 'Space Grotesk', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  
+
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
@@ -36,7 +36,9 @@
   --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -220,6 +222,12 @@ body {
   min-height: 100vh;
 }
 
+/* Sidebar drawer backdrop — hidden by default at ALL widths so it never
+   becomes an unintended 3rd CSS Grid item alongside the sidebar/main columns */
+.sidebar-overlay {
+  display: none;
+}
+
 /* Sidebar */
 .admin-sidebar {
   background: var(--admin-surface);
@@ -276,8 +284,13 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .sidebar-header {
@@ -697,7 +710,7 @@ body {
   cursor: pointer;
   outline: none;
   transition: var(--transition);
-  
+
   /* Custom arrow */
   appearance: none;
   -webkit-appearance: none;
@@ -829,13 +842,15 @@ body {
 }
 
 /* Quick Stock & Size Price Editor */
-.stock-badge-group, .price-badge-group {
+.stock-badge-group,
+.price-badge-group {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
 }
 
-.stock-pill, .price-pill {
+.stock-pill,
+.price-pill {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -857,7 +872,8 @@ body {
   background: rgba(255, 62, 122, 0.08);
 }
 
-.quick-stock-input, .quick-price-input {
+.quick-stock-input,
+.quick-price-input {
   width: 55px;
   background: var(--admin-bg);
   border: 1px solid var(--admin-line);
@@ -948,24 +964,68 @@ body {
 
 /* Animation helpers */
 @keyframes modalFadeIn {
-  from { opacity: 0; transform: scale(0.95) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 @media (max-width: 900px) {
   .admin-shell {
     grid-template-columns: 1fr;
   }
+
+  /* Sidebar becomes an off-canvas drawer instead of vanishing */
   .admin-sidebar {
-    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    max-width: 82vw;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1001;
   }
+
+  .admin-shell.mobile-sidebar-open .admin-sidebar {
+    transform: translateX(0);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Dark backdrop behind the open drawer */
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 12, 8, 0.7);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+  }
+
+  .admin-shell.mobile-sidebar-open .sidebar-overlay {
+    display: block;
+  }
+
+  /* Hamburger button in the topbar, hidden on desktop via inline style */
+  .mobile-nav-toggle {
+    display: flex !important;
+  }
+
   .dashboard-split {
     grid-template-columns: 1fr;
   }
+
   .view-container {
     padding: 20px 16px;
   }
 }
+
 
 /* ==========================================================
    Admin Details Modal
@@ -1032,7 +1092,7 @@ body {
   margin-bottom: 24px;
 }
 
-.modal-info-block h3, 
+.modal-info-block h3,
 .modal-items-section h3 {
   font-family: var(--font-mono);
   font-size: 11px;

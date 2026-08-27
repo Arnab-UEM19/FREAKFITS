@@ -10,7 +10,7 @@
   function escapeHtml(str) {
     if (str === null || str === undefined) return "";
     if (typeof str !== "string") str = String(str);
-    return str.replace(/[&<>'"]/g, 
+    return str.replace(/[&<>'"]/g,
       tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
     );
   }
@@ -61,12 +61,12 @@
         }
       }
       if (response.status === 403) {
-         if (endpoint === "/admin/access-requests/pending") {
-             // If a viewer accidentally gets stuck with access-requests as their active tab
-             localStorage.setItem("freakfits_admin_active_tab", "dashboard");
-             window.location.reload();
-         }
-         throw new Error("You do not have permission to perform this action.");
+        if (endpoint === "/admin/access-requests/pending") {
+          // If a viewer accidentally gets stuck with access-requests as their active tab
+          localStorage.setItem("freakfits_admin_active_tab", "dashboard");
+          window.location.reload();
+        }
+        throw new Error("You do not have permission to perform this action.");
       }
 
       const data = await response.json();
@@ -87,7 +87,7 @@
       const form = document.getElementById("superAdminProfileForm");
       if (modal && form) {
         modal.style.display = "flex";
-        
+
         form.onsubmit = async (e) => {
           e.preventDefault();
           const newName = document.getElementById("newSuperAdminName").value;
@@ -96,12 +96,12 @@
               const btn = document.getElementById("superAdminProfileSubmitBtn");
               btn.disabled = true;
               btn.textContent = "Saving...";
-              
+
               const res = await apiFetch("/admin/profile", {
                 method: "PATCH",
                 body: JSON.stringify({ full_name: newName.trim() })
               });
-              
+
               localStorage.setItem(STORAGE_KEY_ADMIN, JSON.stringify(res));
               const nameEl = document.getElementById("currentAdminName");
               if (nameEl) nameEl.textContent = res.full_name;
@@ -149,17 +149,17 @@
         if (navApi) {
           navApi.style.display = adminProfile.role === "super_admin" ? "flex" : "none";
         }
-        
+
         const navReq = document.getElementById("nav-access-requests");
         if (navReq) {
           navReq.style.display = adminProfile.role === "super_admin" ? "flex" : "none";
         }
-        
+
         const navAudit = document.getElementById("top-audit-logs");
         if (navAudit) {
           navAudit.style.display = adminProfile.role === "super_admin" ? "flex" : "none";
         }
-        
+
         const btnAccessGiven = document.getElementById("btnQuickAccessGiven");
         if (btnAccessGiven) {
           btnAccessGiven.style.display = adminProfile.role === "super_admin" ? "flex" : "none";
@@ -169,9 +169,9 @@
         if (navFailed) {
           navFailed.style.display = adminProfile.role !== "super_admin" ? "none" : "flex";
         }
-        
+
         setTimeout(() => promptSuperAdminName(adminProfile), 500);
-      } catch (_) {}
+      } catch (_) { }
 
       enforceRolePermissions();
       switchTab(activeTab);
@@ -185,8 +185,8 @@
     let adminProfile = {};
     try {
       adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}");
-    } catch (_) {}
-    
+    } catch (_) { }
+
     const role = adminProfile.role || "viewer";
 
     // 1. Locks/Permissions for VIEWER role (Read-only access)
@@ -198,18 +198,18 @@
         addSubmit.style.opacity = "0.5";
         addSubmit.style.cursor = "not-allowed";
       }
-      
+
       const btnAddNewCoupon = document.getElementById("btnAddNewCoupon");
       if (btnAddNewCoupon) {
         btnAddNewCoupon.style.display = "none";
       }
-      
+
       const returnActionSelects = document.querySelectorAll(".return-action-select");
       returnActionSelects.forEach(select => {
         select.disabled = true;
         select.title = "Viewers cannot update return status";
       });
-      
+
       const cancelOrderBtns = document.querySelectorAll(".cancel-order-btn");
       cancelOrderBtns.forEach(btn => {
         btn.disabled = true;
@@ -219,8 +219,8 @@
 
     // 2. Locks/Permissions for MANAGER role (Cannot change pricing)
     if (role === "manager" || role === "viewer") {
-      const priceInps = ["newPriceS", "newPriceM", "newPriceL", "newPriceXL", "newPriceXXL", 
-                         "newWasPriceS", "newWasPriceM", "newWasPriceL", "newWasPriceXL", "newWasPriceXXL"];
+      const priceInps = ["newPriceS", "newPriceM", "newPriceL", "newPriceXL", "newPriceXXL",
+        "newWasPriceS", "newWasPriceM", "newWasPriceL", "newWasPriceXL", "newWasPriceXXL"];
       priceInps.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -253,7 +253,7 @@
   }
 
   async function handleLogout() {
-    try { await apiFetch("/admin/logout", { method: "POST" }); } catch(e) {}
+    try { await apiFetch("/admin/logout", { method: "POST" }); } catch (e) { }
     localStorage.removeItem(STORAGE_KEY_TOKEN);
     localStorage.removeItem(STORAGE_KEY_ADMIN);
     showToast("Logged out of Admin Portal");
@@ -274,21 +274,21 @@
 
     // Update Topbar Title
     const titleMap = {
-        dashboard: "System Overview",
-        orders: "Order Fulfillment",
-        "add-product": "Add New Jersey",
-        inventory: "Inventory & Price Editor",
-        returns: "Returns & Claims Desk",
-        reviews: "Customer Reviews Moderation",
-        messages: "Support Messages",
-        coupons: "Coupons Management",
-        newsletter: "Newsletter Subscribers",
-        "access-requests": "Employee Access Requests",
-        "access-given": "Access Given",
-        "api-access": "API Access Management",
-        "failed-payments": "Failed Payments Recovery",
-        "audit-logs": "System Audit Logs"
-      };
+      dashboard: "System Overview",
+      orders: "Order Fulfillment",
+      "add-product": "Add New Jersey",
+      inventory: "Inventory & Price Editor",
+      returns: "Returns & Claims Desk",
+      reviews: "Customer Reviews Moderation",
+      messages: "Support Messages",
+      coupons: "Coupons Management",
+      newsletter: "Newsletter Subscribers",
+      "access-requests": "Employee Access Requests",
+      "access-given": "Access Given",
+      "api-access": "API Access Management",
+      "failed-payments": "Failed Payments Recovery",
+      "audit-logs": "System Audit Logs"
+    };
     const titleEl = document.getElementById("topbarTitle");
     if (titleEl) titleEl.textContent = titleMap[tabId] || "Dashboard";
 
@@ -329,7 +329,7 @@
         products = results[2];
       }
 
-       // Render Revenue Stats
+      // Render Revenue Stats
       const revEl = document.getElementById("statRevenue");
       if (revEl) {
         revEl.textContent = "₹" + parseFloat(stats.today_revenue).toLocaleString("en-IN", {
@@ -431,7 +431,7 @@
     let adminProfile = {};
     try {
       adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}");
-    } catch (_) {}
+    } catch (_) { }
     const isViewer = adminProfile.role === "viewer";
 
     tbody.innerHTML = filtered.map((o) => {
@@ -521,7 +521,7 @@
     const name = document.getElementById("newProdName").value.trim();
     const club = document.getElementById("newProdClub").value.trim();
     const category = document.getElementById("newProdCat").value;
-    
+
     // Per-size pricing (Selling + Strikethrough Was)
     const priceS = parseFloat(document.getElementById("newPriceS")?.value) || 1499;
     const priceM = parseFloat(document.getElementById("newPriceM")?.value) || priceS;
@@ -604,7 +604,7 @@
     let adminProfile = {};
     try {
       adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}");
-    } catch (_) {}
+    } catch (_) { }
     const role = adminProfile.role || "viewer";
 
     const isPriceDisabled = (role === "manager" || role === "viewer") ? "disabled" : "";
@@ -634,9 +634,9 @@
           <td>
             <div class="price-badge-group">
               ${["S", "M", "L", "XL", "XXL"].map((sz) => {
-                const pr = (sizePrices && sizePrices[sz] !== undefined) ? sizePrices[sz] : (p.price || 1499);
-                const wasPr = (sizeWasPrices && sizeWasPrices[sz] !== undefined) ? sizeWasPrices[sz] : (p.was_price || (pr + 400));
-                return `
+        const pr = (sizePrices && sizePrices[sz] !== undefined) ? sizePrices[sz] : (p.price || 1499);
+        const wasPr = (sizeWasPrices && sizeWasPrices[sz] !== undefined) ? sizeWasPrices[sz] : (p.was_price || (pr + 400));
+        return `
                   <div class="price-pill" title="Size ${sz}: [Green: Sell Price] | [Strikethrough: MRP / Was Price]">
                     <strong>${sz}:</strong>
                     <span style="color:var(--admin-green);">₹</span>
@@ -645,27 +645,27 @@
                     <input type="number" class="quick-was-price-input" value="${wasPr}" min="1" step="1" title="${sz} Strikethrough / Was Price" data-id="${p.id}" data-size-was-price="${sz}" ${isPriceDisabled}>
                   </div>
                 `;
-              }).join("")}
+      }).join("")}
             </div>
           </td>
           <td>
             <div class="stock-badge-group">
               ${["S", "M", "L", "XL", "XXL"].map((sz) => {
-                const qty = stock[sz] || 0;
-                return `
+        const qty = stock[sz] || 0;
+        return `
                   <div class="stock-pill ${qty <= 2 ? "low-stock" : ""}">
                     <strong>${sz}:</strong>
                     <input type="number" class="quick-stock-input" value="${qty}" min="0" max="999" data-id="${p.id}" data-size="${sz}" ${isStockDisabled}>
                   </div>
                 `;
-              }).join("")}
+      }).join("")}
             </div>
           </td>
           <td>
-            ${role === "super_admin" 
-              ? `<button class="btn-danger" data-action="delete-prod" data-id="${p.id}">Delete</button>` 
-              : `<button class="btn-danger" disabled style="opacity:0.3; cursor:not-allowed;" title="Requires Super Admin">Delete</button>`
-            }
+            ${role === "super_admin"
+          ? `<button class="btn-danger" data-action="delete-prod" data-id="${p.id}">Delete</button>`
+          : `<button class="btn-danger" disabled style="opacity:0.3; cursor:not-allowed;" title="Requires Super Admin">Delete</button>`
+        }
           </td>
         </tr>
       `;
@@ -768,7 +768,7 @@
           }
 
           showToast(`✓ Updated [${size}] stock to ${newQty}`);
-          
+
           // Update visual highlight
           const pill = e.target.closest(".stock-pill");
           if (pill) {
@@ -905,7 +905,7 @@
             showToast(`✗ Return claim ${returnCode} was ${actionText} and automatically removed from database and storage.`);
             returnsList = returnsList.filter((r) => r.return_code !== returnCode);
             renderReturnsTable();
-            
+
             // Close return details modal if open for this return code
             const openModalRetCode = document.getElementById("modalReturnCode")?.textContent;
             if (openModalRetCode === returnCode) {
@@ -1035,7 +1035,7 @@
     document.getElementById("modalFulfillmentStatus").textContent = order.order_status || "Pending";
     document.getElementById("modalPaymentStatus").textContent = order.payment_status;
     document.getElementById("modalPaymentMethod").textContent = order.payment_method.toUpperCase();
-    
+
     const dateStr = new Date(order.created_at || new Date()).toLocaleDateString("en-IN", {
       day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
     });
@@ -1053,19 +1053,19 @@
     itemsList.innerHTML = order.items.map(it => {
       // Find image from our cached products list
       const matchedProd = products.find(p => p.id === it.product_id);
-      const imgUrl = matchedProd && matchedProd.images && matchedProd.images[0] 
-        ? matchedProd.images[0] 
+      const imgUrl = matchedProd && matchedProd.images && matchedProd.images[0]
+        ? matchedProd.images[0]
         : 'https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png';
 
       // Check customization preview
       const isCustomized = it.custom_name || it.custom_number;
-      const customPreviewHtml = isCustomized 
+      const customPreviewHtml = isCustomized
         ? `
           <div class="jersey-print-preview">
             <span class="jersey-print-preview__name">${escapeHtml(it.custom_name || "")}</span>
             <span class="jersey-print-preview__number">${escapeHtml(it.custom_number || "")}</span>
           </div>
-        ` 
+        `
         : "";
 
       return `
@@ -1094,7 +1094,7 @@
         actionsContainer.innerHTML = `<button id="btnAdminCancelOrder" class="btn-primary" style="background:var(--admin-pink); color:#fff; border:none; padding:10px 16px;">Cancel Order</button>`;
         document.getElementById("btnAdminCancelOrder").addEventListener("click", async () => {
           if (!confirm(`Are you sure you want to cancel order ${escapeHtml(order.order_code)}? This will restore stock and refund the customer.`)) return;
-          
+
           const btn = document.getElementById("btnAdminCancelOrder");
           btn.disabled = true;
           btn.textContent = "Cancelling...";
@@ -1159,12 +1159,12 @@
     let adminProfile = {};
     try {
       adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}");
-    } catch (_) {}
+    } catch (_) { }
     const isSuperAdmin = adminProfile.role === "super_admin";
 
     tbody.innerHTML = filtered.map((r) => {
       const starsHtml = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
-      
+
       let imgSrc = "";
       if (r.image_url) {
         imgSrc = r.image_url.startsWith("http") ? r.image_url : `${API_BASE.replace('/api', '')}${r.image_url}`;
@@ -1211,11 +1211,11 @@
               method: "DELETE"
             });
             showToast(`✓ Review #${reviewId} deleted successfully.`);
-            
+
             // Instantly remove row from UI
             const row = tbody.querySelector(`tr[data-review-id="${reviewId}"]`);
             if (row) row.remove();
-            
+
             // Sync with local array cache
             reviewsList = reviewsList.filter((x) => x.id !== reviewId);
             if (reviewsList.length === 0) {
@@ -1233,24 +1233,24 @@
   async function loadMessages() {
     const tbody = document.getElementById("messagesTableBody");
     if (!tbody) return;
-    
+
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-text-dim);">Loading messages...</td></tr>`;
-    
+
     try {
       const res = await apiFetch("/admin/messages");
       const messages = Array.isArray(res) ? res : (res.items || []);
-      
+
       let adminProfile = {};
       try {
         adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}");
-      } catch (_) {}
+      } catch (_) { }
       const isSuperAdmin = adminProfile.role === "super_admin";
 
       if (messages.length === 0) {
         tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No customer messages found.</td></tr>`;
         return;
       }
-      
+
       tbody.innerHTML = messages.map((m) => {
         const dateStr = new Date(m.created_at).toLocaleString("en-IN", {
           dateStyle: "medium",
@@ -1284,11 +1284,11 @@
                 method: "DELETE"
               });
               showToast(`✓ Message #${messageId} deleted successfully.`);
-              
+
               // Remove from UI
               const row = tbody.querySelector(`tr[data-message-id="${messageId}"]`);
               if (row) row.remove();
-              
+
               // If empty, show fallback message
               if (tbody.querySelectorAll("tr").length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No customer messages found.</td></tr>`;
@@ -1394,7 +1394,7 @@
         tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No approved employees found.</td></tr>`;
         return;
       }
-      
+
       tbody.innerHTML = employees.map(emp => {
         let roleBadge = "";
         if (emp.role === "super_admin") {
@@ -1427,7 +1427,7 @@
     }
   }
 
-  window.revokeAccess = async function(id) {
+  window.revokeAccess = async function (id) {
     if (!confirm("Are you sure you want to completely revoke this person's access? This action cannot be undone.")) return;
     try {
       await apiFetch(`/admin/employees/${id}`, { method: "DELETE" });
@@ -1443,9 +1443,9 @@
     const tbody = document.getElementById("couponsTableBody");
     if (!tbody) return;
     let adminProfile = {};
-    try { adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}"); } catch (_) {}
+    try { adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}"); } catch (_) { }
     const isViewer = adminProfile.role === "viewer";
-    
+
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Loading coupons...</td></tr>`;
     try {
       const data = await apiFetch("/coupons/admin/list");
@@ -1456,8 +1456,8 @@
       }
       tbody.innerHTML = data.map(c => {
         const usageText = c.usage_limit ? `${c.usage_count} / ${c.usage_limit}` : `${c.usage_count} / ∞`;
-        const statusBadge = c.is_active 
-          ? `<span class="status-badge" style="background:rgba(140,255,59,0.1); color:var(--admin-green);">Active</span>` 
+        const statusBadge = c.is_active
+          ? `<span class="status-badge" style="background:rgba(140,255,59,0.1); color:var(--admin-green);">Active</span>`
           : `<span class="status-badge" style="background:rgba(255,62,122,0.1); color:var(--admin-pink);">Inactive</span>`;
         return `
           <tr>
@@ -1521,7 +1521,7 @@
 
     // Close Return Details Modal
     const closeReturnBtn = document.getElementById("closeReturnModalBtn");
-        const returnModal = document.getElementById("returnDetailsModal");
+    const returnModal = document.getElementById("returnDetailsModal");
     if (closeReturnBtn && returnModal) {
       closeReturnBtn.addEventListener("click", () => {
         returnModal.style.display = "none";
@@ -1575,7 +1575,7 @@
             showToast("Please enter an email address.");
             return;
           }
-          
+
           if (email === "supportfreakfits@gmail.com") {
             loginStage = "password";
             document.getElementById("loginEmail").disabled = true;
@@ -1971,7 +1971,7 @@
         apiFetch("/admin/docs-access/master"),
         apiFetch("/admin/docs-access/developers")
       ]);
-      
+
       const usernameInp = document.getElementById("masterApiUsername");
       if (masterRes.configured && masterRes.username) {
         usernameInp.value = masterRes.username;
@@ -1994,10 +1994,10 @@
 
     devs.forEach(dev => {
       const tr = document.createElement("tr");
-      
+
       const ipDisplay = dev.bound_ip ? `<span style="color:var(--admin-green); font-family:var(--font-mono);">${escapeHtml(dev.bound_ip)}</span>` : `<span style="color:var(--admin-text-dim);">Unbound (Awaiting login)</span>`;
       const resetBtn = dev.bound_ip ? `<button class="btn-secondary" data-action="reset-dev" data-dev-id="${escapeHtml(dev.id)}" style="font-size:11px; padding:4px 8px;">Reset IP</button>` : "";
-      
+
       tr.innerHTML = `
         <td style="font-family:var(--font-mono);">${escapeHtml(dev.email)}</td>
         <td>${ipDisplay}</td>
@@ -2011,7 +2011,7 @@
     });
   }
 
-  window.resetDevIp = async function(id) {
+  window.resetDevIp = async function (id) {
     if (!confirm("Reset IP binding? The developer will be able to log in from a new IP.")) return;
     try {
       await apiFetch(`/admin/docs-access/developers/${id}/reset-ip`, { method: "PUT" });
@@ -2022,7 +2022,7 @@
     }
   };
 
-  window.revokeDevAccess = async function(id) {
+  window.revokeDevAccess = async function (id) {
     if (!confirm("Are you sure you want to revoke API access for this developer?")) return;
     try {
       await apiFetch(`/admin/docs-access/developers/${id}`, { method: "DELETE" });
@@ -2039,9 +2039,9 @@
       e.preventDefault();
       const username = document.getElementById("masterApiUsername").value;
       const password = document.getElementById("masterApiPassword").value;
-      
+
       if (!password && !confirm("You left the password blank. Do you want to use a blank password, or keep the existing one (if any)? We will set it as blank if you proceed.")) {
-         return;
+        return;
       }
 
       try {
@@ -2111,60 +2111,60 @@
 
 
 
-// EVENT DELEGATION FOR DYNAMIC BUTTONS
-document.addEventListener('click', (e) => {
-  const target = e.target.closest('[data-action]');
-  if (!target) return;
-  
-  const action = target.getAttribute('data-action');
-  
-  if (action === 'view-order') {
-    window.FreakFitsAdmin.viewOrderDetails(target.getAttribute('data-order-code'));
-  } else if (action === 'view-return') {
-    window.FreakFitsAdmin.viewReturnDetails(target.getAttribute('data-return-code'));
-  } else if (action === 'open-approval') {
-    window.FreakFitsAdmin.openApprovalModal(
-      target.getAttribute('data-req-id'),
-      target.getAttribute('data-req-email'),
-      target.getAttribute('data-req-name')
-    );
-  } else if (action === 'reject-request') {
-    window.FreakFitsAdmin.rejectAccessRequest(target.getAttribute('data-req-id'));
-  } else if (action === 'toggle-coupon') {
-    window.FreakFitsAdmin.toggleCoupon(target.getAttribute('data-coupon-id'));
-  } else if (action === 'delete-coupon') {
-    window.FreakFitsAdmin.deleteCoupon(target.getAttribute('data-coupon-id'));
-  } else if (action === 'reset-dev') {
-    if (typeof window.resetDevIp === 'function') window.resetDevIp(target.getAttribute('data-dev-id'));
-  } else if (action === 'revoke-dev') {
-    if (typeof window.revokeDevAccess === 'function') window.revokeDevAccess(target.getAttribute('data-dev-id'));
-  } else if (action === 'resolve-failed') {
-    resolveFailedPayment(target.getAttribute('data-record-id'));
-  }
-});
+  // EVENT DELEGATION FOR DYNAMIC BUTTONS
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('[data-action]');
+    if (!target) return;
 
-// ============ FAILED PAYMENTS & AUDIT LOGS ============
+    const action = target.getAttribute('data-action');
 
-async function loadFailedPayments() {
-  const tbody = document.getElementById("failedPaymentsTableBody");
-  if (!tbody) return;
-  tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Loading...</td></tr>`;
-
-  try {
-    const resData = await apiFetch(`/admin/failed-payments`);
-    const data = Array.isArray(resData) ? resData : (resData.items || []);
-    if (!data.length) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No failed payments pending recovery.</td></tr>`;
-      return;
+    if (action === 'view-order') {
+      window.FreakFitsAdmin.viewOrderDetails(target.getAttribute('data-order-code'));
+    } else if (action === 'view-return') {
+      window.FreakFitsAdmin.viewReturnDetails(target.getAttribute('data-return-code'));
+    } else if (action === 'open-approval') {
+      window.FreakFitsAdmin.openApprovalModal(
+        target.getAttribute('data-req-id'),
+        target.getAttribute('data-req-email'),
+        target.getAttribute('data-req-name')
+      );
+    } else if (action === 'reject-request') {
+      window.FreakFitsAdmin.rejectAccessRequest(target.getAttribute('data-req-id'));
+    } else if (action === 'toggle-coupon') {
+      window.FreakFitsAdmin.toggleCoupon(target.getAttribute('data-coupon-id'));
+    } else if (action === 'delete-coupon') {
+      window.FreakFitsAdmin.deleteCoupon(target.getAttribute('data-coupon-id'));
+    } else if (action === 'reset-dev') {
+      if (typeof window.resetDevIp === 'function') window.resetDevIp(target.getAttribute('data-dev-id'));
+    } else if (action === 'revoke-dev') {
+      if (typeof window.revokeDevAccess === 'function') window.revokeDevAccess(target.getAttribute('data-dev-id'));
+    } else if (action === 'resolve-failed') {
+      resolveFailedPayment(target.getAttribute('data-record-id'));
     }
+  });
 
-    let adminProfile = {};
-    try { adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}"); } catch (_) {}
-    const canResolve = adminProfile.role === "super_admin";
+  // ============ FAILED PAYMENTS & AUDIT LOGS ============
 
-    tbody.innerHTML = data.map(r => {
-      const dateStr = new Date(r.timestamp).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" });
-      return `
+  async function loadFailedPayments() {
+    const tbody = document.getElementById("failedPaymentsTableBody");
+    if (!tbody) return;
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Loading...</td></tr>`;
+
+    try {
+      const resData = await apiFetch(`/admin/failed-payments`);
+      const data = Array.isArray(resData) ? resData : (resData.items || []);
+      if (!data.length) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No failed payments pending recovery.</td></tr>`;
+        return;
+      }
+
+      let adminProfile = {};
+      try { adminProfile = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN) || "{}"); } catch (_) { }
+      const canResolve = adminProfile.role === "super_admin";
+
+      tbody.innerHTML = data.map(r => {
+        const dateStr = new Date(r.timestamp).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" });
+        return `
         <tr>
           <td><span class="status-badge" style="background:#333; color:#aaa; font-family:var(--font-mono);">${dateStr}</span></td>
           <td style="font-family:var(--font-mono); font-size:12px;">${escapeHtml(r.razorpay_order_id)}</td>
@@ -2173,62 +2173,62 @@ async function loadFailedPayments() {
           <td style="font-weight:600;">₹${r.amount}</td>
           <td><span class="status-badge status-pending">Unresolved</span></td>
           <td>
-            ${canResolve ? 
-              `<button class="btn-primary" style="padding: 6px 12px; font-size: 12px;" data-action="resolve-failed" data-record-id="${r.id}">Resolve & Delete</button>` :
-              `<button class="btn-primary" style="padding: 6px 12px; font-size: 12px; opacity:0.5; cursor:not-allowed;" disabled title="Requires Super Admin">Resolve & Delete</button>`
-            }
+            ${canResolve ?
+            `<button class="btn-primary" style="padding: 6px 12px; font-size: 12px;" data-action="resolve-failed" data-record-id="${r.id}">Resolve & Delete</button>` :
+            `<button class="btn-primary" style="padding: 6px 12px; font-size: 12px; opacity:0.5; cursor:not-allowed;" disabled title="Requires Super Admin">Resolve & Delete</button>`
+          }
           </td>
         </tr>
       `;
-    }).join("");
-  } catch (err) {
-    console.error(err);
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--admin-pink);">Error loading failed payments.</td></tr>`;
-  }
-}
-
-window.resolveFailedPayment = async function(recordId) {
-  if (!confirm("Are you sure you want to mark this failed payment log as resolved and delete it? (Ensure you have already taken necessary action like issuing a refund or manual order creation)")) return;
-  
-  try {
-    const data = await apiFetch(`/admin/failed-payments/${recordId}/resolve`, {
-      method: "POST"
-    });
-    
-    showToast("Record resolved and deleted successfully.");
-    loadFailedPayments();
-  } catch (err) {
-    alert(err.message);
-  }
-};
-
-async function loadAuditLogs() {
-  const tbody = document.getElementById("auditLogsTableBody");
-  if (!tbody) return;
-  tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>`;
-
-  try {
-    let resData;
-    try {
-      resData = await apiFetch(`/admin/audit-logs`);
+      }).join("");
     } catch (err) {
-      if (err.message && err.message.toLowerCase().includes("forbidden") || err.message.toLowerCase().includes("super admin")) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-pink);">Access Denied. Super Admin only.</td></tr>`;
+      console.error(err);
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--admin-pink);">Error loading failed payments.</td></tr>`;
+    }
+  }
+
+  window.resolveFailedPayment = async function (recordId) {
+    if (!confirm("Are you sure you want to mark this failed payment log as resolved and delete it? (Ensure you have already taken necessary action like issuing a refund or manual order creation)")) return;
+
+    try {
+      const data = await apiFetch(`/admin/failed-payments/${recordId}/resolve`, {
+        method: "POST"
+      });
+
+      showToast("Record resolved and deleted successfully.");
+      loadFailedPayments();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  async function loadAuditLogs() {
+    const tbody = document.getElementById("auditLogsTableBody");
+    if (!tbody) return;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>`;
+
+    try {
+      let resData;
+      try {
+        resData = await apiFetch(`/admin/audit-logs`);
+      } catch (err) {
+        if (err.message && err.message.toLowerCase().includes("forbidden") || err.message.toLowerCase().includes("super admin")) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-pink);">Access Denied. Super Admin only.</td></tr>`;
+          return;
+        }
+        throw err;
+      }
+
+      const logs = Array.isArray(resData) ? resData : (resData.items || []);
+      if (!logs.length) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No audit logs available.</td></tr>`;
         return;
       }
-      throw err;
-    }
-    
-    const logs = Array.isArray(resData) ? resData : (resData.items || []);
-    if (!logs.length) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--admin-text-dim);">No audit logs available.</td></tr>`;
-      return;
-    }
 
-    tbody.innerHTML = logs.map(log => {
-      const dateStr = new Date(log.timestamp).toLocaleString("en-IN", { dateStyle: "short", timeStyle: "medium" });
-      const detailsStr = log.details ? JSON.stringify(log.details) : "";
-      return `
+      tbody.innerHTML = logs.map(log => {
+        const dateStr = new Date(log.timestamp).toLocaleString("en-IN", { dateStyle: "short", timeStyle: "medium" });
+        const detailsStr = log.details ? JSON.stringify(log.details) : "";
+        return `
         <tr>
           <td><span style="font-family:var(--font-mono); font-size:11px; color:#888;">${dateStr}</span></td>
           <td><strong>${escapeHtml(log.admin_identifier)}</strong></td>
@@ -2240,11 +2240,11 @@ async function loadAuditLogs() {
           </td>
         </tr>
       `;
-    }).join("");
-  } catch (err) {
-    console.error(err);
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--admin-pink);">Error loading audit logs.</td></tr>`;
+      }).join("");
+    } catch (err) {
+      console.error(err);
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--admin-pink);">Error loading audit logs.</td></tr>`;
+    }
   }
-}
 
 })();
