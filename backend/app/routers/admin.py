@@ -557,6 +557,53 @@ def update_admin_product(
     return prod
 
 
+def _extract_cloudinary_public_id(url: str) -> str | None:
+    """Given a Cloudinary secure_url, extract its public_id (folder/filename, no extension)."""
+    if not url or "res.cloudinary.com" not in url:
+        return None
+    try:
+        parts = url.split("/upload/")
+        if len(parts) < 2:
+            return None
+        path_part = parts[1]
+        subparts = path_part.split("/")
+        if subparts[0].startswith("v") and subparts[0][1:].isdigit():
+            subparts = subparts[1:]
+        public_id_with_ext = "/".join(subparts)
+        public_id, _ = os.path.splitext(public_id_with_ext)
+        return public_id
+    except Exception:
+        return None
+
+
+def _delete_cloudinary_images(image_urls: list[str]) -> None:
+    """Best-effort deletion of one or more product images from Cloudinary.
+    Never raises — a Cloudinary hiccup should not block the DB delete."""
+    if not image_urls:
+        return
+    try:
+        import cloudinary
+        import cloudinary.uploader
+        cloudinary.config(
+            cloud_name=settings.CLOUDINARY_CLOUD_NAME,
+            api_key=settings.CLOUDINARY_API_KEY,
+            api_secret=settings.CLOUDINARY_API_SECRET,
+            secure=True
+        )
+    except Exception as e:
+        print(f"Cloudinary config error during product image cleanup: {e}")
+        return
+
+    for url in image_urls:
+        public_id = _extract_cloudinary_public_id(url)
+        if not public_id:
+            continue
+        try:
+            cloudinary.uploader.destroy(public_id)
+        except Exception as e:
+            print(f"Cloudinary product image deletion error ({public_id}): {e}")
+
+
 @router.delete("/products/{product_id}")
 def delete_admin_product(
     product_id: int,
@@ -564,15 +611,19 @@ def delete_admin_product(
     db: Session = Depends(get_db),
     admin: Admin = Depends(require_role("super_admin"))
 ):
-    """Delete a product from the database."""
+    """Delete a product from the database and its images from Cloudinary."""
     prod = db.query(Product).filter(Product.id == product_id).first()
     if not prod:
         raise HTTPException(status_code=404, detail="Product not found.")
 
+    image_urls = list(prod.images or [])
+
     db.delete(prod)
-    log_admin_action(db, admin.email, "PRODUCT_DELETED", "product", str(product_id), {})
+    log_admin_action(db, admin.email, "PRODUCT_DELETED", "product", str(product_id), {"deleted_images": image_urls})
     db.commit()
-    
+
+    # Clean up Cloudinary assets in the background so the delete stays fast
+    background_tasks.add_task(_delete_cloudinary_images, image_urls)
     background_tasks.add_task(regenerate_sitemap)
     
     return {"success": True, "message": f"Product #{product_id} deleted successfully."}
