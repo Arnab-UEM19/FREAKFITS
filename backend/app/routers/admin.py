@@ -1,6 +1,7 @@
 from datetime import datetime, date, timedelta
 import math
 import os
+import re
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, status, Request, Response
 from sqlalchemy import desc, func, or_
@@ -558,18 +559,37 @@ def update_admin_product(
 
 
 def _extract_cloudinary_public_id(url: str) -> str | None:
-    """Given a Cloudinary secure_url, extract its public_id (folder/filename, no extension)."""
+    """Given a Cloudinary secure_url, extract its public_id (folder/filename, no extension).
+
+    Handles URLs with transformation segments before the version, e.g.
+    .../upload/f_auto,q_auto/v1787300483/freakfits/Argentina_Home.jpg
+    -> "freakfits/Argentina_Home"
+    """
     if not url or "res.cloudinary.com" not in url:
         return None
     try:
-        parts = url.split("/upload/")
+        parts = url.split("/upload/", 1)
         if len(parts) < 2:
             return None
-        path_part = parts[1]
-        subparts = path_part.split("/")
-        if subparts[0].startswith("v") and subparts[0][1:].isdigit():
-            subparts = subparts[1:]
-        public_id_with_ext = "/".join(subparts)
+        segments = parts[1].split("/")
+
+        version_re = re.compile(r"^v\d+$")
+        # Cloudinary transformation segments look like "f_auto,q_auto" or "w_300,h_300,c_fill"
+        transformation_re = re.compile(r"^[a-z]{1,3}_[^,/]+(,[a-z]{1,3}_[^,/]+)*$")
+
+        while segments:
+            if version_re.match(segments[0]):
+                segments.pop(0)
+                break
+            if transformation_re.match(segments[0]):
+                segments.pop(0)
+                continue
+            break
+
+        if not segments:
+            return None
+
+        public_id_with_ext = "/".join(segments)
         public_id, _ = os.path.splitext(public_id_with_ext)
         return public_id
     except Exception:
@@ -597,9 +617,11 @@ def _delete_cloudinary_images(image_urls: list[str]) -> None:
     for url in image_urls:
         public_id = _extract_cloudinary_public_id(url)
         if not public_id:
+            print(f"Cloudinary product image cleanup: could not parse public_id from {url}")
             continue
         try:
-            cloudinary.uploader.destroy(public_id)
+            result = cloudinary.uploader.destroy(public_id)
+            print(f"Cloudinary product image cleanup: destroy('{public_id}') -> {result}")
         except Exception as e:
             print(f"Cloudinary product image deletion error ({public_id}): {e}")
 
