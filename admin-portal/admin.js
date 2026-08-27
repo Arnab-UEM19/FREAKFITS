@@ -2098,7 +2098,7 @@
     });
   }
 
-  // ============ SIDEBAR TOGGLE ============
+  // ============ SIDEBAR TOGGLE (desktop minimize) ============
   const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
   if (sidebarToggleBtn) {
     sidebarToggleBtn.addEventListener("click", () => {
@@ -2108,6 +2108,45 @@
       }
     });
   }
+
+  // ============ MOBILE SIDEBAR DRAWER ============
+  const mobileSidebarToggleBtn = document.getElementById("mobileSidebarToggleBtn");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+  const adminShellEl = document.getElementById("adminShell");
+
+  function openMobileSidebar() {
+    if (adminShellEl) adminShellEl.classList.add("mobile-sidebar-open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMobileSidebar() {
+    if (adminShellEl) adminShellEl.classList.remove("mobile-sidebar-open");
+    document.body.style.overflow = "";
+  }
+
+  if (mobileSidebarToggleBtn) {
+    mobileSidebarToggleBtn.addEventListener("click", () => {
+      if (adminShellEl && adminShellEl.classList.contains("mobile-sidebar-open")) {
+        closeMobileSidebar();
+      } else {
+        openMobileSidebar();
+      }
+    });
+  }
+
+  if (sidebarOverlay) {
+    sidebarOverlay.addEventListener("click", closeMobileSidebar);
+  }
+
+  // Close the drawer automatically whenever a nav link is tapped on mobile
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", closeMobileSidebar);
+  });
+
+  // Close on resize back to desktop width, so it doesn't stay "open" off-screen
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) closeMobileSidebar();
+  });
 
 
 
