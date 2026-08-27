@@ -120,9 +120,9 @@ def get_order_invoice(
     date_str = order.created_at.strftime('%d-%b-%Y %I:%M %p') if order.created_at else "N/A"
 
     return templates.TemplateResponse(
+        request,
         "invoice.html",
         {
-            "request": request,
             "order": order,
             "items": order.items,
             "date_str": date_str
