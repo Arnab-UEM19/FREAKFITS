@@ -11,6 +11,7 @@ from fastapi import (
     Request,
     status,
 )
+import os
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
@@ -25,7 +26,10 @@ from ..utils.audit import log_admin_action
 from ..limiter import limiter
 
 logger = logging.getLogger("uvicorn")
-templates = Jinja2Templates(directory="app/templates")
+# orders.py is at backend/app/routers/orders.py
+# dirname(dirname(this file)) = backend/app/
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
@@ -113,7 +117,7 @@ def get_order_invoice(
             detail="Access denied. You are not authorized to view or download this invoice."
         )
 
-    date_str = order.created_at.strftime('%d-%b-%Y %I:%M %p')
+    date_str = order.created_at.strftime('%d-%b-%Y %I:%M %p') if order.created_at else "N/A"
 
     return templates.TemplateResponse(
         "invoice.html",
