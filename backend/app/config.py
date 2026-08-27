@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     # SMTP_USER: str = os.getenv("SMTP_USER", "")
     # SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "")
     # SMTP_FROM_EMAIL: str = os.getenv("SMTP_FROM_EMAIL", "")
-    # SMTP_FROM_NAME: str = os.getenv("SMTP_FROM_NAME", "FreakFits Matchday")
+    SMTP_FROM_NAME: str = os.getenv("SMTP_FROM_NAME", "FreakFits Official")
 
     # Resend Email Configuration
     RESEND_API_KEY: str = os.getenv("RESEND_API_KEY", "")

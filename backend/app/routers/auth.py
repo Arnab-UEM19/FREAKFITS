@@ -49,12 +49,11 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 def send_email_via_smtp(to_email: str, otp_code: str) -> bool:
     """Send OTP email using SMTP if configured."""
-    if not settings.SMTP_USER or not settings.SMTP_PASSWORD:
-        logger.info(f"[FreakFits OTP] SMTP not configured in .env. OTP for {to_email} is: {otp_code}")
+    if not settings.RESEND_API_KEY:
+        logger.info(f"[FreakFits OTP] RESEND_API_KEY not set. OTP for {to_email} is: {otp_code}")
         return False
-
-    sender_email = settings.SMTP_FROM_EMAIL or settings.SMTP_USER
-    sender_name = settings.SMTP_FROM_NAME or "FreakFits Official"
+    sender_email = settings.EMAIL_FROM
+    sender_name = "FreakFits Official"
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"Your FreakFits Verification Code: {otp_code}"
