@@ -80,6 +80,9 @@
   <!-- ========================================== -->
   <div class="admin-shell" id="adminShell" style="display: none;">
 
+    <!-- Dark backdrop behind the mobile drawer -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <!-- Left Navigation Sidebar -->
     <aside class="admin-sidebar">
       <div class="sidebar-header" style="justify-content: space-between; padding-right: 12px;">
@@ -243,6 +246,15 @@
       <!-- Top Navigation Bar -->
       <header class="admin-topbar">
         <div class="topbar-title-wrap" style="display: flex; align-items: center; gap: 12px;">
+          <button id="mobileSidebarToggleBtn" class="mobile-nav-toggle" type="button" title="Menu"
+            style="display: none; align-items: center; justify-content: center; background: rgba(255,255,255,0.03); border: 1px solid var(--admin-line); border-radius: 6px; color: var(--admin-text); padding: 6px; cursor: pointer; margin-right: 4px;">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
           <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
             alt="FreakFits Logo" class="topbar-minimized-logo">
           <h1 id="topbarTitle">System Overview</h1>
