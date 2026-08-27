@@ -323,7 +323,7 @@ def verify_razorpay_payment(
 
                 if new_qty <= 2:
                     from ..utils.email import send_low_stock_alert
-                    admin_email = settings.SMTP_USER or settings.SMTP_FROM_EMAIL
+                    admin_email = settings.ADMIN_ALERT_EMAIL
                     if admin_email:
                         background_tasks.add_task(
                             send_low_stock_alert,
