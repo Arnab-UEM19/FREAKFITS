@@ -37,7 +37,9 @@
       gap: 24px;
     }
 
-    .reviews-loading, .reviews-empty, .reviews-error {
+    .reviews-loading,
+    .reviews-empty,
+    .reviews-error {
       grid-column: 1 / -1;
       text-align: center;
       padding: 40px;
@@ -105,7 +107,7 @@
       background: var(--surface);
       color: var(--text-faint);
     }
-    
+
     .size-low-stock {
       position: absolute;
       top: -8px;
@@ -121,7 +123,7 @@
       box-shadow: 0 2px 4px rgba(255, 62, 122, 0.3);
       pointer-events: none;
     }
-    
+
     .size-btn-wrapper {
       position: relative;
       display: inline-block;
@@ -246,7 +248,9 @@
         </a>
         <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
         <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
@@ -265,7 +269,9 @@
 
   <!-- ============ PRODUCT DETAIL ============ -->
   <main class="pdp" id="pdpMain">
-    <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">FreakFits Football Jersey</h1>
+    <h1
+      style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">
+      FreakFits Football Jersey</h1>
     <!-- Populated by JS -->
   </main>
 
@@ -327,13 +333,13 @@
   <script src="api-client.js?v=2.0"></script>
   <script src="auth-store.js?v=2.0"></script>
   <script>
-  function escapeHtml(str) {
-    if (str === null || str === undefined) return "";
-    if (typeof str !== "string") str = String(str);
-    return str.replace(/[&<>'"]/g, 
-      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-    );
-  }
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      if (typeof str !== "string") str = String(str);
+      return str.replace(/[&<>'"]/g,
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
     // ========== Product Detail Page Logic ==========
     const params = new URLSearchParams(window.location.search);
     const productId = params.get("id");
@@ -421,10 +427,10 @@
                 <label class="pdp__label">Select Size & View Price</label>
                 <div class="pdp__sizes" id="sizeSelector">
                   ${product.sizes.map(s => {
-                    const stockAmt = (product.stock && product.stock[s] !== undefined) ? parseInt(product.stock[s]) : 10;
-                    const isOutOfStock = stockAmt <= 0;
-                    const isLowStock = stockAmt > 0 && stockAmt <= 3;
-                    return `
+          const stockAmt = (product.stock && product.stock[s] !== undefined) ? parseInt(product.stock[s]) : 10;
+          const isOutOfStock = stockAmt <= 0;
+          const isLowStock = stockAmt > 0 && stockAmt <= 3;
+          return `
                     <div class="size-btn-wrapper">
                       <button class="pdp__size-btn ${s === selectedSize ? "is-active" : ""}" data-size="${escapeHtml(s)}" ${isOutOfStock ? "disabled title='Out of Stock'" : ""}>${escapeHtml(s)}</button>
                       ${isLowStock ? `<span class="size-low-stock">Only ${stockAmt} left!</span>` : ""}
@@ -614,14 +620,14 @@
             }
           });
         }
-        
+
         wishBtn.addEventListener("click", async () => {
           const currentUser = typeof AuthStore !== "undefined" ? AuthStore.getCurrentUser() : null;
           if (!currentUser) {
             showToast("⚠️ Please log in to save items to your wishlist.");
             return;
           }
-          
+
           const isActive = wishBtn.classList.contains("is-saved");
           try {
             if (isActive) {
@@ -750,7 +756,7 @@
       if (!container) return;
 
       try {
-        const apiBase = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
+        const apiBase = window.FREAKFITS_API_URL || "https://freakfits-api.onrender.com/api";
         const res = await fetch(`${apiBase}/products/${productId}/reviews?_t=${Date.now()}`);
         if (!res.ok) throw new Error("Failed to load reviews");
         const reviews = await res.json();
@@ -766,13 +772,13 @@
 
         container.innerHTML = reviews.map(r => {
           const starsHtml = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
-          
+
           // Fix Cloudinary URL prefixes
           let imgSrc = "";
           if (r.image_url) {
             imgSrc = r.image_url.startsWith("http") ? r.image_url : `${apiBase.replace('/api', '')}${r.image_url}`;
           }
-          const photoHtml = r.image_url 
+          const photoHtml = r.image_url
             ? `<div class="review-card__photo-wrap">
                  <img src="${escapeHtml(imgSrc)}" class="review-card__photo" alt="Customer look" onclick="zoomReviewImage(this.src)">
                </div>`
@@ -814,7 +820,7 @@
       }
     }
 
-    window.zoomReviewImage = function(src) {
+    window.zoomReviewImage = function (src) {
       let zoomOverlay = document.getElementById("zoomOverlay");
       if (!zoomOverlay) {
         zoomOverlay = document.createElement("div");
@@ -825,29 +831,29 @@
           <img class="zoom-overlay__img" id="zoomImg">
         `;
         document.body.appendChild(zoomOverlay);
-        
+
         zoomOverlay.addEventListener("click", (e) => {
           if (e.target.className !== "zoom-overlay__img") {
             zoomOverlay.style.display = "none";
           }
         });
       }
-      
+
       document.getElementById("zoomImg").src = src;
       zoomOverlay.style.display = "flex";
     }
 
-    window.deleteMyReview = async function(reviewId) {
+    window.deleteMyReview = async function (reviewId) {
       if (!confirm("Are you sure you want to delete your review? This will automatically remove it from the product page and Cloudinary storage.")) {
         return;
       }
       try {
-        const apiBase = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
+        const apiBase = window.FREAKFITS_API_URL || "https://freakfits-api.onrender.com/api";
         const res = await fetch(`${apiBase}/products/reviews/${reviewId}`, {
           method: "DELETE"
         });
         if (!res.ok) throw new Error("Failed to delete review");
-        
+
         showToast("✓ Your review has been deleted.");
         // Reload reviews dynamically
         loadProductReviews(productId);
@@ -855,7 +861,7 @@
         showToast(`❌ Error: ${err.message}`);
       }
     }
-  
+
     // EVENT DELEGATION
     document.addEventListener('click', (e) => {
       const target = e.target.closest('[data-action="delete-review"]');
@@ -863,7 +869,7 @@
         deleteMyReview(target.getAttribute('data-review-id'));
       }
     });
-</script>
+  </script>
 </body>
 
 </html>
