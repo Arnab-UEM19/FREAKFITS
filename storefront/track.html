@@ -12,6 +12,8 @@
     href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/sjgw6cud/image/upload/v1787300492/freakfits/logo_final.png">
   <style>
     .track-section {
       max-width: 800px;
@@ -238,7 +240,7 @@
       height: 20px;
       flex-shrink: 0;
     }
-    
+
     .stepper-note__text strong {
       color: var(--green);
       font-weight: 700;
@@ -408,7 +410,9 @@
         </a>
         <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
         <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
@@ -432,8 +436,9 @@
     <!-- Search Form Card -->
     <div class="track-form-card">
       <h2>Live Shipment Tracking</h2>
-      <p>Enter your Order ID (starts with FF-) and the mobile number used during checkout to track your delivery status.</p>
-      
+      <p>Enter your Order ID (starts with FF-) and the mobile number used during checkout to track your delivery status.
+      </p>
+
       <form class="track-form" id="trackForm">
         <div class="track-form__field">
           <label for="trackOrderCode">Order ID</label>
@@ -449,7 +454,7 @@
 
     <!-- Stepper & Details (Hidden initially) -->
     <div id="trackingResult" style="display:none;">
-      
+
       <!-- Stepper Progress card -->
       <div class="stepper-container">
         <div class="stepper-header">
@@ -462,7 +467,7 @@
 
         <div class="stepper">
           <div class="stepper-progress" id="stepperProgressLine"></div>
-          
+
           <div class="step" id="step1">
             <div class="step__node">✓</div>
             <span class="step__label">Order Confirmed</span>
@@ -480,15 +485,17 @@
             <span class="step__label">Shipped</span>
           </div>
         </div>
-        
+
         <!-- Shipped Info Banner -->
         <div class="stepper-note" id="stepperShippedNote" style="display: none;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stepper-note__icon">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="16" x2="12" y2="12"/>
-            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="stepper-note__icon">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
           </svg>
-          <span class="stepper-note__text"><strong>NOTE:</strong> Soon you will receive tracking details from the shipment agency in your message inbox or email.</span>
+          <span class="stepper-note__text"><strong>NOTE:</strong> Soon you will receive tracking details from the
+            shipment agency in your message inbox or email.</span>
         </div>
       </div>
 
@@ -500,7 +507,7 @@
             <!-- items go here -->
           </div>
         </div>
-        
+
         <div class="track-card">
           <h3>Summary & Info</h3>
           <div class="detail-row">
@@ -515,11 +522,14 @@
             <label>Grand Total</label>
             <span id="resGrandTotal" style="color:var(--green); font-weight:700;">₹0</span>
           </div>
-          <div class="detail-row" id="resAddressRow" style="display:none; flex-direction:column; align-items:flex-start; gap:4px; margin-top:8px; width: 100%;">
+          <div class="detail-row" id="resAddressRow"
+            style="display:none; flex-direction:column; align-items:flex-start; gap:4px; margin-top:8px; width: 100%;">
             <label>Delivery Address</label>
-            <span id="resShippingAddress" style="white-space:pre-line; line-height:1.4; font-size:13px; text-align:left; color:var(--text-dim);">---</span>
+            <span id="resShippingAddress"
+              style="white-space:pre-line; line-height:1.4; font-size:13px; text-align:left; color:var(--text-dim);">---</span>
           </div>
-          <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;" id="trackActionsContainer">
+          <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;"
+            id="trackActionsContainer">
             <!-- Actions will be injected here -->
           </div>
         </div>
@@ -577,13 +587,13 @@
   <script src="api-client.js?v=2.0"></script>
   <script src="auth-store.js?v=2.0"></script>
   <script>
-  function escapeHtml(str) {
-    if (str === null || str === undefined) return "";
-    if (typeof str !== "string") str = String(str);
-    return str.replace(/[&<>'"]/g, 
-      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-    );
-  }
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      if (typeof str !== "string") str = String(str);
+      return str.replace(/[&<>'"]/g,
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
     document.addEventListener("DOMContentLoaded", async () => {
       // 1. Check URL parameters for auto-track
       const params = new URLSearchParams(window.location.search);
@@ -781,4 +791,3 @@
 </body>
 
 </html>
-

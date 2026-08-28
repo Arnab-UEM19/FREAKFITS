@@ -5,13 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Profile — FreakFits</title>
-  <meta name="description" content="View and manage your FreakFits customer profile, order history, and account settings.">
+  <meta name="description"
+    content="View and manage your FreakFits customer profile, order history, and account settings.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/sjgw6cud/image/upload/v1787300492/freakfits/logo_final.png">
   <style>
     .profile-section {
       max-width: 700px;
@@ -185,7 +188,9 @@
         </a>
         <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
         <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
@@ -208,13 +213,13 @@
     <p class="profile-subtitle">View your profile details, tracked shipments, and recent match-day orders.</p>
 
     <div class="profile-card">
-      
+
       <!-- Avatar Section -->
       <div class="profile-avatar-wrap">
         <div class="profile-avatar" id="profileAvatar">F</div>
         <span class="profile-badge">
           <svg viewBox="0 0 24 24" fill="none" width="12" height="12" stroke="currentColor" stroke-width="3">
-            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           Verified buyer
         </span>
@@ -240,32 +245,39 @@
       <form id="editProfileForm" style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px;">
         <div class="profile-detail-item">
           <label for="editFullName">Full Name</label>
-          <input type="text" id="editFullName" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+          <input type="text" id="editFullName" required
+            style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
         </div>
         <div class="profile-detail-item">
           <label for="editPhone">Mobile Number</label>
-          <input type="text" id="editPhone" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+          <input type="text" id="editPhone"
+            style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
         </div>
         <div style="display: flex; gap: 12px; margin-top: 10px;">
           <button type="submit" class="btn btn--solid" style="padding: 12px 24px;">Save Changes</button>
-          <button type="button" class="btn btn--outline" id="btnCancelEdit" style="padding: 12px 24px; border-color: var(--border);">Cancel</button>
+          <button type="button" class="btn btn--outline" id="btnCancelEdit"
+            style="padding: 12px 24px; border-color: var(--border);">Cancel</button>
         </div>
       </form>
 
       <!-- Change Password Form (Hidden by default) -->
-      <form id="changePasswordForm" style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
+      <form id="changePasswordForm"
+        style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
         <h3 style="font-size: 1.1rem; color: var(--text);">Change Password</h3>
         <div class="profile-detail-item">
           <label for="currentPassword">Current Password</label>
-          <input type="password" id="currentPassword" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+          <input type="password" id="currentPassword" required
+            style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
         </div>
         <div class="profile-detail-item">
           <label for="newPassword">New Password</label>
-          <input type="password" id="newPassword" required minlength="6" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+          <input type="password" id="newPassword" required minlength="6"
+            style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
         </div>
         <div style="display: flex; gap: 12px; margin-top: 10px;">
           <button type="submit" class="btn btn--solid" style="padding: 12px 24px;">Update Password</button>
-          <button type="button" class="btn btn--outline" id="btnCancelPassword" style="padding: 12px 24px; border-color: var(--border);">Cancel</button>
+          <button type="button" class="btn btn--outline" id="btnCancelPassword"
+            style="padding: 12px 24px; border-color: var(--border);">Cancel</button>
         </div>
       </form>
 
@@ -290,52 +302,63 @@
 
     <!-- Saved Addresses Section -->
     <div class="profile-card" id="addressesCard" style="margin-top: 30px;">
-      <h2 style="font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 1.8rem; letter-spacing: 0.05em; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 20px;">
+      <h2
+        style="font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 1.8rem; letter-spacing: 0.05em; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 20px;">
         📍 Saved <span>Addresses</span>
       </h2>
       <div id="addressesList" style="display: flex; flex-direction: column; gap: 16px;">
         <!-- JS rendered list of addresses -->
       </div>
-      
-      <button class="btn btn--outline" id="btnShowAddAddress" style="margin-top: 20px; padding: 12px; border-color: var(--border);">+ Add New Address</button>
-      
+
+      <button class="btn btn--outline" id="btnShowAddAddress"
+        style="margin-top: 20px; padding: 12px; border-color: var(--border);">+ Add New Address</button>
+
       <!-- Add/Edit Address Form Wrapper -->
-      <div id="addressFormWrapper" style="display: none; border-top: 1px solid var(--border); margin-top: 20px; padding-top: 20px;">
-        <h3 id="addressFormTitle" style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--green);">Add New Address</h3>
+      <div id="addressFormWrapper"
+        style="display: none; border-top: 1px solid var(--border); margin-top: 20px; padding-top: 20px;">
+        <h3 id="addressFormTitle"
+          style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--green);">Add New Address</h3>
         <form id="addressForm" style="display: flex; flex-direction: column; gap: 12px;">
           <input type="hidden" id="addressId">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div class="profile-detail-item">
               <label for="addrFullName">Full Name</label>
-              <input type="text" id="addrFullName" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+              <input type="text" id="addrFullName" required
+                style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
             </div>
             <div class="profile-detail-item">
               <label for="addrPhone">Phone Number</label>
-              <input type="text" id="addrPhone" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+              <input type="text" id="addrPhone" required
+                style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
             </div>
           </div>
           <div class="profile-detail-item">
             <label for="addrStreet">Street Address</label>
-            <textarea id="addrStreet" required rows="2" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit; resize: none;"></textarea>
+            <textarea id="addrStreet" required rows="2"
+              style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit; resize: none;"></textarea>
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div class="profile-detail-item">
               <label for="addrCity">City</label>
-              <input type="text" id="addrCity" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+              <input type="text" id="addrCity" required
+                style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
             </div>
             <div class="profile-detail-item">
               <label for="addrState">State</label>
-              <input type="text" id="addrState" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+              <input type="text" id="addrState" required
+                style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
             </div>
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div class="profile-detail-item">
               <label for="addrZip">Postal Code / ZIP</label>
-              <input type="text" id="addrZip" required style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+              <input type="text" id="addrZip" required
+                style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
             </div>
             <div class="profile-detail-item">
               <label for="addrType">Address Type (e.g. Home, Office)</label>
-              <select id="addrType" style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit;">
+              <select id="addrType"
+                style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text); font-family: inherit;">
                 <option value="Home">Home 🏠</option>
                 <option value="Office">Office 🏢</option>
                 <option value="Other">Other 📍</option>
@@ -343,8 +366,10 @@
             </div>
           </div>
           <div style="display: flex; gap: 12px; margin-top: 10px;">
-            <button type="submit" class="btn btn--solid" style="padding: 12px 24px;" id="btnSubmitAddress">Save Address</button>
-            <button type="button" class="btn btn--outline" id="btnCancelAddress" style="padding: 12px 24px; border-color: var(--border); background: transparent;">Cancel</button>
+            <button type="submit" class="btn btn--solid" style="padding: 12px 24px;" id="btnSubmitAddress">Save
+              Address</button>
+            <button type="button" class="btn btn--outline" id="btnCancelAddress"
+              style="padding: 12px 24px; border-color: var(--border); background: transparent;">Cancel</button>
           </div>
         </form>
       </div>
@@ -360,7 +385,8 @@
             alt="FreakFits" class="brand__mark">
           <span class="brand__name">Freak<em>Fits</em></span>
         </a>
-        <p class="footer__tagline">Premium football apparel engineered for the next generation. Designed & printed in India.</p>
+        <p class="footer__tagline">Premium football apparel engineered for the next generation. Designed & printed in
+          India.</p>
       </div>
       <div class="footer__links">
         <div class="footer__col">
@@ -446,7 +472,7 @@
           document.getElementById("profileEmail").textContent = user.email;
           document.getElementById("profilePhone").textContent = user.mobile_number || "Not provided";
           setInitials(user.full_name);
-          
+
           document.getElementById("editFullName").value = user.full_name;
           document.getElementById("editPhone").value = user.mobile_number || "";
         })
@@ -511,7 +537,7 @@
         const btn = changePasswordForm.querySelector('button[type="submit"]');
         const currPass = document.getElementById("currentPassword").value;
         const newPass = document.getElementById("newPassword").value;
-        
+
         btn.disabled = true;
         btn.textContent = "Updating...";
 
@@ -537,7 +563,7 @@
       const addressIdInput = document.getElementById("addressId");
 
       async function loadAddresses() {
-        addressesList.innerHTML = Array.from({length: 2}).map(() => `
+        addressesList.innerHTML = Array.from({ length: 2 }).map(() => `
           <div class="skeleton-row skeleton" style="border: 1px solid var(--border); background: transparent; display: block;">
             <div class="details" style="padding: 8px;">
               <div class="line-1" style="height: 20px; width: 40%; margin-bottom: 12px; border-radius: 4px;"></div>
@@ -587,7 +613,7 @@
                 document.getElementById("addrState").value = addr.state;
                 document.getElementById("addrZip").value = addr.postal_code;
                 document.getElementById("addrType").value = addr.address_type;
-                
+
                 addressFormTitle.textContent = "Edit Address";
                 addressFormWrapper.style.display = "block";
                 addressFormWrapper.scrollIntoView({ behavior: "smooth" });
@@ -660,7 +686,7 @@
       function escapeHtml(str) {
         if (str === null || str === undefined) return "";
         if (typeof str !== "string") str = String(str);
-        return str.replace(/[&<>'"]/g, 
+        return str.replace(/[&<>'"]/g,
           tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
         );
       }
@@ -682,4 +708,3 @@
 </body>
 
 </html>
-

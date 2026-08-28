@@ -12,6 +12,8 @@
     href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/sjgw6cud/image/upload/v1787300492/freakfits/logo_final.png">
   <style>
     .profile-section {
       max-width: 900px;
@@ -89,7 +91,9 @@
         </a>
         <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
         <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
@@ -125,7 +129,8 @@
             alt="FreakFits" class="brand__mark">
           <span class="brand__name">Freak<em>Fits</em></span>
         </a>
-        <p class="footer__tagline">Premium football apparel engineered for the next generation. Designed & printed in India.</p>
+        <p class="footer__tagline">Premium football apparel engineered for the next generation. Designed & printed in
+          India.</p>
       </div>
       <div class="footer__links">
         <div class="footer__col">
@@ -174,7 +179,7 @@
         }, 1200);
         return;
       }
-      
+
       // Update greeting in header if logged in
       const greeting = document.getElementById("userGreeting");
       const nameDisp = document.getElementById("userNameDisplay");
@@ -189,8 +194,8 @@
     async function loadWishlist() {
       const grid = document.getElementById("wishlistGrid");
       const e = window.escapeHtml || (s => s);
-      
-      grid.innerHTML = Array.from({length: 4}).map(() => `
+
+      grid.innerHTML = Array.from({ length: 4 }).map(() => `
         <article class="skeleton-card skeleton">
           <div class="img"></div>
           <div class="title"></div>
@@ -211,12 +216,12 @@
         grid.innerHTML = items.map(item => {
           const p = item.product;
           window.wishlistProducts[p.id] = p;
-          
+
           let ratingHtml = "";
-          for(let i=0; i<5; i++) {
+          for (let i = 0; i < 5; i++) {
             ratingHtml += i < Math.floor(p.rating) ? "★" : "☆";
           }
-          
+
           return `
             <article class="product-card" style="--card-accent:${e(p.color)}">
               <a href="product.html?id=${p.id}" class="product-card__link">
@@ -267,7 +272,7 @@
       }
       const prod = window.wishlistProducts[productId];
       if (!prod) return;
-      
+
       await CartStore.addItem({
         id: prod.id,
         name: prod.name,
@@ -289,7 +294,7 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2200);
     }
-  
+
     // EVENT DELEGATION
     document.addEventListener('click', (e) => {
       const target = e.target.closest('[data-action]');
@@ -301,7 +306,7 @@
         addToCartFromWishlist(e, target.getAttribute('data-product-id'));
       }
     });
-</script>
+  </script>
 </body>
-</html>
 
+</html>

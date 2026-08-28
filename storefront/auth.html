@@ -5,14 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account — FreakFits</title>
-  <meta name="description" content="Log in or create your FreakFits account to access exclusive kit drops, track orders, and save your custom fits.">
+  <meta name="description"
+    content="Log in or create your FreakFits account to access exclusive kit drops, track orders, and save your custom fits.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="assets/favicon.ico">
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/sjgw6cud/image/upload/v1787300492/freakfits/logo_final.png">
 </head>
 
 <body>
@@ -39,7 +41,8 @@
   <header class="site-header">
     <div class="header__inner">
       <a href="index.html" class="brand">
-        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png" alt="FreakFits" class="brand__mark">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
         <span class="brand__name">Freak<em>Fits</em></span>
       </a>
 
@@ -57,7 +60,8 @@
           <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
           <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
             <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
         </div>
@@ -71,7 +75,9 @@
 
         <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
         <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
@@ -118,7 +124,8 @@
           </div>
           <div class="auth-form__pass-wrap">
             <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
-            <button type="button" class="auth-form__toggle-pass" data-target="loginPassword" aria-label="Show password">👁</button>
+            <button type="button" class="auth-form__toggle-pass" data-target="loginPassword"
+              aria-label="Show password">👁</button>
           </div>
         </div>
 
@@ -154,7 +161,11 @@
             <button type="button" class="btn btn--ghost auth-verify-btn" id="sendOtpBtn">Verify</button>
           </div>
           <span class="auth-form__verified-badge" id="emailVerifiedBadge" style="display:none;">
-            <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14">
+              <path fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd" />
+            </svg>
             Email Verified
           </span>
         </div>
@@ -164,7 +175,8 @@
           <div class="auth-otp__box">
             <div class="auth-otp__header">
               <span class="auth-otp__title">Enter 4-Digit OTP</span>
-              <span class="auth-otp__hint">OTP sent to <strong id="otpEmailTarget">your email</strong> (Demo OTP: <strong style="color:var(--green)">4826</strong>)</span>
+              <span class="auth-otp__hint">OTP sent to <strong id="otpEmailTarget">your email</strong> (Demo OTP:
+                <strong style="color:var(--green)">4826</strong>)</span>
             </div>
             <div class="auth-otp__inputs" id="otpInputs">
               <input type="text" maxlength="1" class="otp-digit" inputmode="numeric">
@@ -181,16 +193,19 @@
         </div>
 
         <div class="auth-form__field">
-            <label for="signupPassword">Create Password</label>
-            <div class="auth-form__pass-wrap">
-              <input type="password" id="signupPassword" placeholder="Min 8 chars, 1 letter, 1 number" minlength="8" required autocomplete="new-password">
-            <button type="button" class="auth-form__toggle-pass" data-target="signupPassword" aria-label="Show password">👁</button>
+          <label for="signupPassword">Create Password</label>
+          <div class="auth-form__pass-wrap">
+            <input type="password" id="signupPassword" placeholder="Min 8 chars, 1 letter, 1 number" minlength="8"
+              required autocomplete="new-password">
+            <button type="button" class="auth-form__toggle-pass" data-target="signupPassword"
+              aria-label="Show password">👁</button>
           </div>
         </div>
 
         <p class="auth-form__err" id="signupError" style="display:none;"></p>
 
-        <button type="submit" class="btn btn--solid btn--wide auth-form__submit" id="signupSubmitBtn">Create FreakFits Account</button>
+        <button type="submit" class="btn btn--solid btn--wide auth-form__submit" id="signupSubmitBtn">Create FreakFits
+          Account</button>
 
         <div class="auth-card__switch">
           <span>Already have an account?</span>
@@ -200,7 +215,7 @@
 
       <!-- ============ FORGOT PASSWORD FORM ============ -->
       <form class="auth-form" id="forgotForm" style="display:none;">
-        
+
         <!-- Phase 1: Enter email -->
         <div id="forgotEmailPhase">
           <div class="auth-form__field">
@@ -215,7 +230,8 @@
           <div class="auth-otp__box">
             <div class="auth-otp__header">
               <span class="auth-otp__title">Enter 4-Digit OTP</span>
-              <span class="auth-otp__hint">We sent a reset code to <strong id="forgotOtpEmailTarget">your email</strong></span>
+              <span class="auth-otp__hint">We sent a reset code to <strong id="forgotOtpEmailTarget">your
+                  email</strong></span>
             </div>
             <div class="auth-otp__inputs" id="forgotOtpInputs">
               <input type="text" maxlength="1" class="otp-digit forgot-otp-digit" inputmode="numeric">
@@ -224,7 +240,8 @@
               <input type="text" maxlength="1" class="otp-digit forgot-otp-digit" inputmode="numeric">
             </div>
             <div class="auth-otp__actions">
-              <button type="button" class="btn btn--solid auth-otp__submit-btn" id="confirmForgotOtpBtn">Confirm OTP</button>
+              <button type="button" class="btn btn--solid auth-otp__submit-btn" id="confirmForgotOtpBtn">Confirm
+                OTP</button>
               <button type="button" class="auth-otp__resend" id="resendForgotOtpBtn">Resend Code</button>
             </div>
             <p class="auth-otp__err" id="forgotOtpError" style="display:none;"></p>
@@ -235,19 +252,22 @@
         <div id="forgotResetPhase" style="display:none;">
           <div class="auth-form__field">
             <label for="newPassword">New Password</label>
-              <div class="auth-form__pass-wrap">
-                <input type="password" id="newPassword" placeholder="Min 8 chars, 1 letter, 1 number" minlength="8">
-              <button type="button" class="auth-form__toggle-pass" data-target="newPassword" aria-label="Show password">👁</button>
+            <div class="auth-form__pass-wrap">
+              <input type="password" id="newPassword" placeholder="Min 8 chars, 1 letter, 1 number" minlength="8">
+              <button type="button" class="auth-form__toggle-pass" data-target="newPassword"
+                aria-label="Show password">👁</button>
             </div>
           </div>
           <div class="auth-form__field">
             <label for="confirmNewPassword">Confirm New Password</label>
             <div class="auth-form__pass-wrap">
               <input type="password" id="confirmNewPassword" placeholder="Re-enter new password">
-              <button type="button" class="auth-form__toggle-pass" data-target="confirmNewPassword" aria-label="Show password">👁</button>
+              <button type="button" class="auth-form__toggle-pass" data-target="confirmNewPassword"
+                aria-label="Show password">👁</button>
             </div>
           </div>
-          <button type="button" class="btn btn--solid btn--wide auth-form__submit" id="submitNewPasswordBtn">Reset Password &amp; Login</button>
+          <button type="button" class="btn btn--solid btn--wide auth-form__submit" id="submitNewPasswordBtn">Reset
+            Password &amp; Login</button>
         </div>
 
         <div class="auth-card__switch" style="margin-top: 16px;">
@@ -262,7 +282,8 @@
     <div class="footer__grid">
       <div class="footer__brand">
         <a href="index.html" class="brand">
-          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png" alt="FreakFits" class="brand__mark">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
           <span class="brand__name">Freak<em>Fits</em></span>
         </a>
         <p>Kits for the fans who show up loud. Built for the terraces, not the shelf.</p>
@@ -708,4 +729,3 @@
 </body>
 
 </html>
-
