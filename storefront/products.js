@@ -58,7 +58,7 @@ const PRODUCTS = [];
 
 function starString(rating) {
   let html = "";
-  for(let i=0; i<5; i++) {
+  for (let i = 0; i < 5; i++) {
     html += i < Math.floor(rating) ? "★" : "☆";
   }
   return html;
@@ -68,6 +68,12 @@ function getProductById(id) {
   return PRODUCTS.find((p) => p.id === parseInt(id));
 }
 
+// ============ CLOUDINARY URL OPTIMIZER (Safari/iOS fix) ============
+function cldOptimize(url) {
+  if (typeof url !== "string" || !url.includes("res.cloudinary.com")) return url;
+  if (url.includes("/upload/f_auto") || url.includes("f_auto,q_auto")) return url;
+  return url.replace("/upload/", "/upload/f_auto,q_auto/");
+}
 // ============ LIVE BACKEND SYNCHRONIZER ============
 async function syncProductsFromBackend() {
   try {
@@ -91,8 +97,8 @@ async function syncProductsFromBackend() {
           badgeBg: apiProd.badge_bg || apiProd.color || "#8CFF3B",
           category: apiProd.category || "home",
           images: Array.isArray(apiProd.images) && apiProd.images.length > 0
-            ? apiProd.images
-            : (existing ? existing.images : ["https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300483/freakfits/Argentina_Home.jpg"]),
+            ? apiProd.images.map(cldOptimize)
+            : (existing ? existing.images.map(cldOptimize) : ["https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300483/freakfits/Argentina_Home.jpg"]),
           description: apiProd.description || (existing ? existing.description : `${apiProd.name} official match jersey.`),
           material: apiProd.material || (existing ? existing.material : "100% Recycled Poly-Mesh Dri-FIT"),
           fit: apiProd.fit || (existing ? existing.fit : "Athletic Tailored Match Cut"),
@@ -151,9 +157,9 @@ function getProductsByCategory(cat) {
 
 function getProductsBySearch(query) {
   const q = query.toLowerCase();
-  return PRODUCTS.filter(p => 
-    p.name.toLowerCase().includes(q) || 
-    p.club.toLowerCase().includes(q) || 
+  return PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.club.toLowerCase().includes(q) ||
     p.category.toLowerCase().includes(q)
   );
 }

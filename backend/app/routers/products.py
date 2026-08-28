@@ -158,7 +158,8 @@ def create_product_review(
             # Upload file directly to Cloudinary
             upload_result = cloudinary.uploader.upload(
                 file_bytes,
-                folder=settings.CLOUDINARY_FOLDER
+                folder=settings.CLOUDINARY_FOLDER,
+                transformation=[{"fetch_format": "auto", "quality": "auto"}]
             )
             image_url = upload_result.get("secure_url")
         except Exception as e:
