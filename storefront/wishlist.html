@@ -317,12 +317,12 @@
     const mainNav = document.getElementById("mainNav");
     if (burgerBtn && mainNav) {
       burgerBtn.addEventListener("click", () => {
-        mainNav.classList.toggle("is-active");
+        mainNav.classList.toggle("is-open");
         burgerBtn.classList.toggle("is-active");
       });
       document.addEventListener("click", (e) => {
         if (!e.target.closest(".site-header")) {
-          mainNav.classList.remove("is-active");
+          mainNav.classList.remove("is-open");
           burgerBtn.classList.remove("is-active");
         }
       });
