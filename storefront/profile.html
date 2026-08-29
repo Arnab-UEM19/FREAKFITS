@@ -374,6 +374,52 @@
         </form>
       </div>
     </div>
+
+    <!-- Danger Zone: Delete Account -->
+    <div class="profile-card" id="dangerZoneCard" style="margin-top: 30px; border: 1px solid rgba(255, 62, 122, 0.35);">
+      <h2
+        style="font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 1.8rem; letter-spacing: 0.05em; color: #FF3E7A; border-bottom: 1px solid rgba(255, 62, 122, 0.35); padding-bottom: 12px; margin-bottom: 20px;">
+        ⚠️ Danger <span style="color:#FF3E7A;">Zone</span>
+      </h2>
+
+      <div id="deleteAccountIntro">
+        <p style="color: var(--text-muted, #8c8f9f); font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px;">
+          Deleting your account is <strong>permanent and cannot be undone</strong>. Your profile, saved addresses,
+          cart, wishlist, and reviews (including uploaded photos) will be erased immediately. Past orders are kept
+          on file for tax/invoicing purposes as required by law, but will no longer be linked to your account or
+          accessible from it.
+        </p>
+        <button id="btnShowDeleteAccount" class="btn btn--outline"
+          style="padding: 14px 24px; border-color: #FF3E7A; color: #FF3E7A;">
+          🗑️ Delete My Account
+        </button>
+      </div>
+
+      <!-- Delete Account Confirmation Form (Hidden by default) -->
+      <form id="deleteAccountForm" style="display: none; flex-direction: column; gap: 14px;">
+        <p style="color: #FF3E7A; font-size: 0.95rem; font-weight: 600;">
+          This action is irreversible. Please confirm below.
+        </p>
+        <div class="profile-detail-item">
+          <label for="deleteAccountPassword">Enter your password</label>
+          <input type="password" id="deleteAccountPassword" required autocomplete="current-password"
+            style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+        </div>
+        <div class="profile-detail-item">
+          <label for="deleteAccountConfirmText">Type <strong>DELETE</strong> to confirm</label>
+          <input type="text" id="deleteAccountConfirmText" required placeholder="DELETE"
+            style="padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: #1B2016; color: var(--text);">
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 6px;">
+          <button type="submit" class="btn btn--solid" id="btnConfirmDeleteAccount"
+            style="padding: 12px 24px; background: #FF3E7A; border-color: #FF3E7A;">
+            Permanently Delete Account
+          </button>
+          <button type="button" class="btn btn--outline" id="btnCancelDeleteAccount"
+            style="padding: 12px 24px; border-color: var(--border);">Cancel</button>
+        </div>
+      </form>
+    </div>
   </main>
 
   <!-- ============ FOOTER ============ -->
@@ -400,6 +446,11 @@
           <a href="sizeguide.html">Size Guide</a>
           <a href="returns.html">Returns & Claim Desk</a>
           <a href="contact.html">Contact Us</a>
+
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-of-service.html">Terms of Service</a>
+          <a href="cookie-policy.html">Cookie Policy</a>
+          <a href="cookie-preferences.html">Cookie Preferences</a>
         </div>
       </div>
       <div class="footer__newsletter">
@@ -550,6 +601,67 @@
         } finally {
           btn.disabled = false;
           btn.textContent = "Update Password";
+        }
+      });
+
+      // ============ DELETE ACCOUNT ============
+      const deleteAccountIntro = document.getElementById("deleteAccountIntro");
+      const deleteAccountForm = document.getElementById("deleteAccountForm");
+      const btnShowDeleteAccount = document.getElementById("btnShowDeleteAccount");
+      const btnCancelDeleteAccount = document.getElementById("btnCancelDeleteAccount");
+
+      btnShowDeleteAccount.addEventListener("click", () => {
+        deleteAccountIntro.style.display = "none";
+        deleteAccountForm.style.display = "flex";
+      });
+
+      btnCancelDeleteAccount.addEventListener("click", () => {
+        deleteAccountForm.style.display = "none";
+        deleteAccountForm.reset();
+        deleteAccountIntro.style.display = "block";
+      });
+
+      deleteAccountForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const password = document.getElementById("deleteAccountPassword").value;
+        const confirmText = document.getElementById("deleteAccountConfirmText").value;
+
+        if (confirmText.trim().toUpperCase() !== "DELETE") {
+          showToast('Please type "DELETE" exactly to confirm.');
+          return;
+        }
+
+        const sure = window.confirm(
+          "This will permanently delete your FreakFits account and personal data. This cannot be undone. Continue?"
+        );
+        if (!sure) return;
+
+        const btn = document.getElementById("btnConfirmDeleteAccount");
+        btn.disabled = true;
+        btn.textContent = "Deleting...";
+
+        try {
+          const res = await fetch("/api/auth/me", {
+            method: "DELETE",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password, confirmation: confirmText.trim().toUpperCase() })
+          });
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok) {
+            throw new Error(data.detail || "Failed to delete account.");
+          }
+
+          AuthStore.logout();
+          showToast("Your account has been permanently deleted.");
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1500);
+        } catch (err) {
+          showToast(err.message || "Error deleting account. Please try again.");
+          btn.disabled = false;
+          btn.textContent = "Permanently Delete Account";
         }
       });
 

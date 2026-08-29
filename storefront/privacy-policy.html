@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — FreakFits</title>
+  <meta name="description" content="How FreakFits collects, uses, and protects your personal data.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/sjgw6cud/image/upload/v1787300492/freakfits/logo_final.png">
+  <style>
+    .legal-shell {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 60px 24px 120px;
+    }
+
+    .legal-hero {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 28px;
+      margin-bottom: 40px;
+    }
+
+    .legal-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .legal-title {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      letter-spacing: 0.03em;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .legal-updated {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--text-faint);
+    }
+
+    /* ---- Prose styling for pasted policy text ----
+       Wrap whatever you paste inside <div id="policyContent"> ... </div> below.
+       Plain paragraphs wrapped in <p> tags, or headings in <h2>/<h3>, will pick up
+       these styles automatically — no need to add classes to pasted content. */
+    #policyContent {
+      color: var(--text-dim);
+      font-size: 14.5px;
+      line-height: 1.8;
+    }
+
+    #policyContent p {
+      margin-bottom: 16px;
+    }
+
+    #policyContent h2 {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.25rem;
+      color: var(--text);
+      margin: 34px 0 12px;
+    }
+
+    #policyContent h3 {
+      font-size: 0.98rem;
+      color: var(--text);
+      margin: 22px 0 8px;
+      font-weight: 700;
+    }
+
+    #policyContent ul,
+    #policyContent ol {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    #policyContent li {
+      margin-bottom: 6px;
+    }
+
+    #policyContent a {
+      color: var(--green);
+    }
+
+    #policyContent strong {
+      color: var(--text);
+    }
+
+    .legal-placeholder {
+      background: var(--bg-alt);
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 28px;
+      color: var(--text-dim);
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+
+    .legal-placeholder strong {
+      color: var(--text);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="sizeguide.html">Size Guide</a>
+      </nav>
+
+      <div class="header__actions">
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="legal-shell">
+    <div class="legal-hero">
+      <span class="legal-eyebrow">Legal</span>
+      <h1 class="legal-title">Privacy <span style="color:var(--green)">Policy</span></h1>
+      <p class="legal-updated">Last updated: — <!-- set this date when you publish the real content --></p>
+    </div>
+
+    <div id="policyContent">
+
+      <p><strong>[Legal Entity Name]</strong> ("FreakFits", "we", "us", "our") operates the e-commerce storefront
+        www.freakfits.com. This Privacy Policy is published in accordance with Rule 4 of the Information Technology
+        (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011
+        ("SPDI Rules"), framed under Section 43A of the Information Technology Act, 2000 ("IT Act"), and with the
+        disclosure requirements of the Consumer Protection (E-Commerce) Rules, 2020 framed under the Consumer
+        Protection Act, 2019. It describes what personal information and sensitive personal data or information
+        ("SPDI") we collect, why we collect it, how it is used, disclosed, stored and protected, and the choices and
+        rights available to you.</p>
+      <p>By accessing the site, creating an account, or placing an order, you consent to the collection and
+        processing of your information as described in this Policy. If you do not agree with this Policy, please do
+        not use the site or provide us your personal information.</p>
+
+      <h2>1. Definitions</h2>
+      <p>For the purposes of this Policy, and consistent with Rule 3 of the SPDI Rules:</p>
+      <ul>
+        <li><strong>"Personal Information"</strong> means any information that relates to a natural person, which,
+          either directly or indirectly, in combination with other information, is capable of identifying that
+          person — such as your name, email address, mobile number, and shipping address.</li>
+        <li><strong>"Sensitive Personal Data or Information" (SPDI)</strong> includes, among other things,
+          passwords and financial information such as bank account or card details. FreakFits's own systems collect
+          only your <strong>password</strong> as SPDI (stored irreversibly hashed — see Section 6). We never
+          receive, process, or store your card, UPI, or bank account details; these are handled entirely by our
+          payment partner, Razorpay, under its own PCI-DSS-compliant systems.</li>
+      </ul>
+
+      <h2>2. Information We Collect</h2>
+      <h3>2.1 Information you provide directly</h3>
+      <ul>
+        <li><strong>Account information</strong> — full name, email address, mobile number, and a password (SPDI,
+          hashed with bcrypt and never stored or logged in plain text).</li>
+        <li><strong>Shipping addresses</strong> — full name, phone number, street address, city, state, postal
+          code, and country, for one or more saved delivery addresses.</li>
+        <li><strong>Order and customization details</strong> — items purchased, sizes, quantities, and any custom
+          jersey name/number you request.</li>
+        <li><strong>Reviews</strong> — star rating, written comment, and an optional photo, submitted under your
+          authenticated account (never a free-text name, so reviews cannot be posted under a false identity).</li>
+        <li><strong>Support, contact-form, and return/exchange submissions</strong> — your name, email, the reason
+          for contacting us, your message, and, for returns, mandatory unboxing video proof (uploaded directly, up
+          to 10MB, or a link from YouTube or Google Drive only).</li>
+        <li><strong>Newsletter subscription</strong> — your email address, if you choose to subscribe.</li>
+      </ul>
+      <h3>2.2 Information collected automatically</h3>
+      <ul>
+        <li><strong>Authentication session</strong> — a signed session token stored in an HttpOnly, Secure cookie,
+          used to keep you logged in without exposing the token to page scripts.</li>
+        <li><strong>Cart and coupon data</strong> — items in your cart and any applied coupon, held in your browser
+          if you are not logged in, or against your account on our server if you are.</li>
+        <li><strong>One-Time Passcodes (OTPs)</strong> — generated to verify your email during registration or
+          password reset. OTPs automatically expire and are never included in any API response or log.</li>
+        <li><strong>Basic technical/server logs</strong> — standard request data (such as IP address) captured for
+          security monitoring and abuse prevention, as described in our <a href="cookie-policy.html">Cookie
+            Policy</a>.</li>
+      </ul>
+      <p>We do <strong>not</strong> collect any other category of SPDI listed under Rule 3 of the SPDI Rules — such
+        as health data, biometric data, sexual orientation, or physical/mental health records — as none of these
+        are relevant to operating a jersey storefront.</p>
+
+      <h2>3. Purpose of Collection & Use</h2>
+      <p>In line with Rule 5(2) of the SPDI Rules, we collect and use your information only for identified,
+        lawful purposes connected with our business:</p>
+      <ul>
+        <li>To create, verify (via OTP), and manage your account.</li>
+        <li>To process and fulfil orders — calculating accurate, database-verified prices and stock, accepting
+          payment via Razorpay, and shipping your order.</li>
+        <li>To communicate with you: order confirmations, shipping and delivery updates, cancellation and return
+          confirmations, password-reset OTPs, and replies to support enquiries.</li>
+        <li>To send marketing/drop-alert emails, only if you've opted in via newsletter subscription; you may
+          unsubscribe at any time.</li>
+        <li>To detect, prevent, and investigate fraud, abuse, or unauthorized access — including per-IP rate
+          limiting on login, OTP, checkout, and order-tracking endpoints.</li>
+        <li>To maintain an internal, tamper-evident audit trail of administrative actions taken on your order or
+          account, for accountability and dispute resolution.</li>
+        <li>To comply with our obligations under Indian tax, accounting, and consumer-protection law.</li>
+      </ul>
+
+      <h2>4. Consent</h2>
+      <p>Per Rule 5(1) of the SPDI Rules, we obtain your consent before collecting SPDI (your password) at the
+        point of registration. You have the right to:</p>
+      <ul>
+        <li><strong>Not provide certain information.</strong> Providing your name, email, mobile number, and
+          password is necessary to create an account and check out; without them, we cannot provide these services.
+          Optional information — such as saved addresses beyond what a single order needs, newsletter subscription,
+          or a review photo — can be withheld without affecting your ability to shop with us.</li>
+        <li><strong>Withdraw consent at any time</strong>, by writing to us at the contact details in Section 12.
+          Withdrawing consent for account-essential data will mean we can no longer maintain your account or
+          fulfil pending orders tied to it, and may require you to close your account (Section 9).</li>
+      </ul>
+
+      <h2>5. Disclosure of Information to Third Parties</h2>
+      <p>Per Rule 6 of the SPDI Rules, we do not disclose your personal information or SPDI to any third party
+        without your consent, except where disclosure is necessary to perform a contract with you, is required by
+        law, or has been agreed to under a lawful contract with our service providers. We do not sell your personal
+        data. We share data only with the following categories of service providers, strictly for the purpose
+        stated, and each is contractually restricted from using it for any other purpose or disclosing it further:
+      </p>
+      <table class="legal-table">
+        <tr>
+          <th>Recipient</th>
+          <th>Purpose</th>
+          <th>Data shared</th>
+        </tr>
+        <tr>
+          <td>Razorpay</td>
+          <td>Payment processing</td>
+          <td>Order amount and contact details needed for the
+            transaction. We never receive or store your card/UPI/bank details.</td>
+        </tr>
+        <tr>
+          <td>Cloudinary</td>
+          <td>Image hosting</td>
+          <td>Product photos and photos you choose to upload with a
+            review.</td>
+        </tr>
+        <tr>
+          <td>Resend</td>
+          <td>Transactional email delivery</td>
+          <td>Your email address and the content of order,
+            OTP, and support emails.</td>
+        </tr>
+        <tr>
+          <td>Hosting & database infrastructure providers</td>
+          <td>Running the application</td>
+          <td>All data in
+            Section 2, as needed to operate the service.</td>
+        </tr>
+      </table>
+      <p>We may also disclose information where required by an order of a court, government agency, or law
+        enforcement authority acting under lawful authority, or where necessary to investigate fraud or protect the
+        rights, property, or safety of FreakFits, our customers, or the public.</p>
+
+      <h2>6. Security Practices & Procedures</h2>
+      <p>Per Rule 8 of the SPDI Rules, we maintain reasonable security practices and procedures appropriate to the
+        sensitivity of the information we hold, including:</p>
+      <ul>
+        <li>Passwords hashed using bcrypt (a slow, salted, one-way algorithm) — never stored or logged in plain
+          text, and never recoverable by us.</li>
+        <li>Session authentication via signed JSON Web Tokens delivered in HttpOnly, Secure cookies, inaccessible
+          to page scripts.</li>
+        <li>Automatic invalidation of all existing sessions the moment a password is changed, even before the old
+          token's natural expiry.</li>
+        <li>HTTPS enforced site-wide via HTTP Strict Transport Security (HSTS), with additional browser-security
+          headers (X-Content-Type-Options, X-Frame-Options, Content-Security-Policy, Referrer-Policy).</li>
+        <li>Ownership checks on every customer data endpoint — cart, orders, addresses, wishlist, reviews — so a
+          customer can never view or modify another customer's records.</li>
+        <li>Role-based access control across our internal admin systems, with sensitive administrative actions
+          recorded in a tamper-evident audit log.</li>
+        <li>Per-IP rate limiting on authentication, OTP, checkout, and order-tracking endpoints to blunt automated
+          attacks.</li>
+        <li>OTP codes that expire automatically, are single-use, and are never exposed in an API response or log
+          file.</li>
+      </ul>
+
+      <h2>7. Data Retention</h2>
+      <ul>
+        <li>Account, order, and address data is retained for as long as your account remains active, and
+          thereafter for as long as required to meet our accounting, taxation, and consumer-dispute-resolution
+          obligations under Indian law.</li>
+        <li>OTP codes automatically expire within 10–15 minutes of issue.</li>
+        <li>Internal administrative audit-log entries are automatically purged after 7 days.</li>
+        <li>Return/exchange video proof is deleted once the associated claim is closed.</li>
+        <li>Where you request account deletion (Section 9), we retain only the minimum transaction records legally
+          required, and delete the rest.</li>
+      </ul>
+
+      <h2>8. Cookies</h2>
+      <p>We use a limited set of cookies and browser-storage entries necessary to keep you logged in, remember your
+        cart, and secure the site. We do not use third-party advertising or tracking cookies. Full details are in
+        our <a href="cookie-policy.html">Cookie Policy</a>, and you can manage optional preferences on our <a
+          href="cookie-preferences.html">Cookie Preferences</a> page.</p>
+
+      <h2>9. Your Rights, Account Correction & Deletion</h2>
+      <p>Per Rule 5(6) of the SPDI Rules, you have the right to review and correct the personal information you've
+        provided. You can update your name and mobile number, and manage saved addresses, directly from your <a
+          href="profile.html">Profile</a> page.</p>
+      <p>You can also permanently delete your FreakFits account from the Profile page. As a safeguard against
+        accidental or unauthorized deletion, this requires you to re-enter your account password to confirm. Once
+        confirmed, deletion is immediate and permanent, and cannot be undone. Specifically:</p>
+      <ul>
+        <li><strong>Deleted immediately and completely:</strong> your cart, wishlist, saved addresses, any reviews
+          you've posted (including photos you uploaded with them, which are also removed from our image storage),
+          and any pending email verification codes tied to your account.</li>
+        <li><strong>Your login is deactivated</strong> and your session is ended immediately.</li>
+        <li><strong>Orders you've placed are not deleted.</strong> They are unlinked from your account — you will
+          no longer be able to access them by logging in, and no account will be associated with them going
+          forward — but the order record itself continues to show the name, email address, and phone number you
+          provided at the time of that specific purchase. We retain this because Indian tax, GST, and accounting
+          law requires sellers to preserve complete, unaltered transaction and invoice records for a statutory
+          period, and altering historical financial records after the fact is not permitted. This is the only
+          personal data retained after account deletion, and it is limited to what already exists on past invoices
+          — no new data is collected or added to it.</li>
+      </ul>
+      <p>If you'd like a copy of your personal data before deleting your account, contact us using the details in
+        Section 12 first — this cannot be done after deletion.</p>
+
+      <h2>10. Children's Privacy</h2>
+      <p>FreakFits is not directed at individuals under the age of 18, and we do not knowingly collect personal
+        information from minors. If you believe a minor has provided us with personal information, please contact
+        us and we will take steps to remove it.</p>
+
+      <h2>11. Data Localization & Cross-Border Transfer</h2>
+      <p>Your information is processed and stored using infrastructure and service providers as described in
+        Section 5. Where any service provider processes data outside India, we take reasonable steps to ensure it
+        is handled under contractual confidentiality and security obligations at least as protective as those
+        described in this Policy.</p>
+
+      <h2>12. Grievance Redressal</h2>
+      <p>In accordance with Rule 5(9) of the SPDI Rules and Rule 5(3) of the Consumer Protection (E-Commerce)
+        Rules, 2020, we have appointed a Grievance Officer to address any complaints or concerns regarding this
+        Policy or the handling of your personal information.</p>
+      <div class="legal-callout">
+        <p><strong>Grievance Officer:</strong> [Grievance Officer Name]<br>
+          <strong>Email:</strong> [grievance-officer-email@freakfits.com]<br>
+          <strong>Phone:</strong> [Grievance Officer Phone Number]<br>
+          <strong>Address:</strong> [Registered Business Address]
+        </p>
+      </div>
+      <p>We will acknowledge your grievance within 48 hours of receipt and endeavour to redress it within one
+        month from the date of receipt, as required under applicable law.</p>
+
+      <h2>13. Governing Law</h2>
+      <p>This Policy is governed by the laws of India, including the Information Technology Act, 2000 and the
+        rules framed thereunder, and the Consumer Protection Act, 2019 and rules framed thereunder. Any dispute
+        arising from this Policy is subject to the exclusive jurisdiction of the courts at [City], India.</p>
+
+      <h2>14. Changes to this Policy</h2>
+      <p>We may revise this Policy from time to time to reflect changes in our practices or in applicable law
+        (including as the Digital Personal Data Protection Act, 2023 and its Rules come into full force). We will
+        update the "Last updated" date at the top of this page whenever we do, and material changes will be
+        highlighted where appropriate.</p>
+
+      <h2>15. Contact Us</h2>
+      <p>For any questions about this Policy or how your data is handled, write to us via our <a
+          href="contact.html">Contact page</a>, or reach our Grievance Officer directly using the details in Section
+        12.</p>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p class="footer__tagline">Premium football apparel engineered for the next generation. Designed & printed
+          in India.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Shop</h4>
+          <a href="category.html?cat=home">Home Version</a>
+          <a href="category.html?cat=away">Away Version</a>
+          <a href="category.html?cat=kit">Complete Kit</a>
+        </div>
+        <div class="footer__col">
+          <h4>Support</h4>
+          <a href="sizeguide.html">Size Guide</a>
+          <a href="returns.html">Returns & Claim Desk</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-of-service.html">Terms of Service</a>
+          <a href="cookie-policy.html">Cookie Policy</a>
+          <a href="cookie-preferences.html">Cookie Preferences</a>
+        </div>
+      </div>
+      <div class="footer__newsletter">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
+      <span>Not affiliated with any club — fan merchandise demo.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="products.js?v=2.0"></script>
+  <script src="cart-store.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+</body>
+
+</html>

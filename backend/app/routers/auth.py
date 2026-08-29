@@ -18,11 +18,22 @@ from sqlalchemy.orm import Session
 from ..config import settings
 from ..database import get_db
 from ..limiter import limiter
-from ..models import Address, OTPVerification, Product, User, Wishlist, get_ist_time
+from ..models import (
+    Address,
+    CartItem,
+    Order,
+    OTPVerification,
+    Product,
+    Review,
+    User,
+    Wishlist,
+    get_ist_time,
+)
 from ..schemas import (
     AddressCreate,
     AddressResponse,
     ChangePasswordRequest,
+    DeleteAccountRequest,
     ForgotPasswordRequest,
     LoginRequest,
     RegisterRequest,
@@ -303,6 +314,118 @@ def change_user_password(
     current_user.password_changed_at = get_ist_time()
     db.commit()
     return {"success": True, "message": "Password updated successfully"}
+
+
+def _delete_review_image_if_any(image_url: str | None) -> None:
+    """Best-effort cleanup of a review photo stored on Cloudinary or locally."""
+    if not image_url:
+        return
+    try:
+        if "res.cloudinary.com" in image_url:
+            import cloudinary
+            import cloudinary.uploader
+
+            from ..config import settings
+            cloudinary.config(
+                cloud_name=settings.CLOUDINARY_CLOUD_NAME,
+                api_key=settings.CLOUDINARY_API_KEY,
+                api_secret=settings.CLOUDINARY_API_SECRET,
+                secure=True
+            )
+            parts = image_url.split("/upload/")
+            if len(parts) == 2:
+                subparts = parts[1].split("/")
+                if subparts[0].startswith("v") and subparts[0][1:].isdigit():
+                    subparts = subparts[1:]
+                public_id_with_ext = "/".join(subparts)
+                public_id = public_id_with_ext.rsplit(".", 1)[0]
+                cloudinary.uploader.destroy(public_id)
+        elif image_url.startswith("/static/uploads/reviews/"):
+            import os
+            local_path = image_url.lstrip("/")
+            if os.path.exists(local_path):
+                os.remove(local_path)
+    except Exception as e:
+        logger.warning(f"[Account Deletion] Could not clean up review image {image_url}: {e}")
+
+
+@router.delete("/me")
+@limiter.limit("3/minute")
+def delete_my_account(
+    request: Request,
+    response: Response,
+    payload: DeleteAccountRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_current_user)
+):
+    """
+    Permanently deletes the authenticated user's account and all personal data
+    they directly own: cart, wishlist, reviews (incl. uploaded photos), saved
+    addresses, and pending OTP records. Requires the current password plus a
+    typed 'DELETE' confirmation as a safeguard against accidental clicks or
+    session hijacking.
+
+    Past orders are NOT deleted outright — they are anonymized (unlinked from
+    the account) rather than erased, since Indian tax/GST law requires sellers
+    to retain transaction and invoice records for several years. The order
+    keeps its customer_name/email snapshot for accounting purposes but is no
+    longer associated with the deleted account or accessible via it.
+    """
+    if not verify_password(payload.password, current_user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Incorrect password. Account deletion cancelled."
+        )
+
+    user_id = current_user.id
+    user_email = current_user.email
+
+    # 1. Cart items
+    db.query(CartItem).filter(CartItem.user_id == user_id).delete()
+
+    # 2. Wishlist entries
+    db.query(Wishlist).filter(Wishlist.user_id == user_id).delete()
+
+    # 3. Reviews — remove uploaded photos, then the review rows, then
+    #    recalculate the affected products' rating/review count.
+    reviews = db.query(Review).filter(Review.user_id == user_id).all()
+    affected_product_ids = {r.product_id for r in reviews}
+    for r in reviews:
+        _delete_review_image_if_any(r.image_url)
+        db.delete(r)
+    db.flush()
+    for pid in affected_product_ids:
+        remaining = db.query(Review).filter(Review.product_id == pid).all()
+        product = db.query(Product).filter(Product.id == pid).first()
+        if product:
+            total = len(remaining)
+            product.rating = round(sum(x.rating for x in remaining) / total, 1) if total else 4.8
+            product.reviews = total
+
+    # 4. Any outstanding OTP records tied to this email
+    db.query(OTPVerification).filter(OTPVerification.email == user_email).delete()
+
+    # 5. Orders — anonymize rather than delete (legal/tax record retention)
+    db.query(Order).filter(Order.user_id == user_id).update({Order.user_id: None})
+
+    # 6. Addresses cascade-delete automatically via the User relationship
+    #    (cascade="all, delete-orphan"), and finally the user row itself.
+    db.delete(current_user)
+    db.commit()
+
+    response.delete_cookie(
+        key="access_token",
+        httponly=True,
+        secure=True,
+        samesite="lax"
+    )
+
+    logger.info(f"[Account Deletion] Account permanently deleted for {user_email}")
+
+    return {
+        "success": True,
+        "message": "Your account and personal data have been permanently deleted."
+    }
 
 
 @router.post("/forgot-password")

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — FreakFits</title>
+  <meta name="description" content="The terms that govern your use of FreakFits and any order you place with us.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/sjgw6cud/image/upload/v1787300492/freakfits/logo_final.png">
+  <style>
+    .legal-shell {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 60px 24px 120px;
+    }
+
+    .legal-hero {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 28px;
+      margin-bottom: 40px;
+    }
+
+    .legal-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .legal-title {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      letter-spacing: 0.03em;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .legal-updated {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--text-faint);
+    }
+
+    /* ---- Prose styling for pasted policy text ----
+       Wrap whatever you paste inside <div id="policyContent"> ... </div> below.
+       Plain paragraphs wrapped in <p> tags, or headings in <h2>/<h3>, will pick up
+       these styles automatically — no need to add classes to pasted content. */
+    #policyContent {
+      color: var(--text-dim);
+      font-size: 14.5px;
+      line-height: 1.8;
+    }
+
+    #policyContent p {
+      margin-bottom: 16px;
+    }
+
+    #policyContent h2 {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 1.25rem;
+      color: var(--text);
+      margin: 34px 0 12px;
+    }
+
+    #policyContent h3 {
+      font-size: 0.98rem;
+      color: var(--text);
+      margin: 22px 0 8px;
+      font-weight: 700;
+    }
+
+    #policyContent ul,
+    #policyContent ol {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    #policyContent li {
+      margin-bottom: 6px;
+    }
+
+    #policyContent a {
+      color: var(--green);
+    }
+
+    #policyContent strong {
+      color: var(--text);
+    }
+
+    .legal-placeholder {
+      background: var(--bg-alt);
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 28px;
+      color: var(--text-dim);
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+
+    .legal-placeholder strong {
+      color: var(--text);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="sizeguide.html">Size Guide</a>
+      </nav>
+
+      <div class="header__actions">
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="legal-shell">
+    <div class="legal-hero">
+      <span class="legal-eyebrow">Legal</span>
+      <h1 class="legal-title">Terms of <span style="color:var(--green)">Service</span></h1>
+      <p class="legal-updated">Last updated: — <!-- set this date when you publish the real content --></p>
+    </div>
+
+    <div id="policyContent">
+
+      <p>These Terms of Service ("Terms") are published in accordance with the Information Technology Act, 2000
+        ("IT Act") and the rules framed thereunder, and the Consumer Protection (E-Commerce) Rules, 2020 framed
+        under the Consumer Protection Act, 2019. They constitute an electronic record and, per Section 10A of the
+        IT Act, an electronic contract that does not require physical or digital signature to be valid and
+        enforceable. These Terms govern your access to and use of www.freakfits.com and any order placed with
+        <strong>[Legal Entity Name]</strong> ("FreakFits", "we", "us", "our"). By browsing the site, creating an
+        account, or placing an order, you agree to be bound by these Terms.
+      </p>
+
+      <h2>1. E-Commerce Entity Disclosures</h2>
+      <p>As required under Rule 5 of the Consumer Protection (E-Commerce) Rules, 2020:</p>
+      <table class="legal-table">
+        <tr>
+          <td>Legal name of entity</td>
+          <td>[Legal Entity Name]</td>
+        </tr>
+        <tr>
+          <td>Registered office address</td>
+          <td>[Registered Business Address]</td>
+        </tr>
+        <tr>
+          <td>GSTIN (if applicable)</td>
+          <td>[GSTIN]</td>
+        </tr>
+        <tr>
+          <td>Customer care email</td>
+          <td>[support email]</td>
+        </tr>
+        <tr>
+          <td>Customer care contact number</td>
+          <td>[support phone number]</td>
+        </tr>
+        <tr>
+          <td>Grievance Officer</td>
+          <td>See Section 15 below</td>
+        </tr>
+      </table>
+
+      <h2>2. Accounts & Eligibility</h2>
+      <ul>
+        <li>You must provide accurate registration information — a valid email and mobile number — and verify
+          your email via a one-time passcode (OTP) before your account is activated.</li>
+        <li>You are responsible for maintaining the confidentiality of your password and for all activity under
+          your account. Notify us immediately of any suspected unauthorized access.</li>
+        <li>You must be competent to contract under the Indian Contract Act, 1872 (generally, 18 years or older),
+          or place an order with the involvement and consent of a parent or guardian if you are a minor.</li>
+        <li>Impersonating another person, or posting a review or message under a false identity, is prohibited.</li>
+      </ul>
+
+      <h2>3. Products, Pricing & Description Accuracy</h2>
+      <ul>
+        <li>In accordance with Rule 6(5) of the Consumer Protection (E-Commerce) Rules, 2020, we make reasonable
+          efforts to ensure that product descriptions, images, pricing, and stock availability displayed on the
+          site are accurate. Colours may vary slightly depending on your screen.</li>
+        <li>We reserve the right to correct genuine pricing or listing errors, even after an order is placed, and
+          to cancel and fully refund an order affected by such an error, in which case you will be notified
+          promptly.</li>
+        <li>Prices displayed include the applicable breakup of taxes and charges at checkout. The price and stock
+          shown at the point of payment are always recalculated directly against our database — never trusted from
+          your browser — so what you are charged reflects the live, verified price at the time of purchase.</li>
+        <li>FreakFits products are fan merchandise, manufactured and printed in India (country of origin: India),
+          and are not official club-licensed merchandise (see Section 12).</li>
+      </ul>
+
+      <h2>4. Order Placement & Acceptance</h2>
+      <ul>
+        <li>Placing an order is an offer to purchase. An order is confirmed only once payment has been
+          successfully verified — see Section 6.</li>
+        <li>We may decline or cancel an order in cases including suspected fraud, a genuine pricing or stock
+          error, or where a customized item can no longer be produced as specified.</li>
+        <li>Jerseys ordered with a custom name/number are made to your specification. Please verify spelling and
+          numbering carefully before completing checkout.</li>
+      </ul>
+
+      <h2>5. Unfair Trade Practices</h2>
+      <p>In accordance with Rule 6 of the Consumer Protection (E-Commerce) Rules, 2020, we do not engage in unfair
+        trade practices, including manipulating the price of any product to gain unreasonable profit, or falsely
+        representing a product's quality, features, or origin. We do not discriminate between customers of the
+        same class in a manner that is unfair or arbitrary.</p>
+
+      <h2>6. Payments</h2>
+      <ul>
+        <li>Payments are processed through Razorpay, a PCI-DSS-compliant payment gateway. We accept the payment
+          methods Razorpay makes available (cards, UPI, net-banking, wallets).</li>
+        <li>An order is written to our database only after Razorpay's payment signature has been cryptographically
+          verified, protecting both parties from a falsely reported "payment successful" event.</li>
+        <li>Your card, UPI, and bank details are entered directly into Razorpay's secure interface; FreakFits's own
+          servers never receive or store them.</li>
+        <li>In the rare case a payment is captured by Razorpay but an order fails to finalize on our side due to a
+          technical fault, it is logged internally for manual reconciliation — no successful payment is silently
+          lost. Contact us with your payment reference if this happens to you.</li>
+      </ul>
+
+      <h2>7. Coupons & Promotions</h2>
+      <p>Coupon codes are subject to their own stated terms (expiry, minimum order value, usage limits) and may be
+        redeemed only once per customer account. We validate coupons both at the time you apply them and again,
+        authoritatively, at payment time, and reserve the right to void an order where a coupon has been applied
+        fraudulently or in error.</p>
+
+      <h2>8. Shipping & Delivery</h2>
+      <p>We aim to dispatch and deliver orders within the timeframe indicated at checkout or in your order
+        confirmation email; these timelines are estimates. You will receive email updates as your order's status
+        changes. Shipping is free above the order-value threshold shown at checkout; a flat shipping fee applies
+        below that threshold.</p>
+
+      <h2>9. Cancellation Policy</h2>
+      <p>You may cancel an order yourself from "My Orders" while it remains in Pending or Confirmed status. A
+        successful cancellation automatically restores stock and any coupon usage tied to that order, and you will
+        receive a cancellation confirmation email. Once an order has moved to Preparing, Packing, or Shipped, it
+        can no longer be self-cancelled — please use the returns process (Section 10) or contact support instead.
+      </p>
+
+      <h2>10. Return, Refund & Exchange Policy</h2>
+      <ul>
+        <li>Return and exchange claims must be submitted through our Returns & Claim Desk within the window stated
+          on that page.</li>
+        <li>To protect both you and us in the event of damage or mismatch, claims require unboxing video proof —
+          either uploaded directly (up to 10MB) or submitted as a link from YouTube or Google Drive only.</li>
+        <li>Our support team reviews each claim and will approve, reject, or mark it refunded. Approved refunds
+          automatically restore stock and any coupon usage tied to the order.</li>
+        <li>Items that are customized with a name/number, worn, washed, or returned without the required video
+          proof may not be eligible for return, except where required by law or where the item is genuinely
+          defective or materially not as described.</li>
+        <li>Where a refund is due, it will be processed to your original payment method within the timeframe
+          communicated to you at the time your claim is approved.</li>
+      </ul>
+
+      <h2>11. Reviews & Ratings</h2>
+      <ul>
+        <li>You may leave a review under your own account for products you have purchased. Reviews are tied to
+          your authenticated account, not a free-text name, so you may only edit or delete your own reviews, and
+          no one can post a review impersonating another customer.</li>
+        <li>We do not create, edit, incentivize, or publish fake or misleading reviews, consistent with the
+          principles for genuine consumer reviews under the Consumer Protection (E-Commerce) Rules, 2020 and the
+          national standard on online consumer reviews (IS 19000:2022).</li>
+        <li>Do not post content that is false, defamatory, obscene, infringing, or otherwise unlawful. We may
+          remove any review or uploaded photo at our discretion.</li>
+      </ul>
+
+      <h2>12. Intellectual Property & Fan-Made Disclaimer</h2>
+      <div class="legal-callout legal-callout--warn">
+        <p>FreakFits is a fan-made merchandise store and is not affiliated with, endorsed by, or officially
+          licensed by any football club, league, or federation referenced on this site.</p>
+      </div>
+      <p>All FreakFits branding, site design, and original content are our property or used under license and are
+        protected under the Copyright Act, 1957 and the Trade Marks Act, 1999. You may not copy, reproduce, or
+        repurpose site content for commercial use without our written permission.</p>
+
+      <h2>13. Prohibited Conduct & Unauthorized Access</h2>
+      <p>You must not, and must not attempt to:</p>
+      <ul>
+        <li>Gain unauthorized access to the site, another user's account, or any computer resource forming part of
+          our systems, or introduce any virus, worm, or malicious code — conduct which may attract civil liability
+          under Section 43 and criminal liability under Section 66 of the IT Act.</li>
+        <li>Probe, scan, or attempt to bypass rate limits, authentication, or access controls.</li>
+        <li>Use the site for any purpose that is unlawful under Indian law, including but not limited to the
+          publication of obscene material (Section 67, IT Act) or fraudulent transactions (Section 66D, IT Act).
+        </li>
+      </ul>
+
+      <h2>14. Liability & Indemnification</h2>
+      <p>To the extent permitted by law, FreakFits is not liable for indirect, incidental, or consequential
+        damages arising from your use of the site or a product purchased through it. Nothing in these Terms limits
+        any right or liability that cannot lawfully be limited under the Consumer Protection Act, 2019 or other
+        applicable Indian law, including liability for a defective or deficient product or service. Our total
+        liability for any claim relating to an order is limited to the amount you paid for that order. You agree
+        to indemnify FreakFits against claims arising from your breach of these Terms or misuse of the site.</p>
+
+      <h2>15. Grievance Redressal</h2>
+      <p>In accordance with Rule 5(3) of the Consumer Protection (E-Commerce) Rules, 2020, we have appointed a
+        Grievance Officer to address consumer complaints relating to orders, products, or these Terms.</p>
+      <div class="legal-callout">
+        <p><strong>Grievance Officer:</strong> [Grievance Officer Name]<br>
+          <strong>Email:</strong> [grievance-officer-email@freakfits.com]<br>
+          <strong>Phone:</strong> [Grievance Officer Phone Number]<br>
+          <strong>Address:</strong> [Registered Business Address]
+        </p>
+      </div>
+      <p>We will acknowledge your complaint within 48 hours and endeavour to redress it within one month from the
+        date of receipt.</p>
+
+      <h2>16. Suspension & Termination</h2>
+      <p>We may suspend or terminate your account if we reasonably believe you have violated these Terms, engaged
+        in fraudulent activity, or misused the platform. You may close your account at any time from your Profile
+        page or by contacting us; see our <a href="privacy-policy.html">Privacy Policy</a> for what happens to your
+        data when you do.</p>
+
+      <h2>17. Force Majeure</h2>
+      <p>We will not be liable for any failure or delay in performance caused by circumstances beyond our
+        reasonable control, including but not limited to acts of God, natural disasters, war, strikes, courier or
+        logistics disruptions, or governmental action.</p>
+
+      <h2>18. Governing Law & Dispute Resolution</h2>
+      <p>These Terms are governed by the laws of India, including the Information Technology Act, 2000 and the
+        Consumer Protection Act, 2019 and the rules framed thereunder. Subject to your rights as a consumer to
+        approach the appropriate Consumer Disputes Redressal Commission under the Consumer Protection Act, 2019,
+        any dispute arising from these Terms shall be subject to the exclusive jurisdiction of the courts at
+        [City], India.</p>
+
+      <h2>19. Severability</h2>
+      <p>If any provision of these Terms is held to be invalid or unenforceable by a court or the Data Protection
+        Board of India (or successor authority), the remaining provisions will continue in full force and effect.
+      </p>
+
+      <h2>20. Changes to these Terms</h2>
+      <p>We may revise these Terms from time to time, including to reflect changes in applicable law. We will
+        update the "Last updated" date above whenever we do. Continuing to use the site after changes take effect
+        constitutes your acceptance of the revised Terms.</p>
+
+      <h2>21. Contact Us</h2>
+      <p>For questions about these Terms, reach out through our <a href="contact.html">Contact page</a>, or contact
+        our Grievance Officer directly using the details in Section 15.</p>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p class="footer__tagline">Premium football apparel engineered for the next generation. Designed & printed
+          in India.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Shop</h4>
+          <a href="category.html?cat=home">Home Version</a>
+          <a href="category.html?cat=away">Away Version</a>
+          <a href="category.html?cat=kit">Complete Kit</a>
+        </div>
+        <div class="footer__col">
+          <h4>Support</h4>
+          <a href="sizeguide.html">Size Guide</a>
+          <a href="returns.html">Returns & Claim Desk</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-of-service.html">Terms of Service</a>
+          <a href="cookie-policy.html">Cookie Policy</a>
+          <a href="cookie-preferences.html">Cookie Preferences</a>
+        </div>
+      </div>
+      <div class="footer__newsletter">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
+      <span>Not affiliated with any club — fan merchandise demo.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="products.js?v=2.0"></script>
+  <script src="cart-store.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+</body>
+
+</html>

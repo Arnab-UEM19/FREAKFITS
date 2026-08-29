@@ -57,6 +57,17 @@ class ChangePasswordRequest(BaseModel):
     current_password: str
     new_password: str = Field(..., min_length=6)
 
+class DeleteAccountRequest(BaseModel):
+    password: str
+    confirmation: str = Field(..., description="Must equal the literal string 'DELETE' to confirm intent")
+
+    @field_validator("confirmation")
+    @classmethod
+    def validate_confirmation(cls, v: str) -> str:
+        if v.strip().upper() != "DELETE":
+            raise ValueError("You must type DELETE to confirm account deletion")
+        return v
+
 class UserResponse(BaseModel):
     id: int
     full_name: str

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Preferences — FreakFits</title>
+  <meta name="description" content="Manage your cookie and storage preferences on FreakFits.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/sjgw6cud/image/upload/v1787300492/freakfits/logo_final.png">
+  <style>
+    .legal-shell { max-width: 780px; margin: 0 auto; padding: 60px 24px 120px; }
+    .legal-hero { border-bottom: 1px solid var(--line); padding-bottom: 28px; margin-bottom: 36px; }
+    .legal-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; display: block; }
+    .legal-title { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: clamp(2rem, 5vw, 2.8rem); letter-spacing: 0.03em; color: var(--text); margin-bottom: 10px; }
+    .legal-updated { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-faint); }
+    .legal-intro { color: var(--text-dim); font-size: 15px; line-height: 1.75; margin-bottom: 40px; }
+    .legal-intro a { color: var(--green); }
+
+    .pref-card { background: var(--bg-alt); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin-bottom: 18px; }
+    .pref-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+    .pref-card__title { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.03em; }
+    .pref-card__badge { font-size: 10px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 9px; border-radius: 999px; background: rgba(140,255,59,0.14); color: var(--green); }
+    .pref-card__desc { color: var(--text-dim); font-size: 13.5px; line-height: 1.65; margin-top: 10px; max-width: 560px; }
+
+    .toggle { position: relative; display: inline-block; width: 46px; height: 26px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; cursor: pointer; inset: 0; background: var(--line); border-radius: 999px; transition: background .15s ease; }
+    .toggle-slider::before { content: ""; position: absolute; height: 20px; width: 20px; left: 3px; top: 3px; background: var(--text-faint); border-radius: 50%; transition: transform .15s ease, background .15s ease; }
+    .toggle input:checked + .toggle-slider { background: rgba(140,255,59,0.25); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(20px); background: var(--green); }
+    .toggle input:disabled + .toggle-slider { cursor: not-allowed; opacity: 0.65; }
+
+    .pref-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+    .pref-status { font-family: var(--font-mono); font-size: 12px; color: var(--green); margin-top: 14px; min-height: 16px; }
+    .legal-links-row { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .legal-links-row a { font-size: 13.5px; color: var(--text-dim); }
+    .legal-links-row a:hover { color: var(--green); }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header__inner">
+      <a href="index.html" class="brand">
+        <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+          alt="FreakFits" class="brand__mark">
+        <span class="brand__name">Freak<em>Fits</em></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">New Drops</a>
+        <a href="category.html?cat=home">Home Version</a>
+        <a href="category.html?cat=away">Away Version</a>
+        <a href="category.html?cat=kit">Complete Kit</a>
+        <a href="sizeguide.html">Size Guide</a>
+      </nav>
+
+      <div class="header__actions">
+        <div class="header__user-greeting" id="userGreeting" style="display:none;">
+          <span class="user-greeting__text">Welcome, <strong id="userNameDisplay">Fan</strong></span>
+          <button class="user-logout-btn" id="logoutBtn" title="Log Out" aria-label="Log Out">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <a href="auth.html" class="icon-btn" aria-label="Account" id="accountBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+            <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist" id="wishlistBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 20s-7-4.4-9.5-9C.7 7.3 3 3.5 6.8 3.5c2 0 3.6 1 5.2 3 1.6-2 3.2-3 5.2-3 3.8 0 6.1 3.8 4.3 7.5C19 15.6 12 20 12 20z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Cart" id="cartBtn">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h2l1.5 11h11L20 8H7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+          </svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+        <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="legal-shell">
+    <div class="legal-hero">
+      <span class="legal-eyebrow">Legal</span>
+      <h1 class="legal-title">Cookie <span style="color:var(--green)">Preferences</span></h1>
+      <p class="legal-updated">Last updated: 28 August 2026</p>
+    </div>
+
+    <p class="legal-intro">Control which optional cookies and browser storage FreakFits can use on this device. See
+      our <a href="cookie-policy.html">Cookie Policy</a> for full details on what each category does.</p>
+
+    <form id="cookiePrefsForm">
+      <div class="pref-card">
+        <div class="pref-card__top">
+          <div>
+            <div class="pref-card__title">Essential
+              <span class="pref-card__badge">Always on</span>
+            </div>
+            <p class="pref-card__desc">Required to sign in, keep items in your cart, secure checkout, and remember
+              this preference choice. The site can't function without these, so they can't be turned off.</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" checked disabled>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="pref-card">
+        <div class="pref-card__top">
+          <div>
+            <div class="pref-card__title">Functional</div>
+            <p class="pref-card__desc">Remembers extras like your last-used size or display preferences to make
+              browsing smoother. Turning this off just resets those small conveniences — your account, cart, and
+              orders are never affected.</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggleFunctional" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="pref-card">
+        <div class="pref-card__top">
+          <div>
+            <div class="pref-card__title">Analytics</div>
+            <p class="pref-card__desc">We don't currently run any analytics or advertising cookies on FreakFits.
+              This toggle is here in advance — if we introduce analytics in the future to understand site usage,
+              your choice here (off by default) will be respected.</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggleAnalytics">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="pref-actions">
+        <button type="submit" class="btn btn--solid">Save Preferences</button>
+        <button type="button" id="acceptAllBtn" class="btn btn--ghost">Accept All</button>
+        <button type="button" id="rejectAllBtn" class="btn btn--ghost">Reject Optional</button>
+      </div>
+      <p class="pref-status" id="prefStatus"></p>
+    </form>
+
+    <div class="legal-links-row">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+      <a href="cookie-policy.html">Cookie Policy</a>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand">
+          <img src="https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300492/freakfits/logo_final.png"
+            alt="FreakFits" class="brand__mark">
+          <span class="brand__name">Freak<em>Fits</em></span>
+        </a>
+        <p class="footer__tagline">Premium football apparel engineered for the next generation. Designed & printed
+          in India.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Shop</h4>
+          <a href="category.html?cat=home">Home Version</a>
+          <a href="category.html?cat=away">Away Version</a>
+          <a href="category.html?cat=kit">Complete Kit</a>
+        </div>
+        <div class="footer__col">
+          <h4>Support</h4>
+          <a href="sizeguide.html">Size Guide</a>
+          <a href="returns.html">Returns & Claim Desk</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-of-service.html">Terms of Service</a>
+          <a href="cookie-policy.html">Cookie Policy</a>
+          <a href="cookie-preferences.html">Cookie Preferences</a>
+        </div>
+      </div>
+      <div class="footer__newsletter">
+        <h4>Get Drop Alerts</h4>
+        <p class="footer__small">First to know when new kits land.</p>
+        <form class="footer__form" id="newsletterForm">
+          <input type="email" placeholder="you@email.com" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="footer__note" id="newsletterNote"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 FreakFits. All rights reserved. Developed by Arnab Bindu Chakraborty</span>
+      <span>Not affiliated with any club — fan merchandise demo.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="products.js?v=2.0"></script>
+  <script src="cart-store.js?v=2.0"></script>
+  <script src="auth-store.js?v=2.0"></script>
+  <script src="api-client.js?v=2.0"></script>
+  <script>
+    const PREF_KEY = "freakfits_cookie_prefs";
+
+    function loadPrefs() {
+      try {
+        return JSON.parse(localStorage.getItem(PREF_KEY)) || { functional: true, analytics: false };
+      } catch {
+        return { functional: true, analytics: false };
+      }
+    }
+
+    function savePrefs(prefs) {
+      localStorage.setItem(PREF_KEY, JSON.stringify(prefs));
+    }
+
+    function showStatus(msg) {
+      const el = document.getElementById("prefStatus");
+      el.textContent = msg;
+      setTimeout(() => { if (el.textContent === msg) el.textContent = ""; }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const prefs = loadPrefs();
+      document.getElementById("toggleFunctional").checked = !!prefs.functional;
+      document.getElementById("toggleAnalytics").checked = !!prefs.analytics;
+
+      document.getElementById("cookiePrefsForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        savePrefs({
+          functional: document.getElementById("toggleFunctional").checked,
+          analytics: document.getElementById("toggleAnalytics").checked
+        });
+        showStatus("Preferences saved for this device.");
+      });
+
+      document.getElementById("acceptAllBtn").addEventListener("click", () => {
+        document.getElementById("toggleFunctional").checked = true;
+        document.getElementById("toggleAnalytics").checked = true;
+        savePrefs({ functional: true, analytics: true });
+        showStatus("All cookies accepted.");
+      });
+
+      document.getElementById("rejectAllBtn").addEventListener("click", () => {
+        document.getElementById("toggleFunctional").checked = false;
+        document.getElementById("toggleAnalytics").checked = false;
+        savePrefs({ functional: false, analytics: false });
+        showStatus("Optional cookies rejected. Essential cookies remain on.");
+      });
+    });
+  </script>
+</body>
+
+</html>

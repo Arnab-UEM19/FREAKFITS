@@ -443,7 +443,8 @@ def create_admin_product(
                 )
                 upload_result = cloudinary.uploader.upload(
                     img,
-                    folder=settings.CLOUDINARY_FOLDER
+                    folder=settings.CLOUDINARY_FOLDER,
+                    transformation=[{"fetch_format": "auto", "quality": "auto"}]
                 )
                 uploaded_images.append(upload_result.get("secure_url"))
             except Exception as e:
