@@ -403,7 +403,9 @@ class CartItemCreate(CartItemBase):
     pass
 
 class CartItemUpdate(BaseModel):
-    quantity: int
+    quantity: Optional[int] = None
+    custom_name: Optional[str] = None
+    custom_number: Optional[str] = None
 
 class CartItemResponse(CartItemBase):
     id: int

@@ -79,12 +79,9 @@ const FreakFitsAPI = (function () {
 
       var data = await response.json().catch(function () { return {}; });
       if (response.status === 401) {
+        // Clear the stale/invalid token, but do NOT destroy the UI session
+        // or force-reload. Let the calling code handle the auth error gracefully.
         localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem("freakfits_user");
-        if (typeof AuthStore !== "undefined" && AuthStore.logout) {
-          AuthStore.logout();
-        }
-        window.location.reload();
       }
       if (!response.ok) {
         throw new Error(data.detail || data.message || ("HTTP " + response.status));
@@ -251,6 +248,11 @@ const FreakFitsAPI = (function () {
     return _fetch("/auth/addresses");
   }
 
+  // ============ NEWSLETTER ============
+  async function subscribeNewsletter(email) {
+    return _fetch("/newsletter/subscribe", { method: "POST", body: JSON.stringify({ email: email }) });
+  }
+
   async function createAddress(addressData) {
     return _fetch("/auth/addresses", { method: "POST", body: JSON.stringify(addressData) });
   }
@@ -311,3 +313,29 @@ const FreakFitsAPI = (function () {
     clearCart: clearCart
   };
 })();
+
+// Global Newsletter Form Handler
+document.addEventListener("DOMContentLoaded", function() {
+  var form = document.getElementById("newsletterForm");
+  var note = document.getElementById("newsletterNote");
+  if (form && note) {
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      var input = form.querySelector("input[type='email']");
+      var btn = form.querySelector("button");
+      if (!input || !input.value) return;
+      if (btn) { btn.disabled = true; btn.textContent = "WAIT..."; }
+      try {
+        var res = await FreakFitsAPI.subscribeNewsletter(input.value);
+        note.textContent = res.message || "You're on the list — watch your inbox.";
+        note.style.color = "var(--green)";
+        form.reset();
+      } catch (err) {
+        note.textContent = err.message || "Failed to subscribe.";
+        note.style.color = "var(--pink)";
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = "JOIN"; }
+      }
+    });
+  }
+});

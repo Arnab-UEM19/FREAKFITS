@@ -135,35 +135,6 @@ function initNav() {
   });
 }
 
-// ---------- Newsletter ----------
-function initNewsletter() {
-  const form = document.getElementById("newsletterForm");
-  const note = document.getElementById("newsletterNote");
-  const input = form ? form.querySelector("input[type='email']") : null;
-  if (!form || !input) return;
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const btn = form.querySelector("button");
-    if(btn) {
-      btn.disabled = true;
-      btn.textContent = "WAIT...";
-    }
-    try {
-      const res = await FreakFitsAPI.subscribeNewsletter(input.value);
-      note.textContent = res.message || "You're on the list — watch your inbox.";
-      note.style.color = "var(--green)";
-      form.reset();
-    } catch (err) {
-      note.textContent = err.message || "Failed to subscribe.";
-      note.style.color = "var(--pink)";
-    } finally {
-      if(btn) {
-        btn.disabled = false;
-        btn.textContent = "JOIN";
-      }
-    }
-  });
-}
 
 // ---------- Jersey Carousel ----------
 function initJerseyCarousel() {
@@ -237,7 +208,6 @@ function initJerseyCarousel() {
 document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   initNav();
-  initNewsletter();
   initJerseyCarousel();
 });
 

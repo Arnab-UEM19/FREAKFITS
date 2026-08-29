@@ -62,8 +62,10 @@ def get_current_user(request: Request, db: Session = Depends(get_db)) -> User | 
 
     user = db.query(User).filter(User.email == email).first()
     if user and user.password_changed_at and iat:
-        # If token was issued before the password was last changed, it's invalid
-        if datetime.datetime.utcfromtimestamp(iat) < user.password_changed_at:
+        # Convert iat (UTC timestamp) to naive UTC datetime for comparison
+        # password_changed_at is also stored in UTC
+        iat_dt = datetime.datetime.utcfromtimestamp(iat)
+        if iat_dt < user.password_changed_at:
             return None
     return user
 
@@ -97,7 +99,8 @@ def get_current_admin(request: Request, db: Session = Depends(get_db)) -> Admin 
     ).first()
     
     if admin and admin.password_changed_at and iat:
-        if datetime.datetime.utcfromtimestamp(iat) < admin.password_changed_at:
+        iat_dt = datetime.datetime.utcfromtimestamp(iat)
+        if iat_dt < admin.password_changed_at:
             return None
             
     return admin

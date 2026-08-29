@@ -232,7 +232,7 @@ def register(request: Request, response: Response, payload: RegisterRequest, db:
         value=access_token,
         httponly=True,
         secure=True,
-        samesite="lax",
+        samesite="none",
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
     )
     return TokenResponse(
@@ -260,7 +260,7 @@ def login(request: Request, response: Response, payload: LoginRequest, db: Sessi
         value=access_token,
         httponly=True,
         secure=True,
-        samesite="lax",
+        samesite="none",
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
     )
     return TokenResponse(
@@ -279,7 +279,7 @@ def logout(response: Response):
         key="access_token",
         httponly=True,
         secure=True,
-        samesite="lax"
+        samesite="none"
     )
     return {"success": True, "message": "Logged out successfully"}
 
@@ -311,7 +311,7 @@ def change_user_password(
         )
         
     current_user.hashed_password = get_password_hash(data.new_password)
-    current_user.password_changed_at = get_ist_time()
+    current_user.password_changed_at = datetime.datetime.utcnow()
     db.commit()
     return {"success": True, "message": "Password updated successfully"}
 
@@ -417,7 +417,7 @@ def delete_my_account(
         key="access_token",
         httponly=True,
         secure=True,
-        samesite="lax"
+        samesite="none"
     )
 
     logger.info(f"[Account Deletion] Account permanently deleted for {user_email}")
@@ -509,7 +509,7 @@ def reset_password(request: Request, payload: ResetPasswordRequest, db: Session 
 
     # Update password and set password_changed_at
     user.hashed_password = get_password_hash(password)
-    user.password_changed_at = get_ist_time()
+    user.password_changed_at = datetime.datetime.utcnow()
     user.is_verified = True
     db.commit()
 
