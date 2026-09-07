@@ -229,10 +229,7 @@ def verify_razorpay_payment(
         logger.warning(f"[Razorpay] Signature mismatch for {payload.freakfits_order_code}: {exc}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=(
-                "Payment verification failed. If you were charged, contact support with Order ID: "
-                + payload.freakfits_order_code
-            ),
+            detail=f"Signature verification failed ({exc!s}). Ref: {payload.freakfits_order_code}",
         )
 
     # Decode and verify the signed order_token
@@ -361,7 +358,7 @@ def verify_razorpay_payment(
             db.rollback()
             logger.critical(f"Failed to write to FailedOrderRecovery: {log_e}")
 
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to finalize order details after payment.")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to finalize order details after payment: {e!s}")
 
     logger.info(f"[Razorpay] Payment VERIFIED and Order CREATED - {payload.freakfits_order_code} (payment_id: {payload.razorpay_payment_id})")
 
