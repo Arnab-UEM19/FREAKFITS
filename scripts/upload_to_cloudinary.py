@@ -155,14 +155,9 @@ def refactor_codebase(mapping):
             print(f"  [FAIL] Error updating {file_path.name}: {e}")
 
 def reseed_database():
-    try:
-        sys.path.insert(0, str(BASE_DIR / "backend"))
-        from app.seed import seed_database
-        print("\nRe-seeding MySQL database with Cloudinary product URLs...")
-        seed_database()
-        print("[OK] MySQL database products updated successfully!")
-    except Exception as e:
-        print(f"Note: Database re-seed note: {e}")
+    # Product seeding removed — products are managed exclusively via the admin panel.
+    # This function is intentionally a no-op.
+    print("Skipping database re-seed (products are managed via admin panel).")
 
 def main():
     print("=" * 65)

@@ -344,38 +344,34 @@ def seed_database():
             db.commit()
             logger.info(f"Seeded default administrator: {admin_email}")
 
-        # Seed Products with Stock and Size Prices
-        for prod_data in INITIAL_PRODUCTS:
-            existing = db.query(Product).filter(Product.id == prod_data["id"]).first()
-            p_price = prod_data["price"]
-            p_was = prod_data.get("was_price") or (p_price + 400)
-            size_prices_dict = {
-                "S": p_price,
-                "M": p_price,
-                "L": p_price,
-                "XL": p_price,
-                "XXL": p_price
-            }
-            size_was_dict = {
-                "S": p_was,
-                "M": p_was,
-                "L": p_was,
-                "XL": p_was,
-                "XXL": p_was
-            }
-            if not existing:
-                stock_matrix = {"S": 12, "M": 8, "L": 10, "XL": 4, "XXL": 2}
-                prod = Product(**prod_data, stock=stock_matrix, size_prices=size_prices_dict, size_was_prices=size_was_dict)
-                db.add(prod)
-            else:
-                # Do not overwrite user-edited data (like price) on every restart
-                if not existing.stock:
-                    existing.stock = {"S": 12, "M": 8, "L": 10, "XL": 4, "XXL": 2}
-                if not existing.size_prices:
-                    existing.size_prices = size_prices_dict
-                if not existing.size_was_prices:
-                    existing.size_was_prices = size_was_dict
-        
+        # Seed 0.50 INR Test Product for Razorpay Live gateway testing
+        test_prod_name = "Razorpay Live Test Item (₹0.50)"
+        existing_test_prod = db.query(Product).filter(Product.name == test_prod_name).first()
+        if not existing_test_prod:
+            test_prod = Product(
+                name=test_prod_name,
+                club="Razorpay Test",
+                price=0.5,
+                was_price=10.0,
+                category="home",
+                color="#8CFF3B",
+                rating=5.0,
+                reviews=1,
+                badge="TEST ITEM",
+                badge_bg="#FF3E7A",
+                material="Test Item for Razorpay Live Gateway Verification",
+                fit="Standard Fit",
+                care="Test item — can be deleted from admin portal anytime.",
+                images=["https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300483/freakfits/Argentina_Home.jpg"],
+                stock={"S": 100, "M": 100, "L": 100, "XL": 100, "XXL": 100},
+                size_prices={"S": 0.5, "M": 0.5, "L": 0.5, "XL": 0.5, "XXL": 0.5},
+                size_was_prices={"S": 10.0, "M": 10.0, "L": 10.0, "XL": 10.0, "XXL": 10.0},
+                is_active=True
+            )
+            db.add(test_prod)
+            db.commit()
+            logger.info("Seeded ₹0.50 test product for Razorpay verification.")
+
         # Seed Coupons
         for coupon_data in INITIAL_COUPONS:
             existing_coupon = db.query(Coupon).filter(Coupon.code == coupon_data["code"]).first()

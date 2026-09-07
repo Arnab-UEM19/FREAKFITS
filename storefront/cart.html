@@ -815,39 +815,53 @@
         theme: { color: "#8CFF3B" },
 
         handler: async function (response) {
+          btn.disabled = true;
+          btn.innerHTML = "⏳ Verifying payment…";
+          let verifySuccess = false;
+
           // Verify payment on backend
           try {
-            await FreakFitsAPI.verifyPayment({
+            const verifyRes = await FreakFitsAPI.verifyPayment({
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_signature: response.razorpay_signature,
               freakfits_order_code: paymentData.freakfits_order_code,
               order_token: paymentData.order_token,
             });
+            if (verifyRes && verifyRes.success) {
+              verifySuccess = true;
+            }
           } catch (err) {
-            console.warn("[Razorpay] Verification error:", err.message);
+            console.error("[Razorpay] Verification error:", err.message);
+            btn.disabled = false;
+            btn.innerHTML = `🔐 Pay Securely — <span id="payTotalRzp">₹${(paymentData.amount / 100).toLocaleString("en-IN")}</span>`;
+            showToast(`❌ Payment verification failed: ${escapeHtml(err.message)}`);
+            alert(`⚠️ Payment Verification Failed!\n\nIf money was deducted from your account, it will be automatically refunded by Razorpay, or contact support with Order ID: ${paymentData.freakfits_order_code}`);
+            return;
           }
 
-          // Save to localStorage for My Account view
-          try {
-            const localOrders = JSON.parse(localStorage.getItem("freakfits_recent_orders")) || [];
-            localOrders.unshift({
-              order_code: paymentData.freakfits_order_code,
-              customer_name: user.name,
-              customer_email: (user.email || "").toLowerCase().trim(),
-              created_at: new Date().toISOString(),
-              order_status: "Confirmed",
-              payment_method: "razorpay",
-              payment_status: "PAID",
-              total: paymentData.amount / 100,
-              shipping_address: shippingAddress,
-              items: orderItemsPayload,
-            });
-            localStorage.setItem("freakfits_recent_orders", JSON.stringify(localOrders.slice(0, 30)));
-            localStorage.setItem("freakfits_last_order_code", paymentData.freakfits_order_code);
-          } catch (_) { }
+          if (verifySuccess) {
+            // Save to localStorage for My Account view
+            try {
+              const localOrders = JSON.parse(localStorage.getItem("freakfits_recent_orders")) || [];
+              localOrders.unshift({
+                order_code: paymentData.freakfits_order_code,
+                customer_name: user.name,
+                customer_email: (user.email || "").toLowerCase().trim(),
+                created_at: new Date().toISOString(),
+                order_status: "Confirmed",
+                payment_method: "razorpay",
+                payment_status: "PAID",
+                total: paymentData.amount / 100,
+                shipping_address: shippingAddress,
+                items: orderItemsPayload,
+              });
+              localStorage.setItem("freakfits_recent_orders", JSON.stringify(localOrders.slice(0, 30)));
+              localStorage.setItem("freakfits_last_order_code", paymentData.freakfits_order_code);
+            } catch (_) { }
 
-          showOrderSuccess(paymentData.freakfits_order_code);
+            showOrderSuccess(paymentData.freakfits_order_code);
+          }
         },
 
         modal: {
