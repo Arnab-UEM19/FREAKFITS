@@ -402,7 +402,7 @@
         }
 
         try {
-          const apiBase = window.FREAKFITS_API_URL || "http://127.0.0.1:8000/api";
+          const apiBase = window.FREAKFITS_API_URL || "https://freakfits-api.onrender.com/api";
           const token = FreakFitsAPI.getToken();
           const headers = {};
           if (token) {
