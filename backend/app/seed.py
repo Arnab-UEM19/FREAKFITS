@@ -344,14 +344,19 @@ def seed_database():
             db.commit()
             logger.info(f"Seeded default administrator: {admin_email}")
 
-        # Seed 0.50 INR Test Product for Razorpay Live gateway testing
-        test_prod_name = "Razorpay Live Test Item (₹0.50)"
-        existing_test_prod = db.query(Product).filter(Product.name == test_prod_name).first()
-        if not existing_test_prod:
+        # Seed 1.00 INR Test Product for Razorpay Live gateway testing (Razorpay min amount is 100 paisa / ₹1.00)
+        test_prod_name = "Razorpay Live Test Item (₹1.00)"
+        old_test_prod = db.query(Product).filter((Product.name == test_prod_name) | (Product.name == "Razorpay Live Test Item (₹0.50)")).first()
+        if old_test_prod:
+            old_test_prod.name = test_prod_name
+            old_test_prod.price = 1.0
+            old_test_prod.size_prices = {"S": 1.0, "M": 1.0, "L": 1.0, "XL": 1.0, "XXL": 1.0}
+            db.commit()
+        else:
             test_prod = Product(
                 name=test_prod_name,
                 club="Razorpay Test",
-                price=0.5,
+                price=1.0,
                 was_price=10.0,
                 category="home",
                 color="#8CFF3B",
@@ -364,13 +369,13 @@ def seed_database():
                 care="Test item — can be deleted from admin portal anytime.",
                 images=["https://res.cloudinary.com/sjgw6cud/image/upload/f_auto,q_auto/v1787300483/freakfits/Argentina_Home.jpg"],
                 stock={"S": 100, "M": 100, "L": 100, "XL": 100, "XXL": 100},
-                size_prices={"S": 0.5, "M": 0.5, "L": 0.5, "XL": 0.5, "XXL": 0.5},
+                size_prices={"S": 1.0, "M": 1.0, "L": 1.0, "XL": 1.0, "XXL": 1.0},
                 size_was_prices={"S": 10.0, "M": 10.0, "L": 10.0, "XL": 10.0, "XXL": 10.0},
                 is_active=True
             )
             db.add(test_prod)
             db.commit()
-            logger.info("Seeded ₹0.50 test product for Razorpay verification.")
+            logger.info("Seeded ₹1.00 test product for Razorpay verification.")
 
         # Seed Coupons
         for coupon_data in INITIAL_COUPONS:
