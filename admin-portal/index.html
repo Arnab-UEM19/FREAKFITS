@@ -134,7 +134,7 @@
             <line x1="12" y1="8" x2="12" y2="16" />
             <line x1="8" y1="12" x2="16" y2="12" />
           </svg>
-          Add New Jersey
+          Add New Product
         </a>
 
         <!-- 4. Inventory Editor Tab -->
@@ -398,7 +398,7 @@
               </div>
               <div style="display:flex; flex-direction:column; gap:12px;">
                 <button class="btn-primary" onclick="window.FreakFitsAdmin.switchTab('add-product')">
-                  ➕ Upload New Match Kit
+                  ➕ Upload New Product
                 </button>
                 <button class="btn-secondary" onclick="window.FreakFitsAdmin.switchTab('inventory')"
                   style="justify-content:center;">
@@ -475,34 +475,37 @@
 
           <div class="form-card">
             <h2 style="font-family:var(--font-display); font-size:22px; margin-bottom:6px; text-transform:uppercase;">
-              Upload New Jersey</h2>
-            <p style="color:var(--admin-text-dim); font-size:13px; margin-bottom:24px;">Add a new kit to the FreakFits
-              matchday catalog.</p>
+              Upload New Product</h2>
+            <p style="color:var(--admin-text-dim); font-size:13px; margin-bottom:24px;">Add a new product to the FreakFits
+              catalog.</p>
 
             <form id="addProductForm">
 
               <!-- Row 1: Name & Club -->
               <div class="form-row-2">
                 <div class="form-group">
-                  <label for="newProdName">Jersey / Kit Name *</label>
+                  <label for="newProdName">Product Name *</label>
                   <input type="text" id="newProdName" class="input-field"
-                    placeholder="e.g. Argentina Home 3-Star Kit 25/26" required>
+                    placeholder="e.g. Handmade Rose Gold Pendant / Argentina Home 3-Star Kit" required>
                 </div>
                 <div class="form-group">
-                  <label for="newProdClub">Club or Federation *</label>
-                  <input type="text" id="newProdClub" class="input-field" placeholder="e.g. Argentina FA / FC Barcelona"
+                  <label for="newProdClub">Brand / Club / Creator *</label>
+                  <input type="text" id="newProdClub" class="input-field" placeholder="e.g. Argentina FA / FreakFits Artisan / FC Barcelona"
                     required>
                 </div>
               </div>
 
               <!-- Row 2: Category & Size Pricing -->
               <div class="form-group">
-                <label for="newProdCat">Category Version *</label>
+                <label for="newProdCat">Product Category *</label>
                 <select id="newProdCat" class="input-field" required>
-                  <option value="home">Home Version</option>
-                  <option value="away">Away Version</option>
+                  <option value="home">Home Jersey</option>
+                  <option value="away">Traveller's Pick (Away Jersey)</option>
                   <option value="kit">Complete Match Kit</option>
-                  <option value="fan">Fan Edition Version</option>
+                  <option value="fan">Fan Edition</option>
+                  <option value="jewellery">Artisan Jewellery (Pendants, Earrings, etc.)</option>
+                  <option value="fashion">Fashion &amp; More</option>
+                  <option value="sale">Clearance / Sale</option>
                 </select>
               </div>
 
@@ -580,7 +583,7 @@
 
               <!-- Row 3: Image Upload & Preview -->
               <div class="form-group">
-                <label>Jersey Image (File Upload or Cloudinary URL) *</label>
+                <label>Product Image (File Upload or Cloudinary URL) *</label>
                 <div class="dropzone-box" onclick="document.getElementById('newProdFile').click()">
                   <img id="newProdImgPreview" class="dropzone-preview-img" style="display:none;" alt="Preview">
                   <div style="font-size:28px; margin-bottom:6px;">📸</div>

@@ -90,7 +90,7 @@ def admin_login(request: Request, response: Response, payload: AdminLoginRequest
         value=token,
         httponly=True,
         secure=True,
-        samesite="lax",
+        samesite="none",
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
     )
     return {
@@ -105,7 +105,7 @@ def admin_logout(response: Response):
         key="access_token",
         httponly=True,
         secure=True,
-        samesite="lax"
+        samesite="none"
     )
     return {"success": True, "message": "Logged out successfully"}
 
