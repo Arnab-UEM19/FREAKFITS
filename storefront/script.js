@@ -119,21 +119,12 @@ function showToast(msg) {
 }
 
 // ---------- Mobile nav ----------
-function initNav() {
-  const burger = document.getElementById("burgerBtn");
-  const nav = document.getElementById("mainNav");
-  if (!burger || !nav) return;
-  burger.addEventListener("click", () => {
-    nav.classList.toggle("is-open");
-    burger.classList.toggle("is-active");
-  });
-  nav.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      nav.classList.remove("is-open");
-      burger.classList.remove("is-active");
-    });
-  });
-}
+// NOTE: nav.js already attaches the burger/nav toggle listeners on every
+// page (it's shared sitewide). This file used to duplicate that logic,
+// which caused two click listeners to fire on the homepage and cancel
+// each other out (toggle on, then immediately toggle off). Removed here
+// on purpose — do not re-add a click handler for #burgerBtn in this file.
+function initNav() {}
 
 
 // ---------- Jersey Carousel ----------
