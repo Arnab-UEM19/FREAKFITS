@@ -55,6 +55,12 @@ function renderNav() {
 
   // Re-attach mobile nav toggle listeners
   initMobileNav();
+
+  // auth-store.js appends the mobile Search/Account/Cart rows into
+  // #mainNav, but it must do so AFTER the tab links above are in place —
+  // otherwise this innerHTML assignment wipes out what it added. Signal
+  // that tabs are ready so it can (re-)append safely.
+  window.dispatchEvent(new Event('freakfits:nav-rendered'));
 }
 
 function initMobileNav() {

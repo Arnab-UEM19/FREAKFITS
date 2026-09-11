@@ -157,7 +157,19 @@ const AuthStore = (function () {
   function init() {
     document.addEventListener("DOMContentLoaded", () => {
       updateHeaderUI();
-      setupMobileMenuExtraLinks();
+
+      // #mainNav's tab links are rendered asynchronously by nav.js, which
+      // does a full innerHTML replacement on that element. If we append
+      // our Search/Account/Cart block before that happens (or it happens
+      // again later), it gets wiped out. nav.js fires this event each
+      // time it finishes rendering tabs, so re-run (and re-append) then.
+      window.addEventListener("freakfits:nav-rendered", setupMobileMenuExtraLinks);
+      // Fallback in case nav.js already rendered before this listener
+      // was attached (e.g. a different script load order on some page).
+      const mainNav = document.getElementById("mainNav");
+      if (mainNav && mainNav.children.length > 0) {
+        setupMobileMenuExtraLinks();
+      }
 
       // Attach logout listener if present
       const logoutBtn = document.getElementById("logoutBtn");

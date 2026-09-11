@@ -2445,6 +2445,14 @@ ul {
   .mobile-menu-extra {
     display: block;
     margin-top: 10px;
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+  }
+
+  .mobile-menu-extra a:hover {
+    background: var(--surface-2);
+    color: var(--green);
+    border-radius: 6px;
   }
 
   .header__inner {
