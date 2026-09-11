@@ -206,9 +206,11 @@ function initJerseyCarousel() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderProducts();
-  initNav();
-  initJerseyCarousel();
+  // Run nav first, and wrap each init in try/catch so a failure in one
+  // feature (e.g. product rendering) can never block the others.
+  try { initNav(); } catch (err) { console.error("initNav failed:", err); }
+  try { initJerseyCarousel(); } catch (err) { console.error("initJerseyCarousel failed:", err); }
+  try { renderProducts(); } catch (err) { console.error("renderProducts failed:", err); }
 });
 
 window.addEventListener("freakfits:products-synced", () => {
