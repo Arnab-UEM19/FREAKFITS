@@ -15,33 +15,181 @@
   <link rel="icon" type="image/png"
     href="https://res.cloudinary.com/sjgw6cud/image/upload/v1787300492/freakfits/logo_final.png">
   <style>
-    .legal-shell { max-width: 780px; margin: 0 auto; padding: 60px 24px 120px; }
-    .legal-hero { border-bottom: 1px solid var(--line); padding-bottom: 28px; margin-bottom: 36px; }
-    .legal-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; display: block; }
-    .legal-title { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: clamp(2rem, 5vw, 2.8rem); letter-spacing: 0.03em; color: var(--text); margin-bottom: 10px; }
-    .legal-updated { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-faint); }
-    .legal-intro { color: var(--text-dim); font-size: 15px; line-height: 1.75; margin-bottom: 40px; }
-    .legal-intro a { color: var(--green); }
+    .legal-shell {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 24px 120px;
+    }
 
-    .pref-card { background: var(--bg-alt); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin-bottom: 18px; }
-    .pref-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
-    .pref-card__title { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.03em; }
-    .pref-card__badge { font-size: 10px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 9px; border-radius: 999px; background: rgba(140,255,59,0.14); color: var(--green); }
-    .pref-card__desc { color: var(--text-dim); font-size: 13.5px; line-height: 1.65; margin-top: 10px; max-width: 560px; }
+    .legal-hero {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 28px;
+      margin-bottom: 36px;
+    }
 
-    .toggle { position: relative; display: inline-block; width: 46px; height: 26px; flex-shrink: 0; }
-    .toggle input { opacity: 0; width: 0; height: 0; }
-    .toggle-slider { position: absolute; cursor: pointer; inset: 0; background: var(--line); border-radius: 999px; transition: background .15s ease; }
-    .toggle-slider::before { content: ""; position: absolute; height: 20px; width: 20px; left: 3px; top: 3px; background: var(--text-faint); border-radius: 50%; transition: transform .15s ease, background .15s ease; }
-    .toggle input:checked + .toggle-slider { background: rgba(140,255,59,0.25); }
-    .toggle input:checked + .toggle-slider::before { transform: translateX(20px); background: var(--green); }
-    .toggle input:disabled + .toggle-slider { cursor: not-allowed; opacity: 0.65; }
+    .legal-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+      display: block;
+    }
 
-    .pref-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
-    .pref-status { font-family: var(--font-mono); font-size: 12px; color: var(--green); margin-top: 14px; min-height: 16px; }
-    .legal-links-row { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
-    .legal-links-row a { font-size: 13.5px; color: var(--text-dim); }
-    .legal-links-row a:hover { color: var(--green); }
+    .legal-title {
+      font-family: 'Anton', sans-serif;
+      text-transform: uppercase;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      letter-spacing: 0.03em;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .legal-updated {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--text-faint);
+    }
+
+    .legal-intro {
+      color: var(--text-dim);
+      font-size: 15px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+    }
+
+    .legal-intro a {
+      color: var(--green);
+    }
+
+    .pref-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .pref-card__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .pref-card__title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .pref-card__badge {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(140, 255, 59, 0.14);
+      color: var(--green);
+    }
+
+    .pref-card__desc {
+      color: var(--text-dim);
+      font-size: 13.5px;
+      line-height: 1.65;
+      margin-top: 10px;
+      max-width: 560px;
+    }
+
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background: var(--line);
+      border-radius: 999px;
+      transition: background .15s ease;
+    }
+
+    .toggle-slider::before {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      top: 3px;
+      background: var(--text-faint);
+      border-radius: 50%;
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    .toggle input:checked+.toggle-slider {
+      background: rgba(140, 255, 59, 0.25);
+    }
+
+    .toggle input:checked+.toggle-slider::before {
+      transform: translateX(20px);
+      background: var(--green);
+    }
+
+    .toggle input:disabled+.toggle-slider {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    .pref-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .pref-status {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--green);
+      margin-top: 14px;
+      min-height: 16px;
+    }
+
+    .legal-links-row {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .legal-links-row a {
+      font-size: 13.5px;
+      color: var(--text-dim);
+    }
+
+    .legal-links-row a:hover {
+      color: var(--green);
+    }
   </style>
 </head>
 
@@ -56,7 +204,7 @@
         <span class="brand__name">Freak<em>Fits</em></span>
       </a>
 
-<nav class="main-nav" id="mainNav"></nav>
+      <nav class="main-nav" id="mainNav"></nav>
 
       <div class="header__actions">
         <div class="header__user-greeting" id="userGreeting" style="display:none;">
@@ -190,8 +338,8 @@
       <div class="footer__links">
         <div class="footer__col">
           <h4>Shop</h4>
-          <a href="category.html?cat=home">Handcrafted Arena</a>
-          <a href="category.html?cat=away">Traveller's Pick</a>
+          <a href="category.html?cat=home">Football Jerseys</a>
+          <a href="category.html?cat=away">Handcrafted Arena</a>
           <a href="category.html?cat=kit">Fashion &amp; More</a>
         </div>
         <div class="footer__col">

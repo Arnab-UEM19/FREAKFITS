@@ -4,9 +4,9 @@
 // ==========================================================
 
 const NAV_TABS = [
-  { id: 'home', label: 'Football Jerseys', href: 'index.html' },
-  { id: 'handcrafted', label: 'Handcrafted Arena', href: 'category.html?cat=home' },
-  { id: 'traveller', label: "Traveller's Pick", href: 'category.html?cat=away' },
+  { id: 'home', label: 'Products', href: 'index.html' },
+  { id: 'handcrafted', label: 'Football Jerseys', href: 'category.html?cat=home' },
+  { id: 'traveller', label: 'Handcrafted Arena', href: 'category.html?cat=away' },
   { id: 'fashion', label: 'Fashion & More', href: 'category.html?cat=kit' },
   { id: 'sale', label: 'Clearance', href: 'category.html?cat=sale', class: 'nav-sale' },
 ];
