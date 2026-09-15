@@ -508,7 +508,7 @@
               </div>
 
               <!-- Size-Based Pricing Inputs -->
-              <div class="form-group">
+              <div class="form-group" id="sizeSellingPricesGroup">
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
                   <label style="margin:0;">Size-Specific Selling Pricing (₹) *</label>
                   <button type="button" class="btn-secondary" id="btnCopySizePrices"
@@ -544,7 +544,7 @@
               </div>
 
               <!-- Size-Based Strikethrough (Was / MRP) Prices -->
-              <div class="form-group">
+              <div class="form-group" id="sizeMrpPricesGroup">
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
                   <label style="margin:0;">Size Strikethrough / MRP Was Prices (₹)</label>
                   <button type="button" class="btn-secondary" id="btnCopySizeWasPrices"
@@ -576,6 +576,18 @@
                     <input type="number" id="newWasPriceXXL" class="input-field" placeholder="1999" value="1999"
                       min="100">
                   </div>
+                </div>
+              </div>
+              
+              <!-- Single Pricing Inputs -->
+              <div class="form-row-2" id="singlePricingGroup" style="display:none;">
+                <div class="form-group">
+                  <label for="newPriceSingle">Selling Price (₹) *</label>
+                  <input type="number" id="newPriceSingle" class="input-field" placeholder="1499" value="1499" min="100">
+                </div>
+                <div class="form-group">
+                  <label for="newWasPriceSingle">Strikethrough / MRP Was Price (₹)</label>
+                  <input type="number" id="newWasPriceSingle" class="input-field" placeholder="1999" value="1999" min="100">
                 </div>
               </div>
 

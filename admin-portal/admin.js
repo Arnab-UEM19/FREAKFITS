@@ -523,18 +523,30 @@
     const category = document.getElementById("newProdCat").value;
 
     // Per-size pricing (Selling + Strikethrough Was)
-    const priceS = parseFloat(document.getElementById("newPriceS")?.value) || 1499;
-    const priceM = parseFloat(document.getElementById("newPriceM")?.value) || priceS;
-    const priceL = parseFloat(document.getElementById("newPriceL")?.value) || priceS;
-    const priceXL = parseFloat(document.getElementById("newPriceXL")?.value) || priceS;
-    const priceXXL = parseFloat(document.getElementById("newPriceXXL")?.value) || priceS;
-    const sizePrices = { S: priceS, M: priceM, L: priceL, XL: priceXL, XXL: priceXXL };
+    let priceS, priceM, priceL, priceXL, priceXXL;
+    let wasS, wasM, wasL, wasXL, wasXXL;
 
-    const wasS = parseFloat(document.getElementById("newWasPriceS")?.value) || (priceS + 400);
-    const wasM = parseFloat(document.getElementById("newWasPriceM")?.value) || wasS;
-    const wasL = parseFloat(document.getElementById("newWasPriceL")?.value) || wasS;
-    const wasXL = parseFloat(document.getElementById("newWasPriceXL")?.value) || wasS;
-    const wasXXL = parseFloat(document.getElementById("newWasPriceXXL")?.value) || wasS;
+    if (category === "away" || category === "kit") {
+      const singlePrice = parseFloat(document.getElementById("newPriceSingle")?.value) || 1499;
+      const singleWasPrice = parseFloat(document.getElementById("newWasPriceSingle")?.value) || (singlePrice + 400);
+      
+      priceS = priceM = priceL = priceXL = priceXXL = singlePrice;
+      wasS = wasM = wasL = wasXL = wasXXL = singleWasPrice;
+    } else {
+      priceS = parseFloat(document.getElementById("newPriceS")?.value) || 1499;
+      priceM = parseFloat(document.getElementById("newPriceM")?.value) || priceS;
+      priceL = parseFloat(document.getElementById("newPriceL")?.value) || priceS;
+      priceXL = parseFloat(document.getElementById("newPriceXL")?.value) || priceS;
+      priceXXL = parseFloat(document.getElementById("newPriceXXL")?.value) || priceS;
+      
+      wasS = parseFloat(document.getElementById("newWasPriceS")?.value) || (priceS + 400);
+      wasM = parseFloat(document.getElementById("newWasPriceM")?.value) || wasS;
+      wasL = parseFloat(document.getElementById("newWasPriceL")?.value) || wasS;
+      wasXL = parseFloat(document.getElementById("newWasPriceXL")?.value) || wasS;
+      wasXXL = parseFloat(document.getElementById("newWasPriceXXL")?.value) || wasS;
+    }
+    
+    const sizePrices = { S: priceS, M: priceM, L: priceL, XL: priceXL, XXL: priceXXL };
     const sizeWasPrices = { S: wasS, M: wasM, L: wasL, XL: wasXL, XXL: wasXXL };
 
     const imgUrlInput = document.getElementById("newProdImgUrl").value.trim();
@@ -1506,6 +1518,29 @@
   // Init & Event Bindings
   document.addEventListener("DOMContentLoaded", () => {
     checkAuthView();
+
+    // Toggle pricing fields based on product category
+    const newProdCat = document.getElementById("newProdCat");
+    if (newProdCat) {
+      newProdCat.addEventListener("change", (e) => {
+        const cat = e.target.value;
+        const sizeSell = document.getElementById("sizeSellingPricesGroup");
+        const sizeMrp = document.getElementById("sizeMrpPricesGroup");
+        const singlePrice = document.getElementById("singlePricingGroup");
+        
+        if (cat === "away" || cat === "kit") {
+          if (sizeSell) sizeSell.style.display = "none";
+          if (sizeMrp) sizeMrp.style.display = "none";
+          if (singlePrice) singlePrice.style.display = "flex";
+        } else {
+          if (sizeSell) sizeSell.style.display = "block";
+          if (sizeMrp) sizeMrp.style.display = "block";
+          if (singlePrice) singlePrice.style.display = "none";
+        }
+      });
+      // Trigger once on load
+      newProdCat.dispatchEvent(new Event("change"));
+    }
 
     // Close Details Modal
     const closeBtn = document.getElementById("closeOrderModalBtn");
