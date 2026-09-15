@@ -571,10 +571,13 @@
         });
 
         // Size guide toggle
-        document.getElementById("sizeGuideToggle").addEventListener("click", () => {
-          const guide = document.getElementById("sizeGuide");
-          guide.style.display = guide.style.display === "none" ? "block" : "none";
-        });
+        const sizeGuideToggle = document.getElementById("sizeGuideToggle");
+        if (sizeGuideToggle) {
+          sizeGuideToggle.addEventListener("click", () => {
+            const guide = document.getElementById("sizeGuide");
+            if (guide) guide.style.display = guide.style.display === "none" ? "block" : "none";
+          });
+        }
 
         // Quantity
         document.getElementById("qtyMinus").addEventListener("click", () => {
